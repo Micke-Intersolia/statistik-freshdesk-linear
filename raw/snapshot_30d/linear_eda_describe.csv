@@ -1,0 +1,23 @@
+,count,unique,top,freq,mean,std,min,25%,50%,75%,max
+id,359,359,336b7109-f7ab-48f9-8d0b-27ab3b20e3e2,1,,,,,,,
+number,359.0,,,,629.4066852367688,250.37653557017146,22.0,590.0,717.0,807.5,898.0
+identifier,359,359,OPEX-898,1,,,,,,,
+title,359,330,Execution of CPU_Job (iChemSqlLobotNE),7,,,,,,,
+description,359,322,,9,,,,,,,
+createdAt,359,359,2026-06-01T10:29:25.890Z,1,,,,,,,
+updatedAt,359,359,2026-06-01T10:29:26.130Z,1,,,,,,,
+archivedAt,0.0,,,,,,,,,,
+priority,359.0,,,,1.9108635097493036,1.356906225081432,0.0,0.0,3.0,3.0,4.0
+estimate,0.0,,,,,,,,,,
+trashed,0.0,,,,,,,,,,
+state_id,359,15,e596db9c-febc-4b66-a598-d2501dca4723,217,,,,,,,
+state_name,359,12,Done,238,,,,,,,
+state_type,359,6,completed,238,,,,,,,
+assignee_id,291,9,56304f91-ec36-44ec-b53e-056ed5f898ab,88,,,,,,,
+assignee_name,291,9,John Christoffersson,88,,,,,,,
+assignee_email,291,9,john.christoffersson@intersolia.com,88,,,,,,,
+project_id,159,8,e9a4edcc-c562-4b25-97c0-a64beb40441b,76,,,,,,,
+project_name,159,7,iChemistry,76,,,,,,,
+team_id,359,2,f355d2e6-ba8a-4dee-bb03-cbf3095e8d05,304,,,,,,,
+team_name,359,2,Operational,304,,,,,,,
+labels,359,28,[],212,,,,,,,

@@ -1,0 +1,84 @@
+# PoC context for statistik-freshdesk-linear
+# Location: C:\Users\michael.brostrom\Documents\GitHub\statistik-freshdesk-linear
+
+project:
+  path: "C:\\Users\\michael.brostrom\\Documents\\GitHub\\statistik-freshdesk-linear"
+  raw_dir: "raw"
+  data_dir: "data"
+  logs_dir: "logs"
+  timestamp_format: "YYYYMMDDTHHMMSSZ"
+
+credentials:
+  linear_key_path: "credentials/Linear_API-key.txt"
+  freshdesk_key_path: "credentials/Freshdesk_API-key.txt"
+  note: "API keys are stored as plain key text files. Linear expects the key alone in Authorization header."
+
+snapshot:
+  filename_pattern: "{system}_raw_{timestamp}.json"
+  systems:
+    - linear
+    - freshdesk
+  behavior:
+    raw: "Save full API response JSON to raw/<system>/<filename>"
+    data: "Append normalized rows to data/<system>/<file>.csv (append-only)"
+    atomic_writes: true
+
+To be done:
+* Experioment creating bronze layer with raw JSON and appended CSV rows.
+* Create silver layer with only KPI-relevant fields and derived columns.  
+* Map columns to logic. 
+state_to_kpi_mapping:
+  linear:
+    Unassigned:
+      state_type: ["unstarted", "available"]
+      state_name_contains: ["todo", "backlog"]
+    Assigned:
+      state_type: ["started"]
+      state_name_contains: ["in progress", "started"]
+    WaitingForTeam:
+      state_type: ["available", "backlog"]
+      state_name_contains: ["waiting", "backlog"]
+    Done:
+      state_type: ["completed", "canceled"]
+      state_name_contains: ["done", "completed", "canceled", "cancelled", "duplicate"]
+    Other:
+      default: true
+  freshdesk:
+    TBD
+
+
+etl_principles:
+  - "Bronze is append-only and stores raw JSON for auditability."
+  - "Silver is normalized and contains only KPI-relevant fields and derived columns."
+  - "History is built by diffing consecutive snapshots and writing state transitions."
+  - "Use atomic writes when saving files to avoid corruption."
+  - "Log schema changes and alert on unexpected field removals."
+
+startup_checklist_short:
+  - "Step 1: Verify API key files exist at credentials/ and contain the key text."
+  - "Step 2: Run snapshot scripts for Linear and Freshdesk to create raw JSON in raw/."
+  - "Step 3: Confirm data/ contains appended CSV rows for both systems."
+  - "Step 4: Decide exact silver fieldset (pick/omit fields) and run bronze->silver transform."
+  - "Step 5: Validate kpi_category mapping on sample data and adjust mapping rules if needed."
+
+usage_templates:
+  snapshot_command: "python scripts/fetch_linear_and_freshdesk.py --outdir raw/ --timestamp {ts}"
+  silver_transform_command: "python scripts/bronze_to_silver.py --bronze data/ --silver data/silver/"
+
+preferences:
+  communication: "Give one step at a time; never provide long sequences of instructions."
+  timezone: "UTC for timestamps"
+  retention_policy: "Keep raw JSON in bronze for at least 90 days; archive older to cold storage."
+
+notes:
+  - "Include both Linear and Freshdesk raw JSON in raw/ with timestamped filenames."
+  - "If possible, see of Tickets in Freshdesk can be linked to Linear issues"
+  - "This file is the single source of truth configuration and should be loaded by helper scripts."
+
+Read/write-efficiency:
+    append_csv_atomic reads the whole master file to memory and rewrites for every append.
+    Risk of memory and I/O issues.
+    Fix with DataFrame.to_csv(..., mode='a', header=not exists) to append without reading the entire file.
+
+Backup
+Create a backup strategy for the bronze layer 

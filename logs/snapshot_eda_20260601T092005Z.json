@@ -1,0 +1,38 @@
+{
+  "start": "2026-06-01T09:20:05.968109+00:00",
+  "range_start": "2025-05-31T00:00:00+00:00",
+  "range_end": "2026-01-01T23:59:59+00:00",
+  "freshdesk": {
+    "fetched_count": 4065,
+    "api_errors": [
+      {
+        "page": 301,
+        "error": "400 Client Error: Bad Request for url: https://intersolia.freshdesk.com/api/v2/tickets?per_page=100&page=301&updated_since=2025-05-31T00%3A00%3A00Z",
+        "traceback": "Traceback (most recent call last):\n  File \"C:\\Users\\michael.brostrom\\AppData\\Local\\Temp\\ipykernel_70268\\338319928.py\", line 258, in fetch_freshdesk_tickets\n    resp = http_get_with_retry(FRESHDESK_TICKETS_ENDPOINT, auth=auth, params=params, max_retries=3, backoff=1.0, timeout=60)\n  File \"C:\\Users\\michael.brostrom\\AppData\\Local\\Temp\\ipykernel_70268\\338319928.py\", line 93, in http_get_with_retry\n    r.raise_for_status()\n    ~~~~~~~~~~~~~~~~~~^^\n  File \"c:\\Users\\michael.brostrom\\Documents\\GitHub\\statistik-freshdesk-linear\\.venv\\Lib\\site-packages\\requests\\models.py\", line 1167, in raise_for_status\n    raise HTTPError(http_error_msg, response=self)\nrequests.exceptions.HTTPError: 400 Client Error: Bad Request for url: https://intersolia.freshdesk.com/api/v2/tickets?per_page=100&page=301&updated_since=2025-05-31T00%3A00%3A00Z\n"
+      }
+    ],
+    "raw_path": "C:\\Users\\michael.brostrom\\Documents\\GitHub\\statistik-freshdesk-linear\\raw\\freshdesk\\freshdesk_raw_20260601T092005Z_from_20250531_to_20260101.json",
+    "csv_path": "C:\\Users\\michael.brostrom\\Documents\\GitHub\\statistik-freshdesk-linear\\data\\freshdesk\\freshdesk_tickets_20250531_20260101.csv",
+    "csv_rows": 4065,
+    "eda_csv": "C:\\Users\\michael.brostrom\\Documents\\GitHub\\statistik-freshdesk-linear\\data\\eda_freshdesk_fields_20250531_20260101.csv",
+    "eda_summary": {
+      "total_rows": 4065,
+      "timestamp_parse_errors": {}
+    },
+    "duplicate_id_count": 0
+  },
+  "linear": {
+    "fetched_count": 82,
+    "api_errors": [],
+    "raw_path": "C:\\Users\\michael.brostrom\\Documents\\GitHub\\statistik-freshdesk-linear\\raw\\linear\\linear_raw_20260601T092005Z_from_20250531_to_20260101.json",
+    "csv_path": "C:\\Users\\michael.brostrom\\Documents\\GitHub\\statistik-freshdesk-linear\\data\\linear\\linear_issues_20250531_20260101.csv",
+    "csv_rows": 82,
+    "eda_csv": "C:\\Users\\michael.brostrom\\Documents\\GitHub\\statistik-freshdesk-linear\\data\\eda_linear_fields_20250531_20260101.csv",
+    "eda_summary": {
+      "total_rows": 82,
+      "timestamp_parse_errors": {}
+    },
+    "duplicate_id_count": 0
+  },
+  "errors": []
+}
