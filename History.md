@@ -103,3 +103,35 @@ Created the nightly automation. Design decisions:
 **Retention updated to 90 days**
 
 Both scripts updated from `RETENTION_DAYS = 30` to `RETENTION_DAYS = 90`. Reasoning: provides comfortable buffer for the bronze layer ETL to process files, and 90 days of snapshots at current file sizes (~120 KB Linear + ~400 KB Freshdesk per day) totals ~46 MB — well within GitHub's storage limits.
+
+---
+
+**SQL Server bronze layer — `OPEX_statistics`**
+
+Set up SQL Server 2022 Developer Edition locally. Database `OPEX_statistics` created with three schemas: `bronze`, `silver`, `gold`.
+
+Bronze table design decisions:
+- Append-style (not upsert) — same ticket/issue ID can appear in multiple rows from different snapshot files
+- Surrogate `IDENTITY` primary key (`_row_id`) per table — each row is globally unique
+- `_snapshot_file` column on every row — traces data back to its source file
+- `_loaded_at` audit timestamp set automatically on insert
+- Date fields stored as `NVARCHAR(50)` preserving raw ISO 8601 strings from the APIs (e.g. `2026-06-04T11:14:51.968Z`). Conversion to SQL date types deferred to silver layer
+- `group_id` and `product_id` typed as `BIGINT` — Freshdesk IDs exceed the INT range (~14 billion)
+- Linear nested objects (state, assignee, project, team, parent, cycle) flattened into individual columns; labels stored as pipe-separated string
+- `bronze.import_log` tracks which files have been loaded with a UNIQUE constraint on `file_name` — prevents double imports
+
+T-SQL loader scripts created in `sql/` for manual one-off loads. Use `OPENROWSET(BULK ...)` + `OPENJSON` to read JSON files directly in T-SQL without external tools. Dynamic SQL required because `OPENROWSET` demands a string literal for the file path.
+
+**Python bronze loader — `script/bronze_loader.py`**
+
+Created `bronze_loader.py` to automate incremental loading from JSON files to SQL Server. Key decisions:
+
+- **Backfill files** (`*_backfill_*.json`): full load on first run, skipped thereafter via `import_log`
+- **Snapshot files** (`*_snapshot_*.json`): incremental — loads only rows where the ticket/issue `id` is new, or where `updated_at` is newer than the version already in bronze. Prevents the table growing by ~70,000 unchanged rows every night
+- Existing records loaded into a Python dict `{id: max_updated_at}` once per file — filtering done in Python before any SQL insert, avoiding per-row database lookups
+- Bulk insert via `executemany` in batches of 500 rows
+- Connection string read from `SQL_CONNECTION_STRING` env var (for GitHub Actions) or `credentials/sql_connection.txt` (local). Changing this one file is all that is needed to point the loader at a production server
+- Linear nested JSON objects flattened in Python (`flatten_linear()`) before insert — cleaner than doing it in T-SQL
+- `pyodbc` with ODBC Driver 17 for SQL Server
+
+First successful run: backfill files already in `import_log` (loaded manually earlier) were skipped; snapshot files loaded incrementally.

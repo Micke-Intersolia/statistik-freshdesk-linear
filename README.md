@@ -23,9 +23,9 @@ Linear API    ──┘
 
 ## Architecture
 
-### 🟤 Bronze Layer — Raw Snapshots ✅ Complete
+### 🟤 Bronze Layer — Raw Snapshots & SQL Load ✅ Complete
 
-Nightly Python scripts pull data directly from the Freshdesk and Freshdesk APIs and write timestamped JSON files to `raw/freshdesk/` and `raw/linear/`. No transformation happens at this stage — the files are an exact extract of the agreed field set.
+Nightly Python scripts pull data directly from the Freshdesk and Linear APIs and write timestamped JSON files to `raw/freshdesk/` and `raw/linear/`. A separate loader script (`bronze_loader.py`) reads those files and inserts them into SQL Server.
 
 **Automation:** GitHub Actions runs the pipeline at midnight CET/CEST with hourly retries until 05:00 CET. Successful snapshots are committed back to the repository automatically.
 
@@ -38,11 +38,19 @@ Nightly Python scripts pull data directly from the Freshdesk and Freshdesk APIs 
 
 **Freshdesk fields captured:** `id`, `subject`, `status`, `priority`, `created_at`, `updated_at`, `due_by`, `group_id`, `product_id`
 
+**SQL Server database:** `OPEX_statistics` — schemas `bronze`, `silver`, `gold`. Tables: `bronze.freshdesk_tickets`, `bronze.linear_issues`, `bronze.import_log`.
+
+**Loader logic:**
+- Backfill files: full load, runs once (guarded by `import_log`)
+- Nightly snapshots: incremental — only rows that are new or have a newer `updated_at` than what is already in bronze
+- Connection string read from `SQL_CONNECTION_STRING` env var or `credentials/sql_connection.txt` — change this one file to point at a production server
+
 **Key design decisions:**
 - Atomic writes via `.tmp` → rename — no partial files ever land in `raw/`
 - Retention uses the timestamp in the filename, not the file's modified date (GitHub Actions resets all timestamps on checkout)
 - API keys stored as GitHub Secrets — never committed to the repository
 - Empty snapshot guard: scripts exit with code 2 rather than write a 0-record file
+- Dates stored as `NVARCHAR(50)` in bronze (raw ISO 8601 strings) — converted to proper SQL types in silver
 
 ---
 
@@ -125,7 +133,12 @@ Two report sections fed from the gold layer:
 │   ├── freshdesk_snapshot_claude.py   # Nightly Freshdesk snapshot
 │   ├── freshdesk_backfill.ipynb       # One-time Freshdesk historical backfill
 │   ├── linear_snapshot_claude.py      # Nightly Linear snapshot
-│   └── snapshot_trial.ipynb           # One-time Linear historical backfill
+│   ├── snapshot_trial.ipynb           # One-time Linear historical backfill
+│   └── bronze_loader.py               # Loads JSON files into SQL Server bronze tables
+├── sql/
+│   ├── 01_bronze_create_tables.sql    # CREATE TABLE statements for bronze layer
+│   ├── 02_bronze_load_freshdesk.sql   # Manual T-SQL loader for Freshdesk files
+│   └── 03_bronze_load_linear.sql      # Manual T-SQL loader for Linear files
 ├── History.md                      # Project logbook
 └── README.md                       # This file
 ```
@@ -134,7 +147,7 @@ Two report sections fed from the gold layer:
 
 ## Running the Scripts Locally
 
-**Requirements:** Python 3.10+, `pip install requests`
+**Requirements:** Python 3.10+, `pip install requests pyodbc`
 
 ```bash
 # Nightly snapshot (last ~30 days for Freshdesk, full dump for Linear)
@@ -143,9 +156,14 @@ python script/linear_snapshot_claude.py
 
 # Freshdesk backfill from a specific date
 python script/freshdesk_snapshot_claude.py 2025-05-01
+
+# Load all new JSON files into SQL Server bronze tables
+python script/bronze_loader.py
 ```
 
 API keys are read from environment variables (`FRESHDESK_API_KEY`, `LINEAR_API_KEY`) or from `credentials/Freshdesk_API-key.txt` and `credentials/Linear_API-key.txt`.
+
+SQL Server connection string is read from `SQL_CONNECTION_STRING` env var or `credentials/sql_connection.txt`.
 
 ---
 
