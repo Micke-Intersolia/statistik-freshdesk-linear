@@ -267,3 +267,8 @@ Thumbs.db
 # API keys and credentials
 # =========================
 /credentials/*
+
+# =========================
+# Pipeline runtime dirs
+# =========================
+logs/

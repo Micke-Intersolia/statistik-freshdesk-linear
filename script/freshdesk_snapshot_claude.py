@@ -95,8 +95,6 @@ def read_api_key() -> str:
 
 # -------------------------
 # Fältextraktion
-# Plattar ut nested objekt (requester, company, stats, custom_fields)
-# till en platt struktur — bättre för SQL-laddning.
 # -------------------------
 def extract_fields(ticket: dict) -> dict:
     return {

@@ -1,0 +1,116 @@
+name: Nightly Snapshots
+
+on:
+  schedule:
+    # Target: 00:00 CET/CEST with hourly retries until 05:00 CET/CEST.
+    # GitHub Actions cron runs in UTC — two starting times cover both seasons:
+    #   Summer (CEST = UTC+2): midnight = 22:00 UTC, last alert at 03:00 UTC (= 05:00 CEST)
+    #   Winter (CET  = UTC+1): midnight = 23:00 UTC, last alert at 04:00 UTC (= 05:00 CET)
+    - cron: '0 22 * * *'
+    - cron: '0 23 * * *'
+    - cron: '0  0 * * *'
+    - cron: '0  1 * * *'
+    - cron: '0  2 * * *'
+    - cron: '0  3 * * *'  # Final alert in summer (05:00 CEST)
+    - cron: '0  4 * * *'  # Final alert in winter (05:00 CET)
+  workflow_dispatch:        # Manual trigger from the GitHub Actions UI
+
+concurrency:
+  group: nightly-snapshots
+  cancel-in-progress: false  # Queue runs — never drop an attempt mid-flight
+
+env:
+  # ── Alert recipients ────────────────────────────────────────────────────────
+  # Add/remove comma-separated addresses here when SMTP is configured.
+  # With GitHub built-in notifications this variable is informational only —
+  # failure emails go to whoever watches the repo in GitHub Settings → Emails.
+  ALERT_EMAIL: "michael.brostrom@intersolia.com"
+  # ───────────────────────────────────────────────────────────────────────────
+  PYTHON_VERSION: "3.11"
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to commit and push snapshot files
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ env.PYTHON_VERSION }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Idempotency check — skip if today's snapshots already committed
+        id: idempotency
+        run: |
+          TODAY=$(date -u +%Y%m%d)
+          LINEAR_FILE=$(ls raw/linear/linear_snapshot_${TODAY}*.json 2>/dev/null | grep -v '\.meta\.json' | head -1)
+          FD_FILE=$(ls raw/freshdesk/freshdesk_snapshot_${TODAY}*.json 2>/dev/null | grep -v '\.meta\.json' | head -1)
+          if [ -n "$LINEAR_FILE" ] && [ -n "$FD_FILE" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+            echo "Today's snapshots already exist — skipping this run."
+            echo "  Linear:    $LINEAR_FILE"
+            echo "  Freshdesk: $FD_FILE"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+            echo "No snapshot for $TODAY yet — proceeding."
+          fi
+
+      - name: Run Linear snapshot
+        id: linear
+        if: steps.idempotency.outputs.skip == 'false'
+        continue-on-error: true  # silent on retry runs; final alert handles persistent failure
+        run: python script/linear_snapshot_claude.py
+        env:
+          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+
+      - name: Run Freshdesk snapshot
+        id: freshdesk
+        if: steps.idempotency.outputs.skip == 'false'
+        continue-on-error: true
+        run: python script/freshdesk_snapshot_claude.py
+        env:
+          FRESHDESK_API_KEY: ${{ secrets.FRESHDESK_API_KEY }}
+
+      - name: Commit and push snapshots
+        if: |
+          steps.idempotency.outputs.skip == 'false' &&
+          steps.linear.outcome == 'success' &&
+          steps.freshdesk.outcome == 'success'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add raw/linear/ raw/freshdesk/
+          git diff --cached --quiet || git commit -m "chore: nightly snapshot $(date -u +%Y-%m-%d)"
+          git push
+
+      - name: Final alert — fail loudly if no snapshot after last retry
+        # Fires only on the 03:00 UTC run (= 05:00 CEST, summer)
+        # and the 04:00 UTC run (= 05:00 CET, winter).
+        # If both scripts failed on every earlier retry, this step fails the
+        # workflow → GitHub sends a notification to repo watchers.
+        if: |
+          github.event.schedule == '0 3 * * *' ||
+          github.event.schedule == '0 4 * * *'
+        run: |
+          TODAY=$(date -u +%Y%m%d)
+          LINEAR_FILE=$(ls raw/linear/linear_snapshot_${TODAY}*.json 2>/dev/null | grep -v '\.meta\.json' | head -1)
+          FD_FILE=$(ls raw/freshdesk/freshdesk_snapshot_${TODAY}*.json 2>/dev/null | grep -v '\.meta\.json' | head -1)
+          if [ -n "$LINEAR_FILE" ] && [ -n "$FD_FILE" ]; then
+            echo "Snapshots confirmed for $TODAY."
+            echo "  Linear:    $LINEAR_FILE"
+            echo "  Freshdesk: $FD_FILE"
+          else
+            echo "ERROR: No snapshot committed for $TODAY after all retries."
+            echo "Intended alert recipient: $ALERT_EMAIL"
+            echo ""
+            echo "To send email alerts, replace this block with an SMTP action"
+            echo "and point it at the ALERT_EMAIL env var above."
+            exit 1
+          fi
