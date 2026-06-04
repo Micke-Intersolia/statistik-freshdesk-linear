@@ -1,0 +1,30 @@
+{
+  "ts": "20260604T091104Z",
+  "total_tickets": 5130,
+  "pages": 52,
+  "script_version": "2.0",
+  "page_size": 100,
+  "include_fields": "requester,company,stats",
+  "updated_since": null,
+  "domain": "intersolia",
+  "fields": [
+    "id",
+    "subject",
+    "status",
+    "priority",
+    "created_at",
+    "updated_at",
+    "due_by",
+    "group_id",
+    "product_id",
+    "requester_id",
+    "requester_name",
+    "requester_email",
+    "company_id",
+    "company_name",
+    "first_responded_at",
+    "resolved_at",
+    "tags",
+    "cf_module"
+  ]
+}

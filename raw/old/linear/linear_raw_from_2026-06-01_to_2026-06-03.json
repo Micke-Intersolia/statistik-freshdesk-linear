@@ -1,0 +1,4003 @@
+[
+  {
+    "id": "e6bacfac-07ef-458a-8878-e3402673a148",
+    "number": 216,
+    "identifier": "DEV-216",
+    "title": "Hexpol - Customization / API add new local codes/sites",
+    "createdAt": "2026-06-03T13:10:56.527Z",
+    "updatedAt": "2026-06-03T13:10:56.527Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "75651961-e51f-4ef2-9f1c-6cc2a225d405",
+    "assignee_name": "Thomas Andersson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [],
+    "_raw": {
+      "id": "e6bacfac-07ef-458a-8878-e3402673a148",
+      "number": 216,
+      "identifier": "DEV-216",
+      "title": "Hexpol - Customization / API add new local codes/sites",
+      "description": "Changes to China system including API:\n\nThey want to add 2 new sites (Gislaved + Stellana) , Local codes are GGCH and STCH , already added as own fields.\n\nThey should be integrated in the API and procedure as usual like for the already existing raw materials. So we should adapt the routin accordingly to those 2 new sites.",
+      "createdAt": "2026-06-03T13:10:56.527Z",
+      "updatedAt": "2026-06-03T13:10:56.527Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "477b56c3-0fc5-45cf-956e-c250b32b96a7",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "75651961-e51f-4ef2-9f1c-6cc2a225d405",
+        "name": "Thomas Andersson",
+        "email": "thomas.andersson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "e1b6a136-8973-4418-9c8c-22385a8bb434",
+    "number": 215,
+    "identifier": "DEV-215",
+    "title": "Chemsoft SDS - Status of Requested products",
+    "createdAt": "2026-06-03T12:37:20.105Z",
+    "updatedAt": "2026-06-03T12:37:20.105Z",
+    "state_type": "backlog",
+    "state_name": "Requests",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "5f9b119f-aac7-4ced-82c1-23f1616d3474",
+    "project_name": "Feedback Chemwise 2026-05",
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [],
+    "_raw": {
+      "id": "e1b6a136-8973-4418-9c8c-22385a8bb434",
+      "number": 215,
+      "identifier": "DEV-215",
+      "title": "Chemsoft SDS - Status of Requested products",
+      "description": "Requested products are always inventoried in main/Explizit\n\nWe populate status and inventory startdate (requested date) in DocumentStatus database\n\nWe should consider creating a new report in Chemsoft which shows list of requested products which are not yet available in Customers database.\n\n1. See products in Queue, ReadyForEntry or other statuses which\n2. See current status of product\n3. Date added (Requested/Inventoried)",
+      "createdAt": "2026-06-03T12:37:20.105Z",
+      "updatedAt": "2026-06-03T12:37:20.105Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "0286c90a-ed16-4a75-8a0a-3857bc123304",
+        "name": "Requests",
+        "type": "backlog"
+      },
+      "assignee": null,
+      "project": {
+        "id": "5f9b119f-aac7-4ced-82c1-23f1616d3474",
+        "name": "Feedback Chemwise 2026-05"
+      },
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "29fe2cae-6918-4b42-953f-9d43907cf69e",
+    "number": 916,
+    "identifier": "OPEX-916",
+    "title": "Sync iIS to HubSpot (IntSqlServer01)",
+    "createdAt": "2026-06-03T11:13:04.097Z",
+    "updatedAt": "2026-06-03T12:30:13.073Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "OwlMonitor"
+    ],
+    "_raw": {
+      "id": "29fe2cae-6918-4b42-953f-9d43907cf69e",
+      "number": 916,
+      "identifier": "OPEX-916",
+      "title": "Sync iIS to HubSpot (IntSqlServer01)",
+      "description": "Status: Critical\n\nMessage:\n\nEntityId: 2877\n\nNotes: SQL Job",
+      "createdAt": "2026-06-03T11:13:04.097Z",
+      "updatedAt": "2026-06-03T12:30:13.073Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "ddac9b29-1318-4385-bb2e-92f8c254f573",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "OwlMonitor"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "3f484065-7ff6-4365-ac6e-0e9457ee10c2",
+    "number": 915,
+    "identifier": "OPEX-915",
+    "title": "FD317126 - Kopiering till avsnitt 8.1 tar inte hänsyn till information i kolumnen Remarks - iPub",
+    "createdAt": "2026-06-03T08:43:07.792Z",
+    "updatedAt": "2026-06-03T08:45:55.673Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Bugs etc",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "3f484065-7ff6-4365-ac6e-0e9457ee10c2",
+      "number": 915,
+      "identifier": "OPEX-915",
+      "title": "FD317126 - Kopiering till avsnitt 8.1 tar inte hänsyn till information i kolumnen Remarks - iPub",
+      "description": "[https://customer.intersolia.com/a/tickets/317126](<https://customer.intersolia.com/a/tickets/317126>)",
+      "createdAt": "2026-06-03T08:43:07.792Z",
+      "updatedAt": "2026-06-03T08:45:55.673Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "cc1c180d-62ad-40ae-8aa0-26cb5da16588",
+        "name": "Todo - Bugs etc",
+        "type": "unstarted"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "7291ed36-9304-4a8b-bc5c-6c5d4cef6ada",
+    "number": 914,
+    "identifier": "OPEX-914",
+    "title": "Replication check (iChemSqlMsdsNE)",
+    "createdAt": "2026-06-03T08:21:39.134Z",
+    "updatedAt": "2026-06-03T09:01:05.345Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "OwlMonitor"
+    ],
+    "_raw": {
+      "id": "7291ed36-9304-4a8b-bc5c-6c5d4cef6ada",
+      "number": 914,
+      "identifier": "OPEX-914",
+      "title": "Replication check (iChemSqlMsdsNE)",
+      "description": "Status: Critical\n\nMessage: Snapshot gen errors: 0, Distribution error in: iChemSqlMsdsNE-localRequested-LocalRequested-Select-ICHEMSQLJEKNE-686, iChemSqlMsdsNE-localRequested-LocalRequested-Select-ICHEMSQLJEKNE-686\n\nEntityId: 2774\n\nNotes:",
+      "createdAt": "2026-06-03T08:21:39.134Z",
+      "updatedAt": "2026-06-03T09:01:05.345Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "OwlMonitor"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "d41a5c80-7594-4040-a11e-bcf1adfda721",
+    "number": 913,
+    "identifier": "OPEX-913",
+    "title": "Execution of CPU_Job (iChemSqlMsdsNE)",
+    "createdAt": "2026-06-03T06:31:42.998Z",
+    "updatedAt": "2026-06-03T08:12:35.863Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "OwlMonitor"
+    ],
+    "_raw": {
+      "id": "d41a5c80-7594-4040-a11e-bcf1adfda721",
+      "number": 913,
+      "identifier": "OPEX-913",
+      "title": "Execution of CPU_Job (iChemSqlMsdsNE)",
+      "description": "Status: Critical\n\nMessage:\n\nEntityId: 2747\n\nNotes:",
+      "createdAt": "2026-06-03T06:31:42.998Z",
+      "updatedAt": "2026-06-03T08:12:35.863Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "OwlMonitor"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "71071faa-0b8b-4849-be67-67c06f346201",
+    "number": 912,
+    "identifier": "OPEX-912",
+    "title": "FD 323351 - Ta bort sekretess på en produkt",
+    "createdAt": "2026-06-03T06:11:53.301Z",
+    "updatedAt": "2026-06-03T08:52:15.907Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "71071faa-0b8b-4849-be67-67c06f346201",
+      "number": 912,
+      "identifier": "OPEX-912",
+      "title": "FD 323351 - Ta bort sekretess på en produkt",
+      "description": "[https://customer.intersolia.com/a/tickets/323351](<https://customer.intersolia.com/a/tickets/323351>)",
+      "createdAt": "2026-06-03T06:11:53.301Z",
+      "updatedAt": "2026-06-03T08:52:15.907Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "28ab833d-9c46-40f1-a212-3526b4632200",
+    "number": 911,
+    "identifier": "OPEX-911",
+    "title": "FD 323363 - Uninstall customer DUE DATE 2026-05-28, (Baettr Guldsmedshyttan AB)",
+    "createdAt": "2026-06-03T06:10:46.818Z",
+    "updatedAt": "2026-06-03T07:35:53.286Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Fast",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "28ab833d-9c46-40f1-a212-3526b4632200",
+      "number": 911,
+      "identifier": "OPEX-911",
+      "title": "FD 323363 - Uninstall customer DUE DATE 2026-05-28, (Baettr Guldsmedshyttan AB)",
+      "description": "[https://customer.intersolia.com/a/tickets/323363](<https://customer.intersolia.com/a/tickets/323363>)",
+      "createdAt": "2026-06-03T06:10:46.818Z",
+      "updatedAt": "2026-06-03T07:35:53.286Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "f186b18f-a9fa-469c-adf1-ca488be08b57",
+        "name": "Todo - Fast",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "92f8dfdb-3586-4f92-b2e2-cdcf5f23490c",
+    "number": 910,
+    "identifier": "OPEX-910",
+    "title": "FD 324325 - Endast byta namn på kundanpassad rest.lista",
+    "createdAt": "2026-06-03T06:04:47.928Z",
+    "updatedAt": "2026-06-03T08:21:52.746Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "92f8dfdb-3586-4f92-b2e2-cdcf5f23490c",
+      "number": 910,
+      "identifier": "OPEX-910",
+      "title": "FD 324325 - Endast byta namn på kundanpassad rest.lista",
+      "description": "[https://customer.intersolia.com/a/tickets/324325](<https://customer.intersolia.com/a/tickets/324325>)",
+      "createdAt": "2026-06-03T06:04:47.928Z",
+      "updatedAt": "2026-06-03T08:21:52.746Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "e52b15ae-f2d7-4a88-a23a-f1c4ecd6e134",
+    "number": 909,
+    "identifier": "OPEX-909",
+    "title": "FD 323886 - Hjälp att ta bort dubbelinventerade produkter",
+    "createdAt": "2026-06-03T06:02:18.171Z",
+    "updatedAt": "2026-06-03T08:03:14.537Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "e52b15ae-f2d7-4a88-a23a-f1c4ecd6e134",
+      "number": 909,
+      "identifier": "OPEX-909",
+      "title": "FD 323886 - Hjälp att ta bort dubbelinventerade produkter",
+      "description": "[https://customer.intersolia.com/a/tickets/323886](<https://customer.intersolia.com/a/tickets/323886>)",
+      "createdAt": "2026-06-03T06:02:18.171Z",
+      "updatedAt": "2026-06-03T08:03:14.537Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "cc0048f9-03f2-4b1a-9642-afed07c9ba9c",
+    "number": 214,
+    "identifier": "DEV-214",
+    "title": "Remove SVN",
+    "createdAt": "2026-06-02T13:32:44.028Z",
+    "updatedAt": "2026-06-02T13:32:44.308Z",
+    "state_type": "unstarted",
+    "state_name": "Available",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": null,
+    "project_name": null,
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [],
+    "_raw": {
+      "id": "cc0048f9-03f2-4b1a-9642-afed07c9ba9c",
+      "number": 214,
+      "identifier": "DEV-214",
+      "title": "Remove SVN",
+      "description": "This can be broken down into several parts.\n\n* Create a SVN archive (I think this is a feature)\n* Move the setup files for iChemistry servers to a GIT project\n* Move IIS files to a GIT project\n\nNote that there are at least two SVN repos. ",
+      "createdAt": "2026-06-02T13:32:44.028Z",
+      "updatedAt": "2026-06-02T13:32:44.308Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "db1f6e0d-5b4c-4ba6-a1bd-e9bb44d13763",
+        "name": "Available",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": null,
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "72fa59c9-3a96-4faf-9f0c-8c19dca69d14",
+    "number": 213,
+    "identifier": "DEV-213",
+    "title": "New development server",
+    "createdAt": "2026-06-02T13:26:40.481Z",
+    "updatedAt": "2026-06-02T13:26:40.481Z",
+    "state_type": "unstarted",
+    "state_name": "Available",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": null,
+    "project_name": null,
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [],
+    "_raw": {
+      "id": "72fa59c9-3a96-4faf-9f0c-8c19dca69d14",
+      "number": 213,
+      "identifier": "DEV-213",
+      "title": "New development server",
+      "description": "Setup it up as an iChemistry Web server and an iChemistry SQL server.\n\nNote: Use different MailGun account for e-mails. Make sure it is clear that it is sent from dev-environment.",
+      "createdAt": "2026-06-02T13:26:40.481Z",
+      "updatedAt": "2026-06-02T13:26:40.481Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "db1f6e0d-5b4c-4ba6-a1bd-e9bb44d13763",
+        "name": "Available",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": null,
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "92d874b6-6a9d-4661-9916-df9f68265e86",
+    "number": 908,
+    "identifier": "OPEX-908",
+    "title": "FD324249 Don't have access to customer's iChemistry",
+    "createdAt": "2026-06-02T11:45:14.603Z",
+    "updatedAt": "2026-06-02T13:43:32.540Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+    "assignee_name": "Jaakko Tarhanen",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Investigation"
+    ],
+    "_raw": {
+      "id": "92d874b6-6a9d-4661-9916-df9f68265e86",
+      "number": 908,
+      "identifier": "OPEX-908",
+      "title": "FD324249 Don't have access to customer's iChemistry",
+      "description": "[https://customer.intersolia.com/a/tickets/324249](<https://customer.intersolia.com/a/tickets/324249>)",
+      "createdAt": "2026-06-02T11:45:14.603Z",
+      "updatedAt": "2026-06-02T13:43:32.540Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "ddac9b29-1318-4385-bb2e-92f8c254f573",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+        "name": "Jaakko Tarhanen",
+        "email": "jaakko.tarhanen@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Investigation"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "f6457e63-cd00-4b41-ae36-7351a217ca7f",
+    "number": 907,
+    "identifier": "OPEX-907",
+    "title": "Documentation for updating lists in iPublisher",
+    "createdAt": "2026-06-02T08:32:28.748Z",
+    "updatedAt": "2026-06-03T05:34:43.218Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+    "project_name": "iPublisher",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Lists"
+    ],
+    "_raw": {
+      "id": "f6457e63-cd00-4b41-ae36-7351a217ca7f",
+      "number": 907,
+      "identifier": "OPEX-907",
+      "title": "Documentation for updating lists in iPublisher",
+      "description": "",
+      "createdAt": "2026-06-02T08:32:28.748Z",
+      "updatedAt": "2026-06-03T05:34:43.218Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": {
+        "id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+        "name": "iPublisher"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Lists"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "40f5a017-0598-4c44-a0f5-aeb0410c8e5d",
+    "number": 906,
+    "identifier": "OPEX-906",
+    "title": "API Alerts due to a server unresponsive.",
+    "createdAt": "2026-06-02T07:39:11.814Z",
+    "updatedAt": "2026-06-02T07:40:54.899Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Incident"
+    ],
+    "_raw": {
+      "id": "40f5a017-0598-4c44-a0f5-aeb0410c8e5d",
+      "number": 906,
+      "identifier": "OPEX-906",
+      "title": "API Alerts due to a server unresponsive.",
+      "description": "Writing ticket after incident, since the priority was to solve it.",
+      "createdAt": "2026-06-02T07:39:11.814Z",
+      "updatedAt": "2026-06-02T07:40:54.899Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Incident"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "05b9a1bc-71cd-47d0-851b-8145a3aac2a0",
+    "number": 905,
+    "identifier": "OPEX-905",
+    "title": "SyncIChemDatabases - Database status check (iChemSqlLobotNE)",
+    "createdAt": "2026-06-02T07:37:57.232Z",
+    "updatedAt": "2026-06-02T14:53:39.978Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "OwlMonitor"
+    ],
+    "_raw": {
+      "id": "05b9a1bc-71cd-47d0-851b-8145a3aac2a0",
+      "number": 905,
+      "identifier": "OPEX-905",
+      "title": "SyncIChemDatabases - Database status check (iChemSqlLobotNE)",
+      "description": "Status: Critical\n\nMessage: Failure noted on one or several databases.\n\nEntityId: 3207\n\nNotes: Checked by iChemistry.SyncDatabases Service",
+      "createdAt": "2026-06-02T07:37:57.232Z",
+      "updatedAt": "2026-06-02T14:53:39.978Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": null,
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "OwlMonitor"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "7e18c329-6cfc-4ecd-a6ee-cf2817c876b6",
+    "number": 904,
+    "identifier": "OPEX-904",
+    "title": "FD323502 - Uppdatering av restr. lista",
+    "createdAt": "2026-06-02T07:23:10.190Z",
+    "updatedAt": "2026-06-02T13:55:09.254Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "7e18c329-6cfc-4ecd-a6ee-cf2817c876b6",
+      "number": 904,
+      "identifier": "OPEX-904",
+      "title": "FD323502 - Uppdatering av restr. lista",
+      "description": "[https://customer.intersolia.com/a/tickets/323502](<https://customer.intersolia.com/a/tickets/323502>)",
+      "createdAt": "2026-06-02T07:23:10.190Z",
+      "updatedAt": "2026-06-02T13:55:09.254Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "52e4c039-9828-45c5-8a53-2954c8055d13",
+    "number": 903,
+    "identifier": "OPEX-903",
+    "title": "Fintoil Hamina Oy in localrequested",
+    "createdAt": "2026-06-02T07:17:02.123Z",
+    "updatedAt": "2026-06-02T07:18:20.269Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+    "assignee_name": "Jaakko Tarhanen",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "52e4c039-9828-45c5-8a53-2954c8055d13",
+      "number": 903,
+      "identifier": "OPEX-903",
+      "title": "Fintoil Hamina Oy in localrequested",
+      "description": "Found multiple customers created for same customer which points to same DB, SystemOrderNo etc.\n\n(duplicated rows)\n\nThis seem to cause problems for Requester.",
+      "createdAt": "2026-06-02T07:17:02.123Z",
+      "updatedAt": "2026-06-02T07:18:20.269Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+        "name": "Jaakko Tarhanen",
+        "email": "jaakko.tarhanen@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "d238860a-e510-4102-aef9-a273267e6f08",
+    "number": 902,
+    "identifier": "OPEX-902",
+    "title": "FD322848 - Produkter ska inte ge träff på Seveso listan",
+    "createdAt": "2026-06-02T07:16:01.749Z",
+    "updatedAt": "2026-06-02T08:15:14.631Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Bugs etc",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Investigation"
+    ],
+    "_raw": {
+      "id": "d238860a-e510-4102-aef9-a273267e6f08",
+      "number": 902,
+      "identifier": "OPEX-902",
+      "title": "FD322848 - Produkter ska inte ge träff på Seveso listan",
+      "description": "[http://customer.intersolia.com/a/tickets/322848](<http://customer.intersolia.com/a/tickets/322848>)",
+      "createdAt": "2026-06-02T07:16:01.749Z",
+      "updatedAt": "2026-06-02T08:15:14.631Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "cc1c180d-62ad-40ae-8aa0-26cb5da16588",
+        "name": "Todo - Bugs etc",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Investigation"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "7d6c64a1-68a7-4296-921d-9d77582820fc",
+    "number": 901,
+    "identifier": "OPEX-901",
+    "title": "Switch USB backup disk (Auto reminder)",
+    "createdAt": "2026-06-02T00:00:13.501Z",
+    "updatedAt": "2026-06-02T12:02:23.476Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Auto Reminder Task"
+    ],
+    "_raw": {
+      "id": "7d6c64a1-68a7-4296-921d-9d77582820fc",
+      "number": 901,
+      "identifier": "OPEX-901",
+      "title": "Switch USB backup disk (Auto reminder)",
+      "description": "Switch the USB disk used for offline backup\n\nMake room for 1 TB !\n\nSee instruction on Bookstack.\"",
+      "createdAt": "2026-06-02T00:00:13.501Z",
+      "updatedAt": "2026-06-02T12:02:23.476Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Auto Reminder Task"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "e73672d1-101c-4225-b99e-7c1e612bbe85",
+    "number": 900,
+    "identifier": "OPEX-900",
+    "title": "Execution of CPU_Job (iChemSqlLobotNE)",
+    "createdAt": "2026-06-01T13:03:49.314Z",
+    "updatedAt": "2026-06-01T14:54:42.912Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "OwlMonitor"
+    ],
+    "_raw": {
+      "id": "e73672d1-101c-4225-b99e-7c1e612bbe85",
+      "number": 900,
+      "identifier": "OPEX-900",
+      "title": "Execution of CPU_Job (iChemSqlLobotNE)",
+      "description": "Status: Critical\n\nMessage:\n\nEntityId: 3196\n\nNotes: SQL Job",
+      "createdAt": "2026-06-01T13:03:49.314Z",
+      "updatedAt": "2026-06-01T14:54:42.912Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "OwlMonitor"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "6b994ffd-f6b6-4f82-824c-980ec8346eb7",
+    "number": 899,
+    "identifier": "OPEX-899",
+    "title": "VM sends logs to InsightsMetrics (iReportFunctionsApp)",
+    "createdAt": "2026-06-01T10:59:27.767Z",
+    "updatedAt": "2026-06-01T14:55:29.804Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "6b994ffd-f6b6-4f82-824c-980ec8346eb7",
+      "number": 899,
+      "identifier": "OPEX-899",
+      "title": "VM sends logs to InsightsMetrics (iReportFunctionsApp)",
+      "description": "Status: Critical\n\nMessage: Missing item(s) in log: iChemWebApiNE02\n\nEntityId: 2848\n\nNotes: Checks logs in Intersolia-Prod-LA",
+      "createdAt": "2026-06-01T10:59:27.767Z",
+      "updatedAt": "2026-06-01T14:55:29.804Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": null,
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "336b7109-f7ab-48f9-8d0b-27ab3b20e3e2",
+    "number": 898,
+    "identifier": "OPEX-898",
+    "title": "FD322123 1085 Cold Galvanising (Kallgalvanisering)",
+    "createdAt": "2026-06-01T10:29:25.890Z",
+    "updatedAt": "2026-06-01T10:59:07.758Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "89dfac53-a8c0-46e4-9620-917ce1dfb50c",
+    "project_name": "Chemsoft",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Improvement"
+    ],
+    "_raw": {
+      "id": "336b7109-f7ab-48f9-8d0b-27ab3b20e3e2",
+      "number": 898,
+      "identifier": "OPEX-898",
+      "title": "FD322123 1085 Cold Galvanising (Kallgalvanisering)",
+      "description": "[https://customer.intersolia.com/a/tickets/322123](<https://customer.intersolia.com/a/tickets/322123>)",
+      "createdAt": "2026-06-01T10:29:25.890Z",
+      "updatedAt": "2026-06-01T10:59:07.758Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "89dfac53-a8c0-46e4-9620-917ce1dfb50c",
+        "name": "Chemsoft"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Improvement"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "7361ae62-e2fd-4840-8136-261899a2d412",
+    "number": 897,
+    "identifier": "OPEX-897",
+    "title": "FD323896 PRF 101 Green kraschar chemsoft Robotics",
+    "createdAt": "2026-06-01T10:17:55.202Z",
+    "updatedAt": "2026-06-01T10:22:36.653Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "89dfac53-a8c0-46e4-9620-917ce1dfb50c",
+    "project_name": "Chemsoft",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Recurring Issue"
+    ],
+    "_raw": {
+      "id": "7361ae62-e2fd-4840-8136-261899a2d412",
+      "number": 897,
+      "identifier": "OPEX-897",
+      "title": "FD323896 PRF 101 Green kraschar chemsoft Robotics",
+      "description": "[https://customer.intersolia.com/a/tickets/323896](<https://customer.intersolia.com/a/tickets/323896>)",
+      "createdAt": "2026-06-01T10:17:55.202Z",
+      "updatedAt": "2026-06-01T10:22:36.653Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "89dfac53-a8c0-46e4-9620-917ce1dfb50c",
+        "name": "Chemsoft"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Recurring Issue"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "b5e19e30-9837-4aae-b8c0-a2a0176fdf2a",
+    "number": 896,
+    "identifier": "OPEX-896",
+    "title": "FD312272 Sammanställning av riskbedömningar med ej godkända flikar",
+    "createdAt": "2026-06-01T08:46:14.259Z",
+    "updatedAt": "2026-06-01T12:48:22.570Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "b5e19e30-9837-4aae-b8c0-a2a0176fdf2a",
+      "number": 896,
+      "identifier": "OPEX-896",
+      "title": "FD312272 Sammanställning av riskbedömningar med ej godkända flikar",
+      "description": "[https://customer.intersolia.com/a/tickets/312272](<https://customer.intersolia.com/a/tickets/312272>)",
+      "createdAt": "2026-06-01T08:46:14.259Z",
+      "updatedAt": "2026-06-01T12:48:22.570Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "28c94c76-24ab-454c-b58d-d749a0125c37",
+    "number": 895,
+    "identifier": "OPEX-895",
+    "title": "FD323710 Slå på Access to substance Data + Prefer substance för alla iPublisher kunder 2026-06-02",
+    "createdAt": "2026-06-01T08:27:28.870Z",
+    "updatedAt": "2026-06-02T14:56:13.033Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+    "assignee_name": "Jaakko Tarhanen",
+    "project_id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+    "project_name": "iPublisher",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "28c94c76-24ab-454c-b58d-d749a0125c37",
+      "number": 895,
+      "identifier": "OPEX-895",
+      "title": "FD323710 Slå på Access to substance Data + Prefer substance för alla iPublisher kunder 2026-06-02",
+      "description": "[https://customer.intersolia.com/a/tickets/323710](<https://customer.intersolia.com/a/tickets/323710>)",
+      "createdAt": "2026-06-01T08:27:28.870Z",
+      "updatedAt": "2026-06-02T14:56:13.033Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+        "name": "Jaakko Tarhanen",
+        "email": "jaakko.tarhanen@intersolia.com"
+      },
+      "project": {
+        "id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+        "name": "iPublisher"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "959909a1-9562-4a24-ad34-b6317557bf6e",
+    "number": 894,
+    "identifier": "OPEX-894",
+    "title": "FD317912 Ändring i ATE iPublisher ämnesmodul",
+    "createdAt": "2026-06-01T08:25:43.787Z",
+    "updatedAt": "2026-06-01T09:14:04.781Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Bugs etc",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+    "project_name": "iPublisher",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Phrases"
+    ],
+    "_raw": {
+      "id": "959909a1-9562-4a24-ad34-b6317557bf6e",
+      "number": 894,
+      "identifier": "OPEX-894",
+      "title": "FD317912 Ändring i ATE iPublisher ämnesmodul",
+      "description": "[https://customer.intersolia.com/a/tickets/317912](<https://customer.intersolia.com/a/tickets/317912>)",
+      "createdAt": "2026-06-01T08:25:43.787Z",
+      "updatedAt": "2026-06-01T09:14:04.781Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "cc1c180d-62ad-40ae-8aa0-26cb5da16588",
+        "name": "Todo - Bugs etc",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": {
+        "id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+        "name": "iPublisher"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Phrases"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "19f84eca-5262-4e25-a854-9e34c467f0d4",
+    "number": 893,
+    "identifier": "OPEX-893",
+    "title": "Region Skåne - Extern Remiss",
+    "createdAt": "2026-06-01T07:58:15.299Z",
+    "updatedAt": "2026-06-02T14:11:27.628Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+    "assignee_name": "Jaakko Tarhanen",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "19f84eca-5262-4e25-a854-9e34c467f0d4",
+      "number": 893,
+      "identifier": "OPEX-893",
+      "title": "Region Skåne - Extern Remiss",
+      "description": "Klar innan 5/6.\n\n[2026-O000244 Kravspecifikation Kemikaliehantering 2.0 Extern remiss.xlsx](<https://intersolia-my.sharepoint.com/:x:/r/personal/mikael_stromblad_intersolia_com/_layouts/15/Doc.aspx?sourcedoc=%7B9CE30485-4115-47F2-AD68-B5C06854CD44%7D&file=2026-O000244%20Kravspecifikation%20Kemikaliehantering%202.0%20%20Extern%20remiss.xlsx&fromShare=true&action=default&mobileredirect=true>)",
+      "createdAt": "2026-06-01T07:58:15.299Z",
+      "updatedAt": "2026-06-02T14:11:27.628Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+        "name": "Jaakko Tarhanen",
+        "email": "jaakko.tarhanen@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "44942a28-8345-4a57-b0ca-2c55010ef045",
+    "number": 892,
+    "identifier": "OPEX-892",
+    "title": "FD323633 Felmeddelande i iChemistry (lås upp låst avdelning)",
+    "createdAt": "2026-06-01T07:52:33.363Z",
+    "updatedAt": "2026-06-01T11:10:44.528Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "d386ff68-088f-4e7d-89c7-1fef50e18e12",
+    "assignee_name": "Kenny Lindblom",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Bug"
+    ],
+    "_raw": {
+      "id": "44942a28-8345-4a57-b0ca-2c55010ef045",
+      "number": 892,
+      "identifier": "OPEX-892",
+      "title": "FD323633 Felmeddelande i iChemistry (lås upp låst avdelning)",
+      "description": "[https://customer.intersolia.com/a/tickets/323633](<https://customer.intersolia.com/a/tickets/323633>)",
+      "createdAt": "2026-06-01T07:52:33.363Z",
+      "updatedAt": "2026-06-01T11:10:44.528Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "d386ff68-088f-4e7d-89c7-1fef50e18e12",
+        "name": "Kenny Lindblom",
+        "email": "kenny.lindblom@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Bug"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "640f6d55-228a-449d-b5ff-e99cb2a2a311",
+    "number": 891,
+    "identifier": "OPEX-891",
+    "title": "FD323783 Produkter med sekretessmarkering",
+    "createdAt": "2026-06-01T07:38:43.345Z",
+    "updatedAt": "2026-06-02T14:09:01.253Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "640f6d55-228a-449d-b5ff-e99cb2a2a311",
+      "number": 891,
+      "identifier": "OPEX-891",
+      "title": "FD323783 Produkter med sekretessmarkering",
+      "description": "[https://customer.intersolia.com/a/tickets/323783](<https://customer.intersolia.com/a/tickets/323783>)",
+      "createdAt": "2026-06-01T07:38:43.345Z",
+      "updatedAt": "2026-06-02T14:09:01.253Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "934c7151-67ca-49eb-aeb6-f0a564a6f79a",
+    "number": 890,
+    "identifier": "OPEX-890",
+    "title": "FD320695 Uninstall customer DUE DATE 2026-05-31, (Trafik & Fritid Skandinavien AB)",
+    "createdAt": "2026-06-01T07:34:33.431Z",
+    "updatedAt": "2026-06-02T09:59:24.255Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "934c7151-67ca-49eb-aeb6-f0a564a6f79a",
+      "number": 890,
+      "identifier": "OPEX-890",
+      "title": "FD320695 Uninstall customer DUE DATE 2026-05-31, (Trafik & Fritid Skandinavien AB)",
+      "description": "[https://customer.intersolia.com/a/tickets/320695](<https://customer.intersolia.com/a/tickets/320695>)",
+      "createdAt": "2026-06-01T07:34:33.431Z",
+      "updatedAt": "2026-06-02T09:59:24.255Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "b966ec76-5a3b-4f1e-a7f9-61a567981bd4",
+    "number": 889,
+    "identifier": "OPEX-889",
+    "title": "FD320657 Uninstall customer DUE DATE 2026-05-31, RGS Nordic AB",
+    "createdAt": "2026-06-01T07:34:02.385Z",
+    "updatedAt": "2026-06-02T10:42:46.930Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "b966ec76-5a3b-4f1e-a7f9-61a567981bd4",
+      "number": 889,
+      "identifier": "OPEX-889",
+      "title": "FD320657 Uninstall customer DUE DATE 2026-05-31, RGS Nordic AB",
+      "description": "[https://customer.intersolia.com/a/tickets/320657](<https://customer.intersolia.com/a/tickets/320657>)",
+      "createdAt": "2026-06-01T07:34:02.385Z",
+      "updatedAt": "2026-06-02T10:42:46.930Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c4636771-7b3a-4519-8e82-f203790eff9f",
+    "number": 888,
+    "identifier": "OPEX-888",
+    "title": "FD300143 Uninstall customer DUE DATE 2026-05-31, (Scanjet Marine AB)",
+    "createdAt": "2026-06-01T07:33:18.995Z",
+    "updatedAt": "2026-06-02T08:51:36.170Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "c4636771-7b3a-4519-8e82-f203790eff9f",
+      "number": 888,
+      "identifier": "OPEX-888",
+      "title": "FD300143 Uninstall customer DUE DATE 2026-05-31, (Scanjet Marine AB)",
+      "description": "[https://customer.intersolia.com/a/tickets/300143](<https://customer.intersolia.com/a/tickets/300143>)",
+      "createdAt": "2026-06-01T07:33:18.995Z",
+      "updatedAt": "2026-06-02T08:51:36.170Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "6a33f160-8f29-4df5-a975-5fe429a775e4",
+    "number": 887,
+    "identifier": "OPEX-887",
+    "title": "FD298254 Uninstall customer DUE DATE 2026-05-31, RGS Nordic AB",
+    "createdAt": "2026-06-01T07:32:47.484Z",
+    "updatedAt": "2026-06-02T10:42:33.897Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "6a33f160-8f29-4df5-a975-5fe429a775e4",
+      "number": 887,
+      "identifier": "OPEX-887",
+      "title": "FD298254 Uninstall customer DUE DATE 2026-05-31, RGS Nordic AB",
+      "description": "[https://customer.intersolia.com/a/tickets/298254](<https://customer.intersolia.com/a/tickets/298254>)",
+      "createdAt": "2026-06-01T07:32:47.484Z",
+      "updatedAt": "2026-06-02T10:42:33.897Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "526f3558-e025-4ece-88ab-07530f2326bc",
+    "number": 886,
+    "identifier": "OPEX-886",
+    "title": "FD293455 Uninstall customer DUE DATE 2026-05-31, (Osby Glas AB)",
+    "createdAt": "2026-06-01T07:29:56.859Z",
+    "updatedAt": "2026-06-03T08:14:20.175Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "526f3558-e025-4ece-88ab-07530f2326bc",
+      "number": 886,
+      "identifier": "OPEX-886",
+      "title": "FD293455 Uninstall customer DUE DATE 2026-05-31, (Osby Glas AB)",
+      "description": "[https://customer.intersolia.com/a/tickets/293455](<https://customer.intersolia.com/a/tickets/293455>)",
+      "createdAt": "2026-06-01T07:29:56.859Z",
+      "updatedAt": "2026-06-03T08:14:20.175Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "079e1abe-9710-4196-bbda-cf6c4f741476",
+    "number": 885,
+    "identifier": "OPEX-885",
+    "title": "FD275278 Uninstall customer DUE DATE 2026-05-31, (Dala Energi AB)",
+    "createdAt": "2026-06-01T07:27:48.448Z",
+    "updatedAt": "2026-06-02T11:04:47.126Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "079e1abe-9710-4196-bbda-cf6c4f741476",
+      "number": 885,
+      "identifier": "OPEX-885",
+      "title": "FD275278 Uninstall customer DUE DATE 2026-05-31, (Dala Energi AB)",
+      "description": "[https://customer.intersolia.com/a/tickets/275278](<https://customer.intersolia.com/a/tickets/275278>)",
+      "createdAt": "2026-06-01T07:27:48.448Z",
+      "updatedAt": "2026-06-02T11:04:47.126Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "4b2c5da7-1cc7-4ce6-ac85-107a7d636fba",
+    "number": 884,
+    "identifier": "OPEX-884",
+    "title": "FD258526 Uninstall customer DUE DATE 2026-05-31, Visionl Kvalitetspartner",
+    "createdAt": "2026-06-01T07:27:23.526Z",
+    "updatedAt": "2026-06-02T11:18:13.093Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "4b2c5da7-1cc7-4ce6-ac85-107a7d636fba",
+      "number": 884,
+      "identifier": "OPEX-884",
+      "title": "FD258526 Uninstall customer DUE DATE 2026-05-31, Visionl Kvalitetspartner",
+      "description": "[https://customer.intersolia.com/a/tickets/258526](<https://customer.intersolia.com/a/tickets/258526>)",
+      "createdAt": "2026-06-01T07:27:23.526Z",
+      "updatedAt": "2026-06-02T11:18:13.093Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "0cbea094-86e3-42ed-b038-9ae16e696a12",
+    "number": 883,
+    "identifier": "OPEX-883",
+    "title": "FD232940 Uninstall customer DUE DATE 2026-05-31, (Safic-Alcan Nordic AB)",
+    "createdAt": "2026-06-01T07:26:50.676Z",
+    "updatedAt": "2026-06-01T09:09:13.449Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Fast",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "0cbea094-86e3-42ed-b038-9ae16e696a12",
+      "number": 883,
+      "identifier": "OPEX-883",
+      "title": "FD232940 Uninstall customer DUE DATE 2026-05-31, (Safic-Alcan Nordic AB)",
+      "description": "[https://customer.intersolia.com/a/tickets/232940](<https://customer.intersolia.com/a/tickets/232940>)",
+      "createdAt": "2026-06-01T07:26:50.676Z",
+      "updatedAt": "2026-06-01T09:09:13.449Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "f186b18f-a9fa-469c-adf1-ca488be08b57",
+        "name": "Todo - Fast",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "73c533a3-198d-4afb-903b-374bdb23922d",
+    "number": 882,
+    "identifier": "OPEX-882",
+    "title": "SyncIChemDatabases - Database status check (iChemSqlMaceNE)",
+    "createdAt": "2026-06-01T06:47:54.313Z",
+    "updatedAt": "2026-06-01T08:06:45.462Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "OwlMonitor"
+    ],
+    "_raw": {
+      "id": "73c533a3-198d-4afb-903b-374bdb23922d",
+      "number": 882,
+      "identifier": "OPEX-882",
+      "title": "SyncIChemDatabases - Database status check (iChemSqlMaceNE)",
+      "description": "Status: Critical\n\nMessage: Failure noted on one or several databases.\n\nEntityId: 3050\n\nNotes:",
+      "createdAt": "2026-06-01T06:47:54.313Z",
+      "updatedAt": "2026-06-01T08:06:45.462Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "OwlMonitor"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "ca78bfa5-219a-448d-bb8f-d48342b23122",
+    "number": 881,
+    "identifier": "OPEX-881",
+    "title": "iChemistry Data Backup (swe-hlm-vm-001)",
+    "createdAt": "2026-06-01T06:05:05.321Z",
+    "updatedAt": "2026-06-01T08:46:09.366Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "OwlMonitor"
+    ],
+    "_raw": {
+      "id": "ca78bfa5-219a-448d-bb8f-d48342b23122",
+      "number": 881,
+      "identifier": "OPEX-881",
+      "title": "iChemistry Data Backup (swe-hlm-vm-001)",
+      "description": "Status: Warning\n\nMessage: Auto-warning\n\nEntityId: 2778\n\nNotes: Scheduled task for downloading DB backups and documents",
+      "createdAt": "2026-06-01T06:05:05.321Z",
+      "updatedAt": "2026-06-01T08:46:09.366Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "OwlMonitor"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "4022da0c-e96a-45ca-adc3-853fadfc37bf",
+    "number": 880,
+    "identifier": "OPEX-880",
+    "title": "SyncIChemDatabases - Database status check (iChemSql302)",
+    "createdAt": "2026-06-01T06:05:02.500Z",
+    "updatedAt": "2026-06-01T07:13:02.765Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "OwlMonitor"
+    ],
+    "_raw": {
+      "id": "4022da0c-e96a-45ca-adc3-853fadfc37bf",
+      "number": 880,
+      "identifier": "OPEX-880",
+      "title": "SyncIChemDatabases - Database status check (iChemSql302)",
+      "description": "Status: Critical\n\nMessage: Failure noted on one or several databases.\n\nEntityId: 3120\n\nNotes: Checked by iChemistry.SyncDatabases Service",
+      "createdAt": "2026-06-01T06:05:02.500Z",
+      "updatedAt": "2026-06-01T07:13:02.765Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "OwlMonitor"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "5e975acd-d04a-4b9a-a485-5dacd0eb6ab7",
+    "number": 879,
+    "identifier": "OPEX-879",
+    "title": "SyncIChemDatabases - Database status check (iChemSqlLobotNE)",
+    "createdAt": "2026-06-01T06:04:49.251Z",
+    "updatedAt": "2026-06-01T07:37:31.357Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "OwlMonitor"
+    ],
+    "_raw": {
+      "id": "5e975acd-d04a-4b9a-a485-5dacd0eb6ab7",
+      "number": 879,
+      "identifier": "OPEX-879",
+      "title": "SyncIChemDatabases - Database status check (iChemSqlLobotNE)",
+      "description": "Status: Critical\n\nMessage: Failure noted on one or several databases.\n\nEntityId: 3207\n\nNotes: Checked by iChemistry.SyncDatabases Service",
+      "createdAt": "2026-06-01T06:04:49.251Z",
+      "updatedAt": "2026-06-01T07:37:31.357Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "OwlMonitor"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "1c28470c-673b-4643-b8f9-54ed3a18a4df",
+    "number": 878,
+    "identifier": "OPEX-878",
+    "title": "Azure Resource Inventory - June 2026",
+    "createdAt": "2026-06-01T06:04:37.103Z",
+    "updatedAt": "2026-06-01T06:11:20.548Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Auto Generated Report"
+    ],
+    "_raw": {
+      "id": "1c28470c-673b-4643-b8f9-54ed3a18a4df",
+      "number": 878,
+      "identifier": "OPEX-878",
+      "title": "Azure Resource Inventory - June 2026",
+      "description": "Hi,\n\nPlease find the Azure Resource Inventory report for June 2026 attached.\n\nThis report was generated automatically by AutoARI on 2026-06-01 06:04 UTC.\n\n* AutoARI\n\n[AutoARI_2026-06_Report_2026-06-01_06_01.xlsx](https://uploads.linear.app/d040f0e9-edba-4253-a021-5028751c4dfb/bf68c675-ec9a-4358-925d-5fb555221699/355acec1-6783-489d-a480-a4d16829f9fe)",
+      "createdAt": "2026-06-01T06:04:37.103Z",
+      "updatedAt": "2026-06-01T06:11:20.548Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Auto Generated Report"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "4f6b295e-b444-413f-bb30-4e65170cd680",
+    "number": 877,
+    "identifier": "OPEX-877",
+    "title": "FD317949 Intern symbol (G) i Chemsoft",
+    "createdAt": "2026-06-01T05:54:20.838Z",
+    "updatedAt": "2026-06-02T07:42:15.147Z",
+    "state_type": "started",
+    "state_name": "Waiting for Team",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "5a0cecc5-46cb-4a44-a27d-15268e885c27",
+    "project_name": "Chemsoft",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Bug"
+    ],
+    "_raw": {
+      "id": "4f6b295e-b444-413f-bb30-4e65170cd680",
+      "number": 877,
+      "identifier": "OPEX-877",
+      "title": "FD317949 Intern symbol (G) i Chemsoft",
+      "description": "[https://customer.intersolia.com/a/tickets/317949](<https://customer.intersolia.com/a/tickets/317949>)",
+      "createdAt": "2026-06-01T05:54:20.838Z",
+      "updatedAt": "2026-06-02T07:42:15.147Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "60c9df43-a209-4105-a732-3c98845e4c63",
+        "name": "Waiting for Team",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "5a0cecc5-46cb-4a44-a27d-15268e885c27",
+        "name": "Chemsoft"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Bug"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "16b46cf2-943d-431a-a2b6-9ab189a86b80",
+    "number": 876,
+    "identifier": "OPEX-876",
+    "title": "FD322736 SKF Uppdaterade SDB",
+    "createdAt": "2026-06-01T05:50:42.765Z",
+    "updatedAt": "2026-06-01T08:46:46.606Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "5a0cecc5-46cb-4a44-a27d-15268e885c27",
+    "project_name": "Chemsoft",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "16b46cf2-943d-431a-a2b6-9ab189a86b80",
+      "number": 876,
+      "identifier": "OPEX-876",
+      "title": "FD322736 SKF Uppdaterade SDB",
+      "description": "[https://customer.intersolia.com/a/tickets/322736](<https://customer.intersolia.com/a/tickets/322736>)",
+      "createdAt": "2026-06-01T05:50:42.765Z",
+      "updatedAt": "2026-06-01T08:46:46.606Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "5a0cecc5-46cb-4a44-a27d-15268e885c27",
+        "name": "Chemsoft"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "ee832509-40ff-40f6-a2cc-5bf3baf9c155",
+    "number": 875,
+    "identifier": "OPEX-875",
+    "title": "Tetra Pak Report(s) - May 2026",
+    "createdAt": "2026-06-01T05:07:43.061Z",
+    "updatedAt": "2026-06-01T07:36:35.153Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Auto Generated Report"
+    ],
+    "_raw": {
+      "id": "ee832509-40ff-40f6-a2cc-5bf3baf9c155",
+      "number": 875,
+      "identifier": "OPEX-875",
+      "title": "Tetra Pak Report(s) - May 2026",
+      "description": "Attached You will find Tetra Pak Report(s) for May 2026.\n\nPlease make sure any attached files are stored in the proper place and reaches its recipient(s).\n\nThis is an Automatically generated report - please contact Operations at [Operations@intersolia.com](<mailto:Operations@intersolia.com>) if there are any issues.\n\n![](cid:W8JYNGSWETU4.ZI9AUSVBOOCS@wn0xsdwk0006c2)\n\n![intersolia_email.png](https://uploads.linear.app/d040f0e9-edba-4253-a021-5028751c4dfb/02f25e8f-045b-4292-a975-e1846412c198/c4ae9ec2-4e8c-4f57-9990-11417a0b1742)\n\n[KPI Report-2026-5.xlsx](https://uploads.linear.app/d040f0e9-edba-4253-a021-5028751c4dfb/03505bab-5b2f-40f9-9c5d-da41e75b8f54/6b71718f-7e10-4da0-99db-7d5ba8b99e11)",
+      "createdAt": "2026-06-01T05:07:43.061Z",
+      "updatedAt": "2026-06-01T07:36:35.153Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Auto Generated Report"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "c8d09a11-8d0c-4518-b576-8118ef7b9360",
+    "number": 874,
+    "identifier": "OPEX-874",
+    "title": "Run Azure Resource Inventory (Auto reminder)",
+    "createdAt": "2026-06-01T00:05:24.507Z",
+    "updatedAt": "2026-06-01T06:52:13.282Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "c8d09a11-8d0c-4518-b576-8118ef7b9360",
+      "number": 874,
+      "identifier": "OPEX-874",
+      "title": "Run Azure Resource Inventory (Auto reminder)",
+      "description": "Link to original ticket: [https://intersoliaops.freshdesk.com/a/tickets/10727](<https://intersoliaops.freshdesk.com/a/tickets/10727>)",
+      "createdAt": "2026-06-01T00:05:24.507Z",
+      "updatedAt": "2026-06-01T06:52:13.282Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "1d0357be-f3f2-4129-b587-4301f7736db6",
+    "number": 873,
+    "identifier": "OPEX-873",
+    "title": "Create Tetra Pak Report(s)",
+    "createdAt": "2026-06-01T00:05:16.027Z",
+    "updatedAt": "2026-06-01T07:35:55.678Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Auto Reminder Task"
+    ],
+    "_raw": {
+      "id": "1d0357be-f3f2-4129-b587-4301f7736db6",
+      "number": 873,
+      "identifier": "OPEX-873",
+      "title": "Create Tetra Pak Report(s)",
+      "description": "* ",
+      "createdAt": "2026-06-01T00:05:16.027Z",
+      "updatedAt": "2026-06-01T07:35:55.678Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Auto Reminder Task"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "4686e5e9-9ec8-4b67-807e-54ede4378050",
+    "number": 872,
+    "identifier": "OPEX-872",
+    "title": "Install system updates (Auto reminder)",
+    "createdAt": "2026-06-01T00:00:11.922Z",
+    "updatedAt": "2026-06-02T14:30:45.038Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+    "assignee_name": "John Christoffersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine",
+      "Auto Reminder Task"
+    ],
+    "_raw": {
+      "id": "4686e5e9-9ec8-4b67-807e-54ede4378050",
+      "number": 872,
+      "identifier": "OPEX-872",
+      "title": "Install system updates (Auto reminder)",
+      "description": "Install system updates on Web servers and Linux machines.\n Find all relevant VMs with tag PatchProcedure and value Manual.",
+      "createdAt": "2026-06-01T00:00:11.922Z",
+      "updatedAt": "2026-06-02T14:30:45.038Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "ddac9b29-1318-4385-bb2e-92f8c254f573",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "56304f91-ec36-44ec-b53e-056ed5f898ab",
+        "name": "John Christoffersson",
+        "email": "john.christoffersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          },
+          {
+            "name": "Auto Reminder Task"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "00e51c3a-c853-489e-9693-0a57052bd5e7",
+    "number": 869,
+    "identifier": "OPEX-869",
+    "title": "FD 323747 - Vietnam phases update of SDS header",
+    "createdAt": "2026-05-29T11:50:59.077Z",
+    "updatedAt": "2026-06-01T09:07:22.056Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Bugs etc",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+    "project_name": "iPublisher",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Phrases"
+    ],
+    "_raw": {
+      "id": "00e51c3a-c853-489e-9693-0a57052bd5e7",
+      "number": 869,
+      "identifier": "OPEX-869",
+      "title": "FD 323747 - Vietnam phases update of SDS header",
+      "description": "[https://customer.intersolia.com/a/tickets/323747](<https://customer.intersolia.com/a/tickets/323747>)",
+      "createdAt": "2026-05-29T11:50:59.077Z",
+      "updatedAt": "2026-06-01T09:07:22.056Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "cc1c180d-62ad-40ae-8aa0-26cb5da16588",
+        "name": "Todo - Bugs etc",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": {
+        "id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+        "name": "iPublisher"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Phrases"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "cde58e61-ec55-4cd3-8525-227e1f9cc1e1",
+    "number": 867,
+    "identifier": "OPEX-867",
+    "title": "FD322168 - Flytt av SKF GmbH - 2026-06-02",
+    "createdAt": "2026-05-29T07:46:24.633Z",
+    "updatedAt": "2026-06-03T06:10:31.394Z",
+    "state_type": "started",
+    "state_name": "Waiting for external",
+    "assignee_id": "d386ff68-088f-4e7d-89c7-1fef50e18e12",
+    "assignee_name": "Kenny Lindblom",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Customer Move",
+      "Routine"
+    ],
+    "_raw": {
+      "id": "cde58e61-ec55-4cd3-8525-227e1f9cc1e1",
+      "number": 867,
+      "identifier": "OPEX-867",
+      "title": "FD322168 - Flytt av SKF GmbH - 2026-06-02",
+      "description": "[https://customer.intersolia.com/a/tickets/322168](<https://customer.intersolia.com/a/tickets/322168>)",
+      "createdAt": "2026-05-29T07:46:24.633Z",
+      "updatedAt": "2026-06-03T06:10:31.394Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "5d541530-1ad6-452d-8f99-13c12958af14",
+        "name": "Waiting for external",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "d386ff68-088f-4e7d-89c7-1fef50e18e12",
+        "name": "Kenny Lindblom",
+        "email": "kenny.lindblom@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Customer Move"
+          },
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "1dbbcf4e-f39a-426f-b6c7-e7684537717c",
+    "number": 858,
+    "identifier": "OPEX-858",
+    "title": "Toyota Material Handling Europe - SSO Implementation",
+    "createdAt": "2026-05-29T06:56:22.208Z",
+    "updatedAt": "2026-06-03T13:12:26.292Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Fast",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "5a0cecc5-46cb-4a44-a27d-15268e885c27",
+    "project_name": "Chemsoft",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine"
+    ],
+    "_raw": {
+      "id": "1dbbcf4e-f39a-426f-b6c7-e7684537717c",
+      "number": 858,
+      "identifier": "OPEX-858",
+      "title": "Toyota Material Handling Europe - SSO Implementation",
+      "description": "See attached documents and images\n\n![image.png](https://uploads.linear.app/d040f0e9-edba-4253-a021-5028751c4dfb/48628743-06bb-421e-9fa7-f307431ba07b/150a8898-95f6-48ba-9a41-b3ce89edd071)\n\n[Statement of Work - TMHE.docx](https://uploads.linear.app/d040f0e9-edba-4253-a021-5028751c4dfb/98585bb5-16ca-47f3-8b6d-073ba7f178ac/d2d7eeae-e1b7-463c-8bc0-fb9a84246b63)\n\nApplication metadata: \n\n[https://login.microsoftonline.com/c3af1697-15c2-44e3-99ae-9f34166c36fb/federationmetadata/2007-06/federationmetadata.xml?appid=4713e343-001a-4704-9465-d105036a7a2d](<https://login.microsoftonline.com/c3af1697-15c2-44e3-99ae-9f34166c36fb/federationmetadata/2007-06/federationmetadata.xml?appid=4713e343-001a-4704-9465-d105036a7a2d>)",
+      "createdAt": "2026-05-29T06:56:22.208Z",
+      "updatedAt": "2026-06-03T13:12:26.292Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "f186b18f-a9fa-469c-adf1-ca488be08b57",
+        "name": "Todo - Fast",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": {
+        "id": "5a0cecc5-46cb-4a44-a27d-15268e885c27",
+        "name": "Chemsoft"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "1222b14c-1c7f-4d0f-8750-5f5b4a95a219",
+    "number": 212,
+    "identifier": "DEV-212",
+    "title": "Add Swedish country support to DataExport API",
+    "createdAt": "2026-05-28T13:02:31.801Z",
+    "updatedAt": "2026-06-02T08:57:10.904Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "475a06a0-4337-4f6e-b5d9-be826efc1bfa",
+    "assignee_name": "Christoffer Thelenius",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [],
+    "_raw": {
+      "id": "1222b14c-1c7f-4d0f-8750-5f5b4a95a219",
+      "number": 212,
+      "identifier": "DEV-212",
+      "title": "Add Swedish country support to DataExport API",
+      "description": "Introduce a new ~~optional country query parameter~~ on the DataExport endpoints (SingleProduct, ProductsBulk, Products). When supplied as SE, the API routes responses through a new Sweden-specific code path for the affected sections; when omitted, behavior is unchanged - existing customers on the Swedish market continue to receive the current German-default output until their integrations opt in by passing the parameter. This avoids regressions for current consumers while enabling the new Swedish customer's integration.\n\nUpdate:\n\nIt has been decided that we'll implement a V2.1-branch that'll add swedish paths, with a dynamic restriction list output based on the same logic used for the overview.",
+      "createdAt": "2026-05-28T13:02:31.801Z",
+      "updatedAt": "2026-06-02T08:57:10.904Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "477b56c3-0fc5-45cf-956e-c250b32b96a7",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "475a06a0-4337-4f6e-b5d9-be826efc1bfa",
+        "name": "Christoffer Thelenius",
+        "email": "christoffer.thelenius@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "fd3ce156-be86-4cde-b97f-ea78414b605e",
+    "number": 851,
+    "identifier": "OPEX-851",
+    "title": "FD323252 - Knappen Återpublicera i RA synd trots status Signerad",
+    "createdAt": "2026-05-28T08:24:27.834Z",
+    "updatedAt": "2026-06-03T11:52:02.974Z",
+    "state_type": "started",
+    "state_name": "Waiting for Team",
+    "assignee_id": "d386ff68-088f-4e7d-89c7-1fef50e18e12",
+    "assignee_name": "Kenny Lindblom",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Bug"
+    ],
+    "_raw": {
+      "id": "fd3ce156-be86-4cde-b97f-ea78414b605e",
+      "number": 851,
+      "identifier": "OPEX-851",
+      "title": "FD323252 - Knappen Återpublicera i RA synd trots status Signerad",
+      "description": "[https://customer.intersolia.com/a/tickets/323252](<https://customer.intersolia.com/a/tickets/323252>)",
+      "createdAt": "2026-05-28T08:24:27.834Z",
+      "updatedAt": "2026-06-03T11:52:02.974Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "60c9df43-a209-4105-a732-3c98845e4c63",
+        "name": "Waiting for Team",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "d386ff68-088f-4e7d-89c7-1fef50e18e12",
+        "name": "Kenny Lindblom",
+        "email": "kenny.lindblom@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Bug"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "6452a775-70f6-4d9c-b5c1-2f166c2dcdcc",
+    "number": 847,
+    "identifier": "OPEX-847",
+    "title": "EntryTool/ListUpdater Investigation.",
+    "createdAt": "2026-05-28T06:01:02.288Z",
+    "updatedAt": "2026-06-02T14:34:54.279Z",
+    "state_type": "started",
+    "state_name": "Waiting for Team",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "6452a775-70f6-4d9c-b5c1-2f166c2dcdcc",
+      "number": 847,
+      "identifier": "OPEX-847",
+      "title": "EntryTool/ListUpdater Investigation.",
+      "description": "We have a problem related to the CPU Job and also matching against lists when a new SDS is being implemented by SDS team. Products are matched with \"new data\" from the new SDS before its published and this is a problem.\n\nWe need this behaviour to stop and investigate where it comes from so we can decide how to attack the issue\n\n[https://customer.intersolia.com/a/tickets/319505](<https://customer.intersolia.com/a/tickets/319505>)",
+      "createdAt": "2026-05-28T06:01:02.288Z",
+      "updatedAt": "2026-06-02T14:34:54.279Z",
+      "archivedAt": null,
+      "priority": 1,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "60c9df43-a209-4105-a732-3c98845e4c63",
+        "name": "Waiting for Team",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "b8d00159-49f8-4579-b71f-e4e26786d20f",
+    "number": 835,
+    "identifier": "OPEX-835",
+    "title": "FD 322868 - Rest.List Uppdatering REACH Annex XIV och REACH Annex XIV 0,1% (För trafikljus)",
+    "createdAt": "2026-05-26T12:03:17.672Z",
+    "updatedAt": "2026-06-01T08:20:38.335Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Fast",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Routine",
+      "Lists",
+      "Team effort"
+    ],
+    "_raw": {
+      "id": "b8d00159-49f8-4579-b71f-e4e26786d20f",
+      "number": 835,
+      "identifier": "OPEX-835",
+      "title": "FD 322868 - Rest.List Uppdatering REACH Annex XIV och REACH Annex XIV 0,1% (För trafikljus)",
+      "description": "[https://customer.intersolia.com/a/tickets/322868](<https://customer.intersolia.com/a/tickets/322868>)\n\nListan REACH Annex XIV uppdateras för **iChemistry, iPublisher.**\n\nOCH: \n\nListan REACH Annex XIV 0,1% (För trafikljus) **uppdateras för iChemistry.**",
+      "createdAt": "2026-05-26T12:03:17.672Z",
+      "updatedAt": "2026-06-01T08:20:38.335Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "f186b18f-a9fa-469c-adf1-ca488be08b57",
+        "name": "Todo - Fast",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Routine"
+          },
+          {
+            "name": "Lists"
+          },
+          {
+            "name": "Team effort"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "dfb6caed-b46b-449c-9327-ba55096dfd2d",
+    "number": 830,
+    "identifier": "OPEX-830",
+    "title": "FD322677 QR Access still works on inactivated departments",
+    "createdAt": "2026-05-26T06:47:34.541Z",
+    "updatedAt": "2026-06-01T13:38:52.703Z",
+    "state_type": "started",
+    "state_name": "Waiting for Team",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "89dfac53-a8c0-46e4-9620-917ce1dfb50c",
+    "project_name": "Chemsoft",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Bug"
+    ],
+    "_raw": {
+      "id": "dfb6caed-b46b-449c-9327-ba55096dfd2d",
+      "number": 830,
+      "identifier": "OPEX-830",
+      "title": "FD322677 QR Access still works on inactivated departments",
+      "description": "When department is inactivated, QR Access token remains active. We should consider if QR is automatically removed when department is archived, or disable QR token from API when/if department is inactive.",
+      "createdAt": "2026-05-26T06:47:34.541Z",
+      "updatedAt": "2026-06-01T13:38:52.703Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "60c9df43-a209-4105-a732-3c98845e4c63",
+        "name": "Waiting for Team",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "89dfac53-a8c0-46e4-9620-917ce1dfb50c",
+        "name": "Chemsoft"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Bug"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "4441e3b0-f7ac-4fb3-bc07-c5e3ce490742",
+    "number": 829,
+    "identifier": "OPEX-829",
+    "title": "FD322682 QR Access wrong departmentname",
+    "createdAt": "2026-05-26T06:42:25.310Z",
+    "updatedAt": "2026-06-01T13:40:38.912Z",
+    "state_type": "started",
+    "state_name": "Waiting for Team",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "89dfac53-a8c0-46e4-9620-917ce1dfb50c",
+    "project_name": "Chemsoft",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Bug"
+    ],
+    "_raw": {
+      "id": "4441e3b0-f7ac-4fb3-bc07-c5e3ce490742",
+      "number": 829,
+      "identifier": "OPEX-829",
+      "title": "FD322682 QR Access wrong departmentname",
+      "description": "When QR Access contains products from sub-departments, departmentname is rendered wrong in the QR Access\n\nAccording to Claude it fetches departmentname from ProductFacade (FirstOrDefault) which may show department from wrong department.",
+      "createdAt": "2026-05-26T06:42:25.310Z",
+      "updatedAt": "2026-06-01T13:40:38.912Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "60c9df43-a209-4105-a732-3c98845e4c63",
+        "name": "Waiting for Team",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "89dfac53-a8c0-46e4-9620-917ce1dfb50c",
+        "name": "Chemsoft"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Bug"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "21ea6ce5-bd1a-4958-b59b-975fbc8e58ea",
+    "number": 822,
+    "identifier": "OPEX-822",
+    "title": "Fix CPU Job issue",
+    "createdAt": "2026-05-25T13:00:41.561Z",
+    "updatedAt": "2026-06-02T14:35:50.457Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "21ea6ce5-bd1a-4958-b59b-975fbc8e58ea",
+      "number": 822,
+      "identifier": "OPEX-822",
+      "title": "Fix CPU Job issue",
+      "description": "",
+      "createdAt": "2026-05-25T13:00:41.561Z",
+      "updatedAt": "2026-06-02T14:35:50.457Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "ddac9b29-1318-4385-bb2e-92f8c254f573",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "2cda3e17-97e5-4733-9c1f-f26fd3dbd764",
+    "number": 816,
+    "identifier": "OPEX-816",
+    "title": "FD315369 - Honda Chemical Substance - Update",
+    "createdAt": "2026-05-25T08:10:05.583Z",
+    "updatedAt": "2026-06-02T12:11:18.432Z",
+    "state_type": "started",
+    "state_name": "Waiting for Team",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "2cda3e17-97e5-4733-9c1f-f26fd3dbd764",
+      "number": 816,
+      "identifier": "OPEX-816",
+      "title": "FD315369 - Honda Chemical Substance - Update",
+      "description": "[https://customer.intersolia.com/a/tickets/315369](<https://customer.intersolia.com/a/tickets/315369>)",
+      "createdAt": "2026-05-25T08:10:05.583Z",
+      "updatedAt": "2026-06-02T12:11:18.432Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "60c9df43-a209-4105-a732-3c98845e4c63",
+        "name": "Waiting for Team",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "2e53c547-2388-4e58-bba9-400f5fd4cac9",
+    "number": 815,
+    "identifier": "OPEX-815",
+    "title": "Deleting wrong links",
+    "createdAt": "2026-05-25T07:01:01.580Z",
+    "updatedAt": "2026-06-01T07:41:10.036Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "2e53c547-2388-4e58-bba9-400f5fd4cac9",
+      "number": 815,
+      "identifier": "OPEX-815",
+      "title": "Deleting wrong links",
+      "description": "This is a \"tracker\" for multiple tickets. \nTickets included in this ticket is the following: \n\n[https://customer.intersolia.com/a/tickets/321273](<https://customer.intersolia.com/a/tickets/321273>)\n[https://customer.intersolia.com/a/tickets/319697](<https://customer.intersolia.com/a/tickets/319697>)\n[https://customer.intersolia.com/a/tickets/319516](<https://customer.intersolia.com/a/tickets/319516>)\n[https://customer.intersolia.com/a/tickets/321274](<https://customer.intersolia.com/a/tickets/321274>)\n\nPlease leave a comment in every ticket when it´s done, \nThank you/ Idisen :)",
+      "createdAt": "2026-05-25T07:01:01.580Z",
+      "updatedAt": "2026-06-01T07:41:10.036Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "d392caa7-fb0c-454c-80f3-7343b317a348",
+    "number": 204,
+    "identifier": "DEV-204",
+    "title": "Chemsoft SDS - Flashpoint Intervals",
+    "createdAt": "2026-05-22T13:37:15.443Z",
+    "updatedAt": "2026-06-02T07:20:04.919Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+    "assignee_name": "Jaakko Tarhanen",
+    "project_id": "5f9b119f-aac7-4ced-82c1-23f1616d3474",
+    "project_name": "Feedback Chemwise 2026-05",
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [
+      "Improvement"
+    ],
+    "_raw": {
+      "id": "d392caa7-fb0c-454c-80f3-7343b317a348",
+      "number": 204,
+      "identifier": "DEV-204",
+      "title": "Chemsoft SDS - Flashpoint Intervals",
+      "description": "We need to make sure Flashpoint in ExportXML can support intervals.",
+      "createdAt": "2026-05-22T13:37:15.443Z",
+      "updatedAt": "2026-06-02T07:20:04.919Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "9c707ed7-3316-4d51-8b69-d39e42bfb896",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+        "name": "Jaakko Tarhanen",
+        "email": "jaakko.tarhanen@intersolia.com"
+      },
+      "project": {
+        "id": "5f9b119f-aac7-4ced-82c1-23f1616d3474",
+        "name": "Feedback Chemwise 2026-05"
+      },
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Improvement"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "90f73bfb-900c-448a-864f-e11af95cf0c0",
+    "number": 200,
+    "identifier": "DEV-200",
+    "title": "Chemsoft SDS - Updates for existing products",
+    "createdAt": "2026-05-22T13:31:09.197Z",
+    "updatedAt": "2026-06-03T12:47:23.081Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+    "assignee_name": "Jaakko Tarhanen",
+    "project_id": "5f9b119f-aac7-4ced-82c1-23f1616d3474",
+    "project_name": "Feedback Chemwise 2026-05",
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [
+      "Improvement",
+      "Backend"
+    ],
+    "_raw": {
+      "id": "90f73bfb-900c-448a-864f-e11af95cf0c0",
+      "number": 200,
+      "identifier": "DEV-200",
+      "title": "Chemsoft SDS - Updates for existing products",
+      "description": "iChemistry API currently exports SDS data (SDSCom) from MultiDB for product data for products from MultiDB_Explizit that has been added/inventoried or modified after specific date in the request.\n\nNormally Chemsoft requests products changed since 3 days before current date/time.\n\nSDSHubProductImport tool saves the result as XML file and creates new products that currently not found in Chemsoft (Chemsoft_ExplizitDB) and it compares the product by date.\n\nIf product with same SDS date already exists, it skips the product and proceeds to next product in the XML.\n\nThis is a problem when SDS admins modifies existing product (corrections or adds missing information) and these changes are not updated in Chemsoft databases.\n\nWe need to find a way around this to enable continuous updates for existing products without creating new products (versions) in Chemsoft database (only update the data for existing version) and we also need to modify stored procedure that distributes SDS data in client databases so it doesn't create duplicate product.",
+      "createdAt": "2026-05-22T13:31:09.197Z",
+      "updatedAt": "2026-06-03T12:47:23.081Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "477b56c3-0fc5-45cf-956e-c250b32b96a7",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "38694ffb-5192-49ec-889b-2611a2cb4d24",
+        "name": "Jaakko Tarhanen",
+        "email": "jaakko.tarhanen@intersolia.com"
+      },
+      "project": {
+        "id": "5f9b119f-aac7-4ced-82c1-23f1616d3474",
+        "name": "Feedback Chemwise 2026-05"
+      },
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Improvement"
+          },
+          {
+            "name": "Backend"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "589bba12-05db-4ae7-85ff-4b6e7d3153fd",
+    "number": 803,
+    "identifier": "OPEX-803",
+    "title": "Investigate CSS in dev/production",
+    "createdAt": "2026-05-22T05:56:29.412Z",
+    "updatedAt": "2026-06-02T12:18:11.344Z",
+    "state_type": "started",
+    "state_name": "Waiting for Team",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "589bba12-05db-4ae7-85ff-4b6e7d3153fd",
+      "number": 803,
+      "identifier": "OPEX-803",
+      "title": "Investigate CSS in dev/production",
+      "description": "There are some issues with the release flow of CSS in the application. Apparantly there are two separate storage accounts that uses css and its pointing to the different storage accounts in different place in production.",
+      "createdAt": "2026-05-22T05:56:29.412Z",
+      "updatedAt": "2026-06-02T12:18:11.344Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "60c9df43-a209-4105-a732-3c98845e4c63",
+        "name": "Waiting for Team",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "e6a22c9f-2ee1-4875-aa1c-362a80a4b652",
+    "number": 199,
+    "identifier": "DEV-199",
+    "title": "Add Manual Approval Gate Before Re-Enabling Servers in Load Balancer",
+    "createdAt": "2026-05-21T07:36:29.919Z",
+    "updatedAt": "2026-06-02T08:57:20.472Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "475a06a0-4337-4f6e-b5d9-be826efc1bfa",
+    "assignee_name": "Christoffer Thelenius",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [],
+    "_raw": {
+      "id": "e6a22c9f-2ee1-4875-aa1c-362a80a4b652",
+      "number": 199,
+      "identifier": "DEV-199",
+      "title": "Add Manual Approval Gate Before Re-Enabling Servers in Load Balancer",
+      "description": "~~Add a manual approval/gate in the deployment pipeline before reintroducing each server into the load balancer rotation.~~\n\n~~Customers currently notice deployments due to slow initial requests caused by JIT (Just-In-Time) compilation and application initialization after deployment. As a temporary mitigation, deployments should pause after each machine has been deployed, allowing manual verification and warm-up before traffic is routed back to the server.~~\n\nTurns out it's not possible to add gates in a rolling deployment. Testing precompilation instead. \n\nFiles to review:\n\nFile: ApplicationRequest/RequestForm.aspx\n\nDead?: Yes\n\nReplacement: ApplicationRequestForm.aspx (sibling)\n\nNotes: Controller's View(\"ApplicationRequestForm\", ...) is the live path\n\n────────────────────────────────────────\n\nFile: InventoryHistory/ShowPeriodRevisionReport.aspx\n\nDead?: Yes\n\nReplacement: Removed\n\nNotes: No replacement — feature gone; folder only has ShowYearlyReport.aspx\n\n────────────────────────────────────────\n\nFile: OrgProdListFoodProcessing/Departments.ascx + PerDepartment.ascx\n\nDead?: Yes\n\nReplacement: <cs-food-processing-report /> (Vue v3)\n\nNotes: FoodProcessingReportList.aspx now mounts the Vue component; controller still has Departments/GetDepartments\n\n```\nactions but they're never called\n```\n\n────────────────────────────────────────\n\nFile: OrgProdListLinks/Departments.ascx + PerDepartment.ascx\n\nDead?: Yes\n\nReplacement: <cs-links-report /> (Vue v3)\n\nNotes: Same pattern as FoodProcessing — LinksReportList.aspx mounts Vue, ascx flow defunct\n\n────────────────────────────────────────\n\nFile: RiskAssessmentWarning/SingleWarning.ascx\n\nDead?: Yes\n\nReplacement: Inline in Warnings.aspx\n\nNotes: Warnings render inline now; no RenderPartial call to SingleWarning anywhere\n\n────────────────────────────────────────\n\nFile: Shared/InventoryRevisionReport.ascx\n\nDead?: Yes\n\nReplacement: Removed\n\nNotes: No callers, no replacement\n\n────────────────────────────────────────\n\nFile: Shared/PersonalProtectionSymbolsBox.cshtml\n\nDead?: Yes (UI)\n\nReplacement: activity/safetySheet/PersonalProtection.vue (Vue v3)\n\nNotes: Compiled controllers reference the GetPersonalProtectionSymbols class for data, not for rendering this view.\n\n```\nRendering-side fully replaced by Vue\n```\n\n────────────────────────────────────────\n\nFile: Substitution/ShowByLists.aspx (+ .cs + .designer.cs)\n\nDead?: Yes\n\nReplacement: Removed\n\nNotes: SubstitutionController.GoToSubstitutionList() returns SubstitutionList view; ShowByLists has no live action\n\n────────────────────────────────────────\n\nFile: UserManagement/CreateUser.aspx\n\nDead?: Yes\n\nReplacement: CreateOrEditUser.aspx\n\nNotes: Controller's CreateOrEditUser(int? user_id, ...) handles both flows\n\n────────────────────────────────────────\n\nFile: UserManagement/Users.aspx\n\nDead?: Yes\n\nReplacement: UserList.aspx\n\nNotes: Controller's UserList() action; explicit reference to ../UserManagement/UserList at controller line 372",
+      "createdAt": "2026-05-21T07:36:29.919Z",
+      "updatedAt": "2026-06-02T08:57:20.472Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "9c707ed7-3316-4d51-8b69-d39e42bfb896",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "475a06a0-4337-4f6e-b5d9-be826efc1bfa",
+        "name": "Christoffer Thelenius",
+        "email": "christoffer.thelenius@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "e490deea-06fb-4fb5-9bef-2690ca4a5f7d",
+    "number": 765,
+    "identifier": "OPEX-765",
+    "title": "FD 320572 - Inventerade produkter syns ej Inventeringsmodulen",
+    "createdAt": "2026-05-18T08:49:23.201Z",
+    "updatedAt": "2026-06-01T09:02:48.039Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Bugs etc",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "e490deea-06fb-4fb5-9bef-2690ca4a5f7d",
+      "number": 765,
+      "identifier": "OPEX-765",
+      "title": "FD 320572 - Inventerade produkter syns ej Inventeringsmodulen",
+      "description": "[https://customer.intersolia.com/a/tickets/320572](<https://customer.intersolia.com/a/tickets/320572>)",
+      "createdAt": "2026-05-18T08:49:23.201Z",
+      "updatedAt": "2026-06-01T09:02:48.039Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "cc1c180d-62ad-40ae-8aa0-26cb5da16588",
+        "name": "Todo - Bugs etc",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "013ce165-cf2b-4aa0-a3b6-a4e242f049df",
+    "number": 731,
+    "identifier": "OPEX-731",
+    "title": "FD319778 - Felaktig fras i Open Access - Finska blir Estniska",
+    "createdAt": "2026-05-11T08:36:04.397Z",
+    "updatedAt": "2026-06-01T09:03:05.578Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Bugs etc",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "013ce165-cf2b-4aa0-a3b6-a4e242f049df",
+      "number": 731,
+      "identifier": "OPEX-731",
+      "title": "FD319778 - Felaktig fras i Open Access - Finska blir Estniska",
+      "description": "[https://customer.intersolia.com/a/tickets/319778](<https://customer.intersolia.com/a/tickets/319778>)",
+      "createdAt": "2026-05-11T08:36:04.397Z",
+      "updatedAt": "2026-06-01T09:03:05.578Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "cc1c180d-62ad-40ae-8aa0-26cb5da16588",
+        "name": "Todo - Bugs etc",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "08108f9e-ea83-4472-9b00-58ecbd3623f9",
+    "number": 715,
+    "identifier": "OPEX-715",
+    "title": "FD319893 EUH phreases in Ukrainian template.",
+    "createdAt": "2026-05-08T07:27:03.181Z",
+    "updatedAt": "2026-06-02T06:10:53.945Z",
+    "state_type": "unstarted",
+    "state_name": "Todo - Fast",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+    "project_name": "iPublisher",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [],
+    "_raw": {
+      "id": "08108f9e-ea83-4472-9b00-58ecbd3623f9",
+      "number": 715,
+      "identifier": "OPEX-715",
+      "title": "FD319893 EUH phreases in Ukrainian template.",
+      "description": "[https://customer.intersolia.com/a/tickets/319893](<https://customer.intersolia.com/a/tickets/319893>)",
+      "createdAt": "2026-05-08T07:27:03.181Z",
+      "updatedAt": "2026-06-02T06:10:53.945Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "f186b18f-a9fa-469c-adf1-ca488be08b57",
+        "name": "Todo - Fast",
+        "type": "unstarted"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": {
+        "id": "03999df5-8fe3-4644-b23c-f7f603ce741a",
+        "name": "iPublisher"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": []
+      }
+    }
+  },
+  {
+    "id": "ebc184ac-ce6d-41ca-8513-4c8119b2cff6",
+    "number": 152,
+    "identifier": "DEV-152",
+    "title": "Move link to OpenAccess",
+    "createdAt": "2026-03-20T12:55:59.386Z",
+    "updatedAt": "2026-06-03T12:57:04.557Z",
+    "state_type": "started",
+    "state_name": "In Review",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [
+      "Team Win"
+    ],
+    "_raw": {
+      "id": "ebc184ac-ce6d-41ca-8513-4c8119b2cff6",
+      "number": 152,
+      "identifier": "DEV-152",
+      "title": "Move link to OpenAccess",
+      "description": "Users have hard time finding OpenAccess in iChemistry. \n\nRemove link from current place \n\n![image.png](https://uploads.linear.app/d040f0e9-edba-4253-a021-5028751c4dfb/6978a3a9-7081-4d20-a994-8e3ed6134e92/ddbab5ad-5a37-4eb3-8f83-b7dec17c003f)\n\nAdd link to \"Tools\"-menu\n\n![image.png](https://uploads.linear.app/d040f0e9-edba-4253-a021-5028751c4dfb/4cb40c36-8390-4686-afe3-b68b195ceae7/92adacb9-0e99-4c3f-aea0-fcb64bf0954d)\n\nBonus step: Add link to OpenAccess amongst boxes that shows up when clicking on the Menu-button.\n\n![image.png](https://uploads.linear.app/d040f0e9-edba-4253-a021-5028751c4dfb/c00b5c30-6289-44ab-bd53-3570f6d1a3ba/4497138f-d0bf-4d24-9ea8-75c68eb5f9bf)\n\nNew boxes with new graphics.\n\n![image.png](https://uploads.linear.app/d040f0e9-edba-4253-a021-5028751c4dfb/3215a4b3-531c-4fe1-b20f-8299e814a987/f5c3b66d-41ee-4429-929d-4bfefd0dfe77)\n\nNeeded by team: \n\n* Graphic files\n* Phrases for new boxes\n\n# **Updated 2026-03-31:**\n\n\nSee prototypes: \n\n[iChemistry Web App](https://www.figma.com/proto/u1bkClU6eUTrNy6gbe94gd/iChemistry-Web-App?page-id=8250%3A119698&node-id=8252-119912&viewport=64%2C154%2C0.42&t=pS977Q0vEVNNYJyq-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=8252%3A119912)\n\n\n\n[iChemistry Web App](https://www.figma.com/design/u1bkClU6eUTrNy6gbe94gd/iChemistry-Web-App?node-id=8250-119698&t=x93s5n6ZuMhjAHR1-1)\n\n# **Acceptance criteria:** \n\n**Order of the boxes:**\n\nRow 1: Inventory, Risk assessment, Help & support\n\nRow 2: Substitution, Organisation, Open access\n\n**How the boxes shall behave:**\n\nBoxes shall be disabled (grayed out) if you do not have permission or is not included in the configuration. tooltip must explain why it is disaabled (permission or configuration).\n\n\n**Behaivior of the Menu/Login:**\n\nWhen you login, \"new welcome page is shown\".\n\nWhen you press Menu \"new welcome page is shown\".\n\n**Welcome page/ boxes:**\n\nWelcome page and boxes shall be displayed if they have both activated.\nThen tabs is needed.",
+      "createdAt": "2026-03-20T12:55:59.386Z",
+      "updatedAt": "2026-06-03T12:57:04.557Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "c811ea58-81ce-4627-9d90-f5de00f49686",
+        "name": "In Review",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Team Win"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "27241451-9733-49ea-afd3-478fea84cdac",
+    "number": 190,
+    "identifier": "OPEX-190",
+    "title": "Rest. list update Carpenter: Black",
+    "createdAt": "2026-03-10T09:43:24.661Z",
+    "updatedAt": "2026-06-01T11:32:28.393Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Lists"
+    ],
+    "_raw": {
+      "id": "27241451-9733-49ea-afd3-478fea84cdac",
+      "number": 190,
+      "identifier": "OPEX-190",
+      "title": "Rest. list update Carpenter: Black",
+      "description": "[https://customer.intersolia.com/a/tickets/302591](<https://customer.intersolia.com/a/tickets/302591>)",
+      "createdAt": "2026-03-10T09:43:24.661Z",
+      "updatedAt": "2026-06-01T11:32:28.393Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Lists"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "aa28b2a8-d61f-4604-8c3e-e997c466f4f0",
+    "number": 189,
+    "identifier": "OPEX-189",
+    "title": "Updated restriction list - PFAS",
+    "createdAt": "2026-03-10T09:42:38.614Z",
+    "updatedAt": "2026-06-01T11:32:19.535Z",
+    "state_type": "completed",
+    "state_name": "Done",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": null,
+    "project_name": null,
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Lists"
+    ],
+    "_raw": {
+      "id": "aa28b2a8-d61f-4604-8c3e-e997c466f4f0",
+      "number": 189,
+      "identifier": "OPEX-189",
+      "title": "Updated restriction list - PFAS",
+      "description": "[https://customer.intersolia.com/a/tickets/306903](<https://customer.intersolia.com/a/tickets/306903>)",
+      "createdAt": "2026-03-10T09:42:38.614Z",
+      "updatedAt": "2026-06-01T11:32:19.535Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "e596db9c-febc-4b66-a598-d2501dca4723",
+        "name": "Done",
+        "type": "completed"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": null,
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Lists"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "e0a2cac9-d316-45fc-8b71-955bd5198ffe",
+    "number": 117,
+    "identifier": "OPEX-117",
+    "title": "Ej riskbedömda produkter, gruppriskbedömning som inte känner när en produkt är borttagen",
+    "createdAt": "2026-03-03T08:24:41.216Z",
+    "updatedAt": "2026-06-03T11:57:05.429Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "d386ff68-088f-4e7d-89c7-1fef50e18e12",
+    "assignee_name": "Kenny Lindblom",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Recurring Issue",
+      "Bug",
+      "Risk Assessment"
+    ],
+    "_raw": {
+      "id": "e0a2cac9-d316-45fc-8b71-955bd5198ffe",
+      "number": 117,
+      "identifier": "OPEX-117",
+      "title": "Ej riskbedömda produkter, gruppriskbedömning som inte känner när en produkt är borttagen",
+      "description": "[https://customer.intersolia.com/a/tickets/305794](<https://customer.intersolia.com/a/tickets/305794>)",
+      "createdAt": "2026-03-03T08:24:41.216Z",
+      "updatedAt": "2026-06-03T11:57:05.429Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "ddac9b29-1318-4385-bb2e-92f8c254f573",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "d386ff68-088f-4e7d-89c7-1fef50e18e12",
+        "name": "Kenny Lindblom",
+        "email": "kenny.lindblom@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Recurring Issue"
+          },
+          {
+            "name": "Bug"
+          },
+          {
+            "name": "Risk Assessment"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "3307cd2b-fcc0-454e-9d53-8bdf41f0583f",
+    "number": 345,
+    "identifier": "OPEX-345",
+    "title": "FD297887 - Department resets to company level and save freezes when editing safety sheet on existing activity",
+    "createdAt": "2026-02-16T12:58:57.784Z",
+    "updatedAt": "2026-06-02T13:55:18.364Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "8e68beac-3460-431b-967d-a038c1667bf3",
+    "assignee_name": "Anton Larsson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Bug"
+    ],
+    "_raw": {
+      "id": "3307cd2b-fcc0-454e-9d53-8bdf41f0583f",
+      "number": 345,
+      "identifier": "OPEX-345",
+      "title": "FD297887 - Department resets to company level and save freezes when editing safety sheet on existing activity",
+      "description": "Customer reports that when editing the safety sheet for an existing activity in iChemistry, the department is automatically changed from the activity’s assigned department to the root company level.\n\nSteps to reproduce:\n\n1. Open an existing activity linked to a specific department (e.g. *Förrådet/SÄK 2555-Snickarverkstad*).\n2. Click **Edit**.\n3. Click **Done** without making changes to the risk assessment → department remains correct.\n4. Navigate to the **Safety Sheet editor** tab **(Requires setting SafetySheetEditorFromRA = 1)**.\n5. Observe that the department is automatically changed to the company root (e.g. *Hylte Paper AB*) instead of the activity department.\n6. Attempt to manually remove the company and re-select the correct department.\n7. Click **Save** → application freezes and cannot complete the save operation.\n\nAdditional observations:\n\n* The issue does not occur on all activities/products.\n* Customer suspects correlation with activities where a previous administrator edited but did not sign the safety sheet.",
+      "createdAt": "2026-02-16T12:58:57.784Z",
+      "updatedAt": "2026-06-02T13:55:18.364Z",
+      "archivedAt": null,
+      "priority": 3,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "ddac9b29-1318-4385-bb2e-92f8c254f573",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8e68beac-3460-431b-967d-a038c1667bf3",
+        "name": "Anton Larsson",
+        "email": "anton.larsson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Bug"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "06d1b066-c5bb-4d55-9056-aef450d23f16",
+    "number": 122,
+    "identifier": "DEV-122",
+    "title": "FD247417 - Searching all departments does not work",
+    "createdAt": "2026-02-03T12:19:19.894Z",
+    "updatedAt": "2026-06-01T09:04:30.979Z",
+    "state_type": "unstarted",
+    "state_name": "Available",
+    "assignee_id": null,
+    "assignee_name": null,
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "2e710889-e8ad-428b-9601-24075bc59127",
+    "team_name": "Development",
+    "labels": [
+      "Improvement"
+    ],
+    "_raw": {
+      "id": "06d1b066-c5bb-4d55-9056-aef450d23f16",
+      "number": 122,
+      "identifier": "DEV-122",
+      "title": "FD247417 - Searching all departments does not work",
+      "description": "Checking All Departments when searching in the sidebar still only searches the selected department\n\n[\\[#247417\\] Change of logic in TFS @58922 results in no or less results for users in upper right search field. @60223 : Customer Service](<https://intersolia.freshdesk.com/a/tickets/247417>)",
+      "createdAt": "2026-02-03T12:19:19.894Z",
+      "updatedAt": "2026-06-01T09:04:30.979Z",
+      "archivedAt": null,
+      "priority": 0,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "db1f6e0d-5b4c-4ba6-a1bd-e9bb44d13763",
+        "name": "Available",
+        "type": "unstarted"
+      },
+      "assignee": null,
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "2e710889-e8ad-428b-9601-24075bc59127",
+        "name": "Development"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Improvement"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "a5bc213f-0b08-4533-b04e-eb97aaeeefe1",
+    "number": 22,
+    "identifier": "OPEX-22",
+    "title": "FD293901: Solve root cause of restriction list data missing for random products for multiple customers",
+    "createdAt": "2025-12-19T15:17:41.108Z",
+    "updatedAt": "2026-06-02T14:35:50.665Z",
+    "state_type": "started",
+    "state_name": "In Progress",
+    "assignee_id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+    "assignee_name": "Niklas Andersson",
+    "project_id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+    "project_name": "iChemistry",
+    "team_id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+    "team_name": "Operational",
+    "labels": [
+      "Bug",
+      "Recurring Issue"
+    ],
+    "_raw": {
+      "id": "a5bc213f-0b08-4533-b04e-eb97aaeeefe1",
+      "number": 22,
+      "identifier": "OPEX-22",
+      "title": "FD293901: Solve root cause of restriction list data missing for random products for multiple customers",
+      "description": "I've confirmed repeated incorrect states of restriction list / substance data issues. Can we monitor how common this is and make changes to CPU to cover these scenarios so that our data self-heals? Use monitoring of the issues to see that changes we make has an impact.\n\nFacts known:\n\nIt's common that data related to why a product is on list is missing in customer systems. (references to substances)\n\nI've seen two variations of incorrect states for this, one where the product still have references to old version of substances in the product data, but restriction list data is updated and referring to the new substances.\n\nIn the other case data is missing but for correct substances.\n\nThere's a known issue for the case where the customer uses product application and picks a product from the global database, let's see that as a separate issue. This task is about the cases where the customer have the product active in inventory.\n\nScenario 1:\n\n```sql\n-- Here's a query to detect one of the cases. Would be good to monitor all customer systems for this issue:\nselect top 10000 prod.ArtNo, prod.ModifiedDate, mainprod.ModifiedDate, *\nfrom GetInventory(0, 10) inv\njoin tblMainRegArticle prod\non inv.AttID = prod.ID and inv.AttID_mdbID = prod.ID_mdbID\nleft join MultiDB..localMainRegArticle mainprod\non prod.ID = mainprod.ID and prod.ID_mdbID = mainprod.ID_mdbID\nwhere exists (\n\tselect *\n\tfrom MultiDB..localDocLnkCAS multi\n\twhere multi.AttID = prod.ID and multi.AttID_mdbID = prod.ID_mdbID\n\tand not exists (\n\t\tselect *\n\t\tfrom tblDocLnkCAS localsubst\n\t\twhere localsubst.AttID = multi.AttID and localsubst.AttID_mdbID = multi.AttID_mdbID\n\t\tand localsubst.CASAttID = multi.CASAttID and localsubst.CASAttID_mdbID = multi.CASAttID_mdbID\n\t)\n)\nand not mainprod.ModifiedDate > prod.ModifiedDate -- try to exclude products that recently have been updated by SDS team and not updated locally yet.\n```\n\nScenario 2:\n\n```\n-- Here's a query to detect one of the cases. Would be good to monitor all customer systems for this issue:\nselect top 10000 prod.ArtNo, prod.ModifiedDate, mainprod.ModifiedDate, *\nfrom GetInventory(0, 10) inv\njoin tblMainRegArticle prod\non inv.AttID = prod.ID and inv.AttID_mdbID = prod.ID_mdbID\nleft join MultiDB..localMainRegArticle mainprod\non prod.ID = mainprod.ID and prod.ID_mdbID = mainprod.ID_mdbID\nwhere exists (\n\tselect *\n\tfrom MultiDB..localMainLnkLists l\n\twhere l.AttID = prod.ID and l.AttID_mdbID = prod.ID_mdbID\n\tand not exists (\n\t\tselect *\n\t\tfrom tblMainLnkLists locall\n\t\twhere locall.AttID = l.AttID and locall.AttID_mdbID = l.AttID_mdbID\n\t\tand locall.ListID = l.ListID and locall.ListID_mdbID = l.ListID_mdbID\n\t)\n)\nand not mainprod.ModifiedDate > prod.ModifiedDate -- try to exclude products that recently have been updated by SDS team and not updated locally yet.\n```\n\nIf needed we can discuss strategies for monitor + making tweaks/fixes and follow impact on the fixes.\n\nPS. It might be worth it to take a look at the timing of SDS Tools and CPU to make sure we don't have an issue if SDS team makes more than one change within a CPU cycle.",
+      "createdAt": "2025-12-19T15:17:41.108Z",
+      "updatedAt": "2026-06-02T14:35:50.665Z",
+      "archivedAt": null,
+      "priority": 2,
+      "estimate": null,
+      "trashed": null,
+      "state": {
+        "id": "ddac9b29-1318-4385-bb2e-92f8c254f573",
+        "name": "In Progress",
+        "type": "started"
+      },
+      "assignee": {
+        "id": "8f2e1450-bbea-459e-858e-d1d865e8f4e3",
+        "name": "Niklas Andersson",
+        "email": "niklas.andersson@intersolia.com"
+      },
+      "project": {
+        "id": "e9a4edcc-c562-4b25-97c0-a64beb40441b",
+        "name": "iChemistry"
+      },
+      "team": {
+        "id": "f355d2e6-ba8a-4dee-bb03-cbf3095e8d05",
+        "name": "Operational"
+      },
+      "labels": {
+        "nodes": [
+          {
+            "name": "Bug"
+          },
+          {
+            "name": "Recurring Issue"
+          }
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "ts": "20260604T075839Z",
+  "total_tickets": 5091,
+  "pages": 51,
+  "script_version": "1.0",
+  "page_size": 100,
+  "include_fields": "requester,company,stats,description",
+  "updated_since": null,
+  "domain": "intersolia"
+}
