@@ -135,3 +135,101 @@ Created `bronze_loader.py` to automate incremental loading from JSON files to SQ
 - `pyodbc` with ODBC Driver 17 for SQL Server
 
 First successful run: backfill files already in `import_log` (loaded manually earlier) were skipped; snapshot files loaded incrementally.
+
+---
+
+**Silver layer design — Freshdesk**
+
+Decided on a minimal silver schema for `silver.freshdesk_tickets`. Rationale: the dashboard needs ticket volume and status reporting only — no subject, no priority, no SLA fields.
+
+Fields kept: `id`, `status` (raw code), `created_at` (DATE), `updated_at` (DATE), `product_id`, `denied_triage`.
+
+Fields dropped from bronze: `subject`, `priority`, `due_by`, `group_id`. None of these are needed for the planned reporting views.
+
+Status codes relevant for reporting:
+
+| Code | Meaning |
+|---|---|
+| 17 | Waiting for triage (support sets this) |
+| 6, 7, 12 | Passed triage (OPEX meeting decision) |
+| 2, 3, 4, 5 | Open, Pending, Resolved, Closed |
+
+**Denied triage detection**
+
+No dedicated status code exists in Freshdesk for "denied triage". Instead, the flag is derived from the bronze append-history: a ticket is `denied_triage = 1` if it has at least one row with status 6/7/12 at time T1 AND a later row with status 17 at T2 > T1. ISO 8601 UTC strings compare correctly lexicographically, so no date conversion is needed for the comparison. The flag is permanent — once set it is not cleared if the ticket changes status again, because the regression actually occurred.
+
+**Silver load strategy: TRUNCATE + full rebuild**
+
+The silver script (`sql/05_silver_load_freshdesk.sql`) truncates the table and rebuilds it entirely on every run, inside a transaction (rolls back on error). This is simpler and more correct than incremental upserts, because denied_triage depends on the full history and cannot be determined row-by-row. Acceptable at current data volumes.
+
+**SQL files created:**
+- `sql/04_silver_create_tables_freshdesk.sql` — CREATE TABLE with IF NOT EXISTS guard
+- `sql/05_silver_load_freshdesk.sql` — TRUNCATE + full rebuild, with group filter, deduplication, date conversion, and denied_triage CTE
+
+---
+
+**Silver layer revision — statusövergångsdatum tillagda**
+
+The initial silver design stored only the current status per ticket (one row, latest state). This was sufficient for snapshot-style reporting ("how many tickets are currently in waiting?") but not for period-based reporting ("how many tickets entered triage this week?").
+
+Decision: add three date columns derived from the full bronze append-history, alongside the existing `denied_triage` BIT flag:
+
+| Column | Meaning |
+|---|---|
+| `first_waiting_at` | Earliest `updated_at` in bronze where status=17 — proxy for when ticket entered the triage queue |
+| `first_passed_at` | Earliest `updated_at` in bronze where status IN (6,7,12) — proxy for the OPEX decision date |
+| `denied_triage_at` | Earliest `updated_at` of a status=17 row that follows a status IN (6,7,12) row — the regression date |
+
+These are approximations, not exact Freshdesk event timestamps. Because snapshots are nightly, the dates are accurate to ±1 day. This is sufficient for weekly/monthly period reporting in Power BI.
+
+`denied_triage` (BIT) is kept alongside `denied_triage_at` for simple filtering in Power BI without needing a NULL check.
+
+Both SQL files updated to include the new columns and the corresponding CTEs in the load script.
+
+---
+
+**Silver layer — Linear**
+
+Created `silver.linear_issues` following the same TRUNCATE + full rebuild pattern as Freshdesk silver.
+
+Key design decisions:
+
+**Filter:** Exclude issues where BOTH `identifier LIKE 'DEV%'` AND `team_name = 'Development'`. Both conditions must be true — an AND filter, not OR. This avoids accidentally excluding edge-case issues that share a prefix but belong to another team.
+
+**Field selection:** Minimal — only what's needed for flow analysis and reporting. Dropped: `identifier`, `number`, `title`, `description`, all `*_id` fields, `team_*`, `parent_*`, `cycle_*`, `archived_at`, `due_date`, `estimate`. Kept `trashed` for potential analysis.
+
+**Three key dates for flow analysis:**
+- `created_at` — issue created (unstarted)
+- `started_at` — work begun / assigned (Linear's `startedAt` field)
+- `closed_at` — COALESCE(completed_at, canceled_at) — covers completed + cancelled + duplicate
+
+Linear has proper timestamp fields for these events (unlike Freshdesk where we inferred from the append-history). No history CTEs needed.
+
+**completed_at vs closed_at:** Both are kept in silver. `completed_at` is Linear's own field, set only for "completed"-type states. `closed_at` is the derived field that covers all done states. Gold layer will decide which to expose to Power BI.
+
+**backlog vs unstarted:** Both `state_type` values appear in Linear data. Treated as equivalent for now — will be resolved in the gold layer.
+
+**is_incident flag:** Derived from `labels LIKE '%incident%'`. The CI collation (SQL_Latin1_General_CP1_CI_AS) makes this case-insensitive, handling "Incident", "incident", "INCIDENT" etc. NULL labels safely evaluate to 0.
+
+**SQL files created:**
+- `sql/06_silver_create_tables_linear.sql` — CREATE TABLE with IF NOT EXISTS guard
+- `sql/07_silver_load_linear.sql` — TRUNCATE + full rebuild
+
+---
+
+**Morning refresh procedure (local, manual)**
+
+GitHub Actions commits new snapshot JSON files to the repo every night. The full sequence to bring the local SQL Server database up to date each morning is:
+
+1. `git pull` — fetch the new files from the repo
+2. `python script/bronze_loader.py` — incremental load of new/updated records into bronze
+3. Run silver scripts in SSMS (or via `sqlcmd`) — rebuild silver from bronze
+
+Steps must run in this order. Skipping step 1–2 means silver is rebuilt from yesterday's bronze data.
+
+`sqlcmd` command for step 3 (no SSMS required):
+```
+sqlcmd -S localhost -d OPEX_statistics -E -i "sql\05_silver_load_freshdesk.sql"
+```
+
+A `script/morning_refresh.ps1` automation script is planned for when both silver layers (Freshdesk + Linear) and the gold layer are complete. For production deployment, SQL Server Agent or SSIS will replace the manual process.
