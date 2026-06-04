@@ -53,7 +53,7 @@ PAGE_SIZE      = 100
 MAX_PAGES      = 300          # Freshdesks hårdgräns: 300 × 100 = 30 000 tickets
 MAX_RETRIES    = 5
 RETRY_BACKOFF  = 2
-RETENTION_DAYS = 30
+RETENTION_DAYS = 90
 USER_AGENT     = "puttaren-agent/1.0"
 SCRIPT_VERSION = "2.1"
 

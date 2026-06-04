@@ -41,7 +41,7 @@ LINEAR_API_URL = "https://api.linear.app/graphql"
 PAGE_SIZE = 100
 MAX_RETRIES = 5
 RETRY_BACKOFF = 2        # sekunder, bas för exponentiell backoff
-RETENTION_DAYS = 30
+RETENTION_DAYS = 90
 USER_AGENT = "puttaren-agent/1.0"
 SCRIPT_VERSION = "2.0"
 
