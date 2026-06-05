@@ -23,7 +23,7 @@
 --   2, 3, 4, 5 = Open, Pending, Resolved, Closed
 -- ============================================================
 
-USE OPEX_statistics;
+USE InternalStatistics;
 GO
 
 BEGIN TRANSACTION;

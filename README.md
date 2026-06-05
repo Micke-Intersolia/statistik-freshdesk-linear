@@ -38,7 +38,7 @@ Nightly Python scripts pull data directly from the Freshdesk and Linear APIs and
 
 **Freshdesk fields captured:** `id`, `subject`, `status`, `priority`, `created_at`, `updated_at`, `due_by`, `group_id`, `product_id`
 
-**SQL Server database:** `OPEX_statistics` — schemas `bronze`, `silver`, `gold`. Tables: `bronze.freshdesk_tickets`, `bronze.linear_issues`, `bronze.import_log`.
+**SQL Server database:** `InternalStatistics` on `INTSQLSERVER01` (SQL Server 2022) — schemas `bronze`, `silver`, `gold`. Tables: `bronze.freshdesk_tickets`, `bronze.linear_issues`, `bronze.import_log`. Connection string in `credentials/sql_connection.txt` (git-ignored).
 
 **Loader logic:**
 - Backfill files: full load, runs once (guarded by `import_log`)
@@ -234,8 +234,8 @@ git pull
 python script/bronze_loader.py
 
 # 3. Rebuild silver from bronze (run in SSMS or via sqlcmd)
-sqlcmd -S localhost -d OPEX_statistics -E -i "sql\05_silver_load_freshdesk.sql"
-sqlcmd -S localhost -d OPEX_statistics -E -i "sql\07_silver_load_linear.sql"
+sqlcmd -S INTSQLSERVER01 -d InternalStatistics -U dittanvändarnamn -P dittlösenord -i "sql\05_silver_load_freshdesk.sql"
+sqlcmd -S INTSQLSERVER01 -d InternalStatistics -U dittanvändarnamn -P dittlösenord -i "sql\07_silver_load_linear.sql"
 ```
 
 > **Note:** Step 3 will expand as the silver and gold layers grow. A `script/morning_refresh.ps1` automation script is planned for when all layers are complete. For production use, SQL Server Agent or SSIS will replace this manual process.

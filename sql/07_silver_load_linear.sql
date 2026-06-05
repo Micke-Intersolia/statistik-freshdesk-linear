@@ -16,7 +16,7 @@
 --   6. Beräknar is_incident från labels-strängen
 -- ============================================================
 
-USE OPEX_statistics;
+USE InternalStatistics;
 GO
 
 BEGIN TRANSACTION;

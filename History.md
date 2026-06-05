@@ -106,7 +106,7 @@ Both scripts updated from `RETENTION_DAYS = 30` to `RETENTION_DAYS = 90`. Reason
 
 ---
 
-**SQL Server bronze layer — `OPEX_statistics`**
+**SQL Server bronze layer — `OPEX_statistics` (localhost)**
 
 Set up SQL Server 2022 Developer Edition locally. Database `OPEX_statistics` created with three schemas: `bronze`, `silver`, `gold`.
 
@@ -233,3 +233,24 @@ sqlcmd -S localhost -d OPEX_statistics -E -i "sql\05_silver_load_freshdesk.sql"
 ```
 
 A `script/morning_refresh.ps1` automation script is planned for when both silver layers (Freshdesk + Linear) and the gold layer are complete. For production deployment, SQL Server Agent or SSIS will replace the manual process.
+
+---
+
+## 2026-06-05
+
+**Migration till produktionsserver — `InternalStatistics` på `INTSQLSERVER01`**
+
+IT skapade databasen `InternalStatistics` på `INTSQLSERVER01` (SQL Server 2022). Schemas `bronze`, `silver`, `gold` skapades manuellt. Alla SQL-skript uppdaterades från `USE OPEX_statistics` till `USE InternalStatistics`.
+
+Serverinställningar:
+- Kollation: `Latin1_General_100_CI_AS` — CI (case-insensitive), kompatibel med alla LIKE-filter i silver
+- Data och logg på separata diskar (`F:\data\` och `F:\log\`) — IT:s standarduppsättning
+- Autogrow: 64 MB fast (inte procent) — korrekt inställt av IT
+- Recovery model: Full — acceptabelt, IT hanterar loggbackuper på servernivå
+- Max storlek: Unlimited (data), 2 TB (logg)
+
+Autentisering: SQL Server Authentication. Connection string lagras i `credentials/sql_connection.txt` (git-ignorerad). Ingen GitHub Secret behövs ännu eftersom `bronze_loader.py` körs lokalt — om GitHub Actions-automation av bronze-laddning implementeras i framtiden läggs `SQL_CONNECTION_STRING` till som repository secret.
+
+Localhost-databasen `OPEX_statistics` finns kvar som lokal test/dev-miljö.
+
+Datamigrering: alla SQL-skript (01–07) kördes mot den nya servern. `bronze_loader.py` laddade alla JSON-filer från `raw/` inkrementellt. Silver rebuildes från brons med script 05 och 07.

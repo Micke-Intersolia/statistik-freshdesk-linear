@@ -1,6 +1,6 @@
 -- ============================================================
 -- 06_silver_create_tables_linear.sql
--- Skapar silver.linear_issues i OPEX_statistics.
+-- Skapar silver.linear_issues i InternalStatistics.
 --
 -- Kör en gång vid setup. Säker att köra om — IF NOT EXISTS-
 -- skyddet gör att befintlig tabell inte påverkas.
@@ -29,7 +29,7 @@
 --   (backlog och unstarted är sannolikt ekvivalenta — utreds i gold)
 -- ============================================================
 
-USE OPEX_statistics;
+USE InternalStatistics;
 GO
 
 IF NOT EXISTS (

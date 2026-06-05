@@ -1,6 +1,6 @@
 -- ============================================================
 -- 04_silver_create_tables_freshdesk.sql
--- Skapar silver.freshdesk_tickets i OPEX_statistics.
+-- Skapar silver.freshdesk_tickets i InternalStatistics.
 --
 -- Kör en gång vid setup. Säker att köra om — IF NOT EXISTS-
 -- skyddet gör att befintlig tabell inte påverkas.
@@ -25,7 +25,7 @@
 --   2, 3, 4, 5 = Open, Pending, Resolved, Closed
 -- ============================================================
 
-USE OPEX_statistics;
+USE InternalStatistics;
 GO
 
 IF NOT EXISTS (

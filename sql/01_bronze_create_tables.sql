@@ -1,6 +1,6 @@
 -- ============================================================
 -- 01_bronze_create_tables.sql
--- Creates the three bronze-layer tables in OPEX_statistics.
+-- Creates the three bronze-layer tables in InternalStatistics.
 --
 -- Run this once when setting up the database on a new server.
 -- It will fail gracefully if the tables already exist (due to
@@ -25,7 +25,7 @@
 --                  Swedish characters (å, ä, ö) and any other Unicode content.
 -- ============================================================
 
-USE OPEX_statistics;
+USE InternalStatistics;
 GO
 
 

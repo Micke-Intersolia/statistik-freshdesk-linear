@@ -11,8 +11,10 @@ Keep it up to date as the project evolves.
 A Bronze → Silver → Gold data pipeline for Power BI reporting at Intersolia.
 - **Sources:** Freshdesk (support tickets) + Linear (product issues)
 - **Pipeline:** GitHub Actions → raw JSON → SQL Server → Power BI
-- **Database:** `OPEX_statistics` on localhost (SQL Server 2022 Developer)
+- **Database:** `InternalStatistics` on `INTSQLSERVER01` (SQL Server 2022)
 - **Schemas:** `bronze`, `silver`, `gold`
+- **Auth:** SQL Server Authentication — connection string in `credentials/sql_connection.txt`
+- **Localhost:** `OPEX_statistics` on localhost still exists as dev/test environment
 
 Full architecture in README.md. Full decision history in History.md.
 
@@ -127,8 +129,8 @@ Filter: NOT (identifier LIKE 'DEV%' AND team_name = 'Development') — AND, not 
 ```powershell
 git pull
 python script/bronze_loader.py
-sqlcmd -S localhost -d OPEX_statistics -E -i "sql\05_silver_load_freshdesk.sql"
-sqlcmd -S localhost -d OPEX_statistics -E -i "sql\07_silver_load_linear.sql"
+sqlcmd -S INTSQLSERVER01 -d InternalStatistics -U dittanvändarnamn -P dittlösenord -i "sql\05_silver_load_freshdesk.sql"
+sqlcmd -S INTSQLSERVER01 -d InternalStatistics -U dittanvändarnamn -P dittlösenord -i "sql\07_silver_load_linear.sql"
 ```
 
 A `script/morning_refresh.ps1` will be created when all layers are complete.

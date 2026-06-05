@@ -24,7 +24,7 @@
 --   execute it with sp_executesql.
 -- ============================================================
 
-USE OPEX_statistics;
+USE InternalStatistics;
 GO
 
 -- ── Step 1: Set these two values before running ──────────────

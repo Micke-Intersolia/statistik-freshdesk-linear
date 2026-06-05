@@ -20,7 +20,7 @@
 --   using a correlated subquery with STRING_AGG.
 -- ============================================================
 
-USE OPEX_statistics;
+USE InternalStatistics;
 GO
 
 -- ── Step 1: Set these two values before running ──────────────
