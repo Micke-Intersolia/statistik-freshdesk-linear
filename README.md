@@ -121,35 +121,56 @@ Fields dropped from bronze: `identifier`, `number`, `title`, `description`, `sta
 
 ---
 
-### 🟡 Gold Layer — Star Schema _(planned)_
+### 🟡 Gold Layer — Star Schema ✅ Complete
 
-The gold layer reshapes the silver tables into a star schema optimised for Power BI. Aggregated and pre-joined — query performance in the dashboard does not depend on the source table structure.
+The gold layer is optimised for Power BI consumption. `dim_date` is a real table; the fact tables are SQL views over silver — always current, no rebuild step needed.
 
-**Freshdesk fact table:** one row per ticket, with foreign keys to all dimensions  
-**Linear fact table:** one row per issue, with foreign keys to all dimensions  
-**Shared date dimension:** covers the full reporting range, one row per day
+**`gold.DimDate` ✅ Complete** — one row per day, 2025-01-01 to 2035-12-31.
+
+> **Note for future maintainers:** The date range is hard-coded to 2035-12-31. To extend it, update `'2035-12-31'` in `sql/08_gold_dim_date.sql`, add Easter dates for the new years to the `easter` CTE, and re-run the script. Next Easter dates: 2036-04-13, 2037-04-05, 2038-04-25, 2039-04-10, 2040-04-01.
+
+| Column | Notes |
+|---|---|
+| `date_key` | DATE — primary key, join target for fact views |
+| `year`, `quarter_num/name` | Standard calendar grouping |
+| `month_num`, `month_name`, `month_short` | English names (explicit mapping, language-independent) |
+| `month_sort` | INT (YYYYMM) — use as sort key in Power BI so months sort Jan→Dec |
+| `iso_week`, `year_week` | ISO week number + `'YYYY-WNN'` string — sorts correctly as text |
+| `day_of_week_num`, `day_name`, `day_short` | ISO: 1=Monday … 7=Sunday |
+| `is_weekend` | Saturday or Sunday |
+| `is_public_holiday` | Swedish public holidays (röda dagar) only. Christmas Eve, Midsummer Eve and New Year's Eve are **not** official red days and are not flagged. |
+| `is_working_day` | NOT weekend AND NOT public holiday |
+| `working_days_in_week` | Working days in this ISO week (0–5). Weeks with a holiday show 4 or less — useful for normalising weekly ticket volumes. |
+
+**Object naming in gold:** PascalCase — `DimDate`, `FactFreshdesk`, `FactLinear`. Standard data warehouse convention; Power BI shows table names directly in the report tool.
+
+**No separate dimension tables** for status, priority, or state — labels are computed columns embedded directly in the fact views. The Power BI model is intentionally flat:
 
 ```
-                    ┌─────────────┐
-                    │  dim_date   │
-                    └──────┬──────┘
-┌──────────────┐           │           ┌──────────────────┐
-│  dim_group   ├───────────┤           │  dim_status      │
-└──────────────┘           │           └──────────────────┘
-                    ┌──────┴──────┐
-┌──────────────┐    │fact_tickets │    ┌──────────────────┐
-│  dim_product ├────┤  (FD)       ├────┤  dim_priority    │
-└──────────────┘    └─────────────┘    └──────────────────┘
-
-                    ┌─────────────┐
-┌──────────────┐    │ fact_issues │    ┌──────────────────┐
-│  dim_team    ├────┤  (Linear)   ├────┤  dim_state       │
-└──────────────┘    └──────┬──────┘    └──────────────────┘
-                           │
-                    ┌──────┴──────┐
-                    │ dim_assignee│
-                    └─────────────┘
+                         ┌──────────┐
+                         │ DimDate  │
+                         └────┬─────┘
+              ┌───────────────┴──────────────┐
+              │                              │
+     ┌────────┴────────┐           ┌─────────┴───────┐
+     │  FactFreshdesk  │           │   FactLinear    │
+     │  (view)         │           │   (view)        │
+     │                 │           │                 │
+     │ status_label    │           │ state_label     │
+     │ triage_status   │           │ priority        │
+     │ product_id      │           │ assignee_name   │
+     │ denied_triage   │           │ project_name    │
+     │ first_waiting.. │           │ days_to_start   │
+     │ first_passed..  │           │ days_to_close   │
+     │                 │           │ is_incident     │
+     └─────────────────┘           └─────────────────┘
 ```
+
+DimDate connects to both fact views on `date_key = created_at` (and optionally on other date columns such as `first_passed_at` or `closed_at` for additional role-playing date relationships in Power BI).
+
+**`gold.FactFreshdesk` ✅ Complete** — view over `silver.freshdesk_tickets`. Adds `status_label` (human-readable status name), `triage_status` ('Waiting' / 'Passed' / 'Denied' / 'Other' — main slicer for OPEX triage reporting).
+
+**`gold.FactLinear` ✅ Complete** — view over `silver.linear_issues`. Adds `state_label` (collapses `backlog`/`unstarted` → 'Backlog / Unstarted'), `priority_label`, `days_to_start`, `days_to_close`, `age_days` (open issues only).
 
 ---
 
@@ -195,7 +216,9 @@ Two report sections fed from the gold layer:
 │   ├── 04_silver_create_tables_freshdesk.sql # CREATE TABLE for silver.freshdesk_tickets
 │   ├── 05_silver_load_freshdesk.sql          # TRUNCATE + rebuild silver.freshdesk_tickets
 │   ├── 06_silver_create_tables_linear.sql    # CREATE TABLE for silver.linear_issues
-│   └── 07_silver_load_linear.sql             # TRUNCATE + rebuild silver.linear_issues
+│   ├── 07_silver_load_linear.sql             # TRUNCATE + rebuild silver.linear_issues
+│   ├── 08_gold_dim_date.sql                  # CREATE + populate gold.DimDate
+│   └── 09_gold_create_views.sql              # CREATE OR ALTER VIEW for gold.FactFreshdesk and gold.FactLinear
 ├── History.md                      # Project logbook
 └── README.md                       # This file
 ```

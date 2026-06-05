@@ -254,3 +254,47 @@ Autentisering: SQL Server Authentication. Connection string lagras i `credential
 Localhost-databasen `OPEX_statistics` finns kvar som lokal test/dev-miljö.
 
 Datamigrering: alla SQL-skript (01–07) kördes mot den nya servern. `bronze_loader.py` laddade alla JSON-filer från `raw/` inkrementellt. Silver rebuildes från brons med script 05 och 07.
+
+---
+
+**Gold layer — design och dim_date**
+
+Beslutad gold-arkitektur:
+- `gold.dim_date` — riktig tabell (en rad per dag), populeras en gång och uppdateras vid behov
+- `gold.fact_freshdesk` — SQL-vy över silver (planerad)
+- `gold.fact_linear` — SQL-vy över silver (planerad)
+
+Vyer valdes för faktatabellerna istället för riktiga tabeller: alltid aktuella mot silver, inget extra rebuild-steg i morning refresh. Vid dessa datamängder (tusental rader) är prestandan identisk med riktiga tabeller i Power BI Import-läge.
+
+**dim_date-design:**
+- Datumtyp: `DATE` (inte INT/YYYYMMDD). Power BI hanterar DATE-relationer nativt och silver-tabellerna har redan DATE-kolumner — inga konverteringar i joins.
+- Intervall: **2025-01-01 till 2035-12-31** (4 018 dagar). Medvetet val — tillräckligt långt för projektet utan onödig overhead. Se instruktioner i `sql/08_gold_dim_date.sql` för att utöka.
+- `month_sort` (INT, YYYYMM) och `year_week` (NVARCHAR, 'YYYY-WNN') är Power BI-specifika sorteringskolumner — används inte i rapporter, bara som sort keys bakom kulisserna.
+- `working_days_in_week`: antal arbetsdagar i ISO-veckan. Veckor med helgdag visar 4 istället för 5 — möjliggör normalisering av veckovolymer i Power BI.
+- Veckoidentifiering görs via "torsdagen i ISO-veckan" som partitionsnyckel, vilket hanterar årsbrytnings-veckor korrekt (t.ex. 2035-12-29 tillhör ISO-vecka 1 år 2036).
+- Explicita CASE-mappningar för månads- och dagnamn — undviker språkberoende DATENAME-resultat på servrar med svenska locale-inställningar.
+- Svenska helgdagar: officiella röda dagar. Julafton, Midsommarafton och Nyårsafton är INTE inkluderade (officiellt inte röda dagar).
+- Påskdatum 2025–2035 hårdkodade. Nästa block: 2036-04-13, 2037-04-05, 2038-04-25, 2039-04-10, 2040-04-01.
+
+SQL: `sql/08_gold_dim_date.sql`
+
+---
+
+**Gold layer — FactFreshdesk and FactLinear views**
+
+Created `sql/09_gold_create_views.sql` with both gold fact views (CREATE OR ALTER VIEW — safe to re-run).
+
+**`gold.FactFreshdesk`** — view over `silver.freshdesk_tickets`:
+- `status_label`: human-readable name for each Freshdesk status code. Standard codes (2–5) map to Open/Pending/Resolved/Closed; OPEX codes (6/7/12) map to 'Passed triage'; 17 maps to 'Waiting for triage'; unknown codes fall through to 'Other (NN)'.
+- `triage_status`: single-column summary for Power BI slicer — 'Waiting', 'Passed', 'Denied' (was passed, then regressed to 17), or 'Other'. The 'Denied' state is detected by combining `denied_triage = 1` AND `status = 17`, so it only applies to tickets currently sitting in the triage queue after a regression — not tickets that were denied but have since moved on.
+
+**`gold.FactLinear`** — view over `silver.linear_issues`:
+- `state_label`: collapses `state_type` 'backlog' and 'unstarted' into 'Backlog / Unstarted' — removes the two-value split that would otherwise appear in Power BI slicers.
+- `priority_label`: maps 0–4 to No priority / Urgent / High / Medium / Low (matches Linear's own UI labels).
+- `days_to_start`: DATEDIFF(DAY, created_at, started_at) — NULL when started_at is NULL.
+- `days_to_close`: DATEDIFF(DAY, created_at, closed_at) — NULL when closed_at is NULL.
+- `age_days`: for open issues only (closed_at IS NULL) — days since created_at. NULL for closed/cancelled issues; use days_to_close for those.
+
+All silver columns are passed through unchanged so Power BI has direct access to dates and flags.
+
+Gold layer is now complete. Next step: connect Power BI Desktop to `InternalStatistics` on `INTSQLSERVER01` and build the report from `gold.DimDate`, `gold.FactFreshdesk`, `gold.FactLinear`.

@@ -28,13 +28,16 @@ Full architecture in README.md. Full decision history in History.md.
 | Bronze loader (Python) | ✅ Done | ✅ Done |
 | Silver table | ✅ Done | ✅ Done |
 | Silver load script | ✅ Done | ✅ Done |
-| Gold layer | ❌ Not started | ❌ Not started |
+| Gold dim_date | ✅ Done | ✅ Done (shared) |
+| Gold fact views | ✅ Done | ✅ Done |
 | Power BI | ❌ Not started | ❌ Not started |
 
-**Next task: Gold layer**
-- Both silver layers complete — ready to design gold (star schema)
-- Discuss reporting requirements before building
-- Gold will resolve: backlog vs unstarted in state_type, which of completed_at/closed_at to expose
+**Next task: Connect Power BI to gold layer**
+- Open Power BI Desktop → Get Data → SQL Server
+- Server: `INTSQLSERVER01`, Database: `InternalStatistics`
+- Import `gold.DimDate`, `gold.FactFreshdesk`, `gold.FactLinear`
+- Create DATE relationships: DimDate.date_key → FactFreshdesk.created_at and FactLinear.created_at
+- Add role-playing date relationships for first_passed_at, first_waiting_at, closed_at
 
 ---
 
@@ -50,6 +53,8 @@ Full architecture in README.md. Full decision history in History.md.
 | `sql/05_silver_load_freshdesk.sql` | TRUNCATE + full rebuild of silver.freshdesk_tickets |
 | `sql/06_silver_create_tables_linear.sql` | CREATE TABLE for silver.linear_issues |
 | `sql/07_silver_load_linear.sql` | TRUNCATE + full rebuild of silver.linear_issues |
+| `sql/08_gold_dim_date.sql` | CREATE + populate gold.DimDate (2025-2035, Swedish holidays) |
+| `sql/09_gold_create_views.sql` | CREATE OR ALTER VIEW for gold.FactFreshdesk and gold.FactLinear |
 | `.github/workflows/nightly-snapshots.yml` | GitHub Actions automation |
 | `credentials/` | API keys + SQL connection string — never committed (git-ignored) |
 
@@ -121,6 +126,43 @@ Excluded tickets: `group_id` ending in `1939` or `8846`.
 | `is_incident` | BIT | labels LIKE '%incident%' (CI collation = case-insensitive) |
 
 Filter: NOT (identifier LIKE 'DEV%' AND team_name = 'Development') — AND, not OR.
+
+---
+
+## Gold layer schema
+
+Gold naming: **PascalCase** — `DimDate`, `FactFreshdesk`, `FactLinear`. All created by `sql/09_gold_create_views.sql` (CREATE OR ALTER VIEW — safe to re-run).
+
+**`gold.FactFreshdesk`** — view over silver.freshdesk_tickets
+
+| Column | Notes |
+|---|---|
+| `id`, `status` | From silver |
+| `status_label` | 'Open', 'Pending', 'Resolved', 'Closed', 'Waiting for triage', 'Passed triage', 'Other (NN)' |
+| `triage_status` | 'Denied' / 'Waiting' / 'Passed' / 'Other' — main slicer for triage workflow |
+| `created_at`, `updated_at`, `product_id` | From silver |
+| `first_waiting_at`, `first_passed_at` | Period-based reporting dates |
+| `denied_triage`, `denied_triage_at` | Regression flag and date |
+
+**`gold.FactLinear`** — view over silver.linear_issues
+
+| Column | Notes |
+|---|---|
+| `id`, `state_name`, `state_type` | From silver |
+| `state_label` | 'Backlog / Unstarted', 'In Progress', 'Completed', 'Cancelled', 'Other' — collapses backlog+unstarted |
+| `priority`, `priority_label` | 0=No priority … 4=Low (matches Linear's own labels) |
+| `created_at`, `started_at`, `completed_at`, `closed_at` | From silver |
+| `days_to_start` | DATEDIFF(DAY, created_at, started_at) |
+| `days_to_close` | DATEDIFF(DAY, created_at, closed_at) |
+| `age_days` | For open issues only — days since created_at, NULL when closed |
+| `project_name`, `assignee_name`, `labels`, `trashed`, `is_incident` | From silver |
+
+**Power BI relationships (DATE-to-DATE):**
+- `DimDate.date_key` → `FactFreshdesk.created_at` (primary)
+- `DimDate.date_key` → `FactFreshdesk.first_waiting_at` (role-playing)
+- `DimDate.date_key` → `FactFreshdesk.first_passed_at` (role-playing)
+- `DimDate.date_key` → `FactLinear.created_at` (primary)
+- `DimDate.date_key` → `FactLinear.closed_at` (role-playing)
 
 ---
 
