@@ -54,7 +54,7 @@ Nightly Python scripts pull data directly from the Freshdesk and Linear APIs and
 
 ---
 
-### ⚪ Silver Layer — Normalized & Cleaned _(in progress)_
+### ⚪ Silver Layer — Normalized & Cleaned ✅ Complete
 
 The silver layer is rebuilt from scratch (TRUNCATE + full reload) every time it runs. Each source record is keyed by its ID — one row per ticket/issue, latest version wins. Safe to re-run at any time.
 
@@ -208,7 +208,9 @@ Two report sections fed from the gold layer:
 │   ├── freshdesk_backfill.ipynb       # One-time Freshdesk historical backfill
 │   ├── linear_snapshot_claude.py      # Nightly Linear snapshot
 │   ├── snapshot_trial.ipynb           # One-time Linear historical backfill
-│   └── bronze_loader.py               # Loads JSON files into SQL Server bronze tables
+│   ├── bronze_loader.py               # Loads JSON files into SQL Server bronze tables
+│   ├── silver_loader.py               # Rebuilds silver layer from bronze via pyodbc
+│   └── morning_refresh.ps1            # Daily automation script + Task Scheduler registration
 ├── sql/
 │   ├── 01_bronze_create_tables.sql           # CREATE TABLE for bronze layer
 │   ├── 02_bronze_load_freshdesk.sql          # Manual T-SQL loader for Freshdesk files
@@ -245,30 +247,103 @@ API keys are read from environment variables (`FRESHDESK_API_KEY`, `LINEAR_API_K
 
 SQL Server connection string is read from `SQL_CONNECTION_STRING` env var or `credentials/sql_connection.txt`.
 
-### Morning refresh (manual, local)
+### Daily refresh (automated)
 
-GitHub Actions commits new snapshot files to the repo every night. Each morning, run these three steps in order to bring the local database up to date:
+The daily database refresh runs automatically via Windows Task Scheduler on the operator's machine. To run manually:
 
 ```powershell
-# 1. Pull the latest snapshot files committed by GitHub Actions
-git pull
-
-# 2. Load any new/updated records into the bronze tables
-python script/bronze_loader.py
-
-# 3. Rebuild silver from bronze (run in SSMS or via sqlcmd)
-sqlcmd -S INTSQLSERVER01 -d InternalStatistics -U dittanvändarnamn -P dittlösenord -i "sql\05_silver_load_freshdesk.sql"
-sqlcmd -S INTSQLSERVER01 -d InternalStatistics -U dittanvändarnamn -P dittlösenord -i "sql\07_silver_load_linear.sql"
+powershell -ExecutionPolicy Bypass -File "script\morning_refresh.ps1"
 ```
 
-> **Note:** Step 3 will expand as the silver and gold layers grow. A `script/morning_refresh.ps1` automation script is planned for when all layers are complete. For production use, SQL Server Agent or SSIS will replace this manual process.
+The script:
+1. Tests the database connection (works identically at the office and over VPN)
+2. If unreachable — logs a warning and exits; Task Scheduler retries the next hour
+3. If reachable — runs `git pull` → `bronze_loader.py` → `silver_loader.py` in sequence
+4. If no successful run by 16:00 on a working day — fires a Windows desktop alert
+
+Logs are written to `logs/refresh.log`. Last successful run date is stored in `logs/last_success.txt`.
 
 ---
 
 ## Automation
 
-GitHub Actions runs both snapshot scripts nightly. See `.github/workflows/nightly-snapshots.yml` for the full schedule and retry logic.
+The pipeline is fully automated across two layers:
 
-Two repository secrets must be configured under **Settings → Secrets and variables → Actions**:
-- `LINEAR_API_KEY`
-- `FRESHDESK_API_KEY`
+**Layer 1 — Nightly snapshots (GitHub Actions)**
+
+GitHub Actions runs both snapshot scripts nightly and commits the JSON files back to the repository. See `.github/workflows/nightly-snapshots.yml` for the schedule and retry logic.
+
+Repository secrets required (already configured):
+
+| Secret | Used by |
+|---|---|
+| `LINEAR_API_KEY` | `linear_snapshot_claude.py` |
+| `FRESHDESK_API_KEY` | `freshdesk_snapshot_claude.py` |
+
+**Layer 2 — Daily database refresh (Windows Task Scheduler)**
+
+`morning_refresh.ps1` runs every weekday hour (07:00–20:00) on the operator's Windows machine. It handles VPN vs. office automatically via the connection-first retry pattern. GitHub Actions cannot perform this step because Microsoft-hosted runners cannot reach `INTSQLSERVER01` (internal server).
+
+---
+
+## Handover — setting up on a new machine
+
+When this project transfers to a new operator, complete these steps once.
+
+### Prerequisites
+
+- [Git for Windows](https://git-scm.com/download/win)
+- Python 3.10 or later
+- [ODBC Driver 17 for SQL Server](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server)
+- `pip install requests pyodbc`
+- Access to the Intersolia network (office or VPN)
+- The SQL Server connection string for `INTSQLSERVER01` — **this is not stored in GitHub**; obtain it from IT or the outgoing person
+
+### Step-by-step
+
+**1. Clone the repository**
+```powershell
+git clone https://github.com/Micke-Intersolia/statistik-freshdesk-linear.git
+cd statistik-freshdesk-linear
+```
+
+**2. Create the credentials file**
+
+Create `credentials\sql_connection.txt` (this folder is git-ignored and will never be committed):
+```
+DRIVER={ODBC Driver 17 for SQL Server};SERVER=INTSQLSERVER01;DATABASE=InternalStatistics;UID=your_username;PWD=your_password;
+```
+
+**3. Verify the connection**
+```powershell
+python script/silver_loader.py
+```
+Should complete without errors and print row counts.
+
+**4. Register the Task Scheduler task (run as Administrator)**
+```powershell
+powershell -ExecutionPolicy Bypass -File "script\morning_refresh.ps1" -Register
+```
+
+**5. Add hourly repetition in Task Scheduler**
+1. Open Task Scheduler (search in Start menu)
+2. Find **InternalStatistics - Daily Refresh** in Task Scheduler Library
+3. Right-click → Properties → Triggers tab
+4. Select the trigger → Edit
+5. Tick **Repeat task every: 1 hour** for a duration of **13 hours**
+6. Click OK → OK
+
+**6. Authenticate git to GitHub**
+
+Run `git pull` once in the repo folder. Windows will prompt for GitHub credentials and cache them in Windows Credential Manager — all future pulls will be silent.
+
+**7. Verify the task runs**
+
+Right-click the task in Task Scheduler → Run. Check `logs\refresh.log` for the result.
+
+### What is already configured (no action needed)
+
+- GitHub Actions nightly snapshots run automatically
+- `LINEAR_API_KEY` and `FRESHDESK_API_KEY` are stored in GitHub Secrets
+- All SQL tables and gold views are already created on `INTSQLSERVER01`
+- Power BI connects to the gold layer directly; no changes needed there

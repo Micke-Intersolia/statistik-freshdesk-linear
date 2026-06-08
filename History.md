@@ -236,6 +236,57 @@ A `script/morning_refresh.ps1` automation script is planned for when both silver
 
 ---
 
+## 2026-06-08
+
+**Silver loader — `script/silver_loader.py`**
+
+Created `silver_loader.py` to run the two silver rebuild scripts programmatically via pyodbc, replacing the need for `sqlcmd` on the operator's machine.
+
+- Reads the same `credentials/sql_connection.txt` as `bronze_loader.py`
+- Splits each SQL file on `GO` statements and executes batches in order
+- Pre-flight safety check: queries row count of the relevant bronze table before running each script; exits with a clear error if bronze is empty (prevents wiping silver with nothing to rebuild from)
+- `autocommit=True` so the SQL scripts' own `BEGIN TRANSACTION / COMMIT / ROLLBACK` logic works as intended
+- Run order: Freshdesk silver first (`05_silver_load_freshdesk.sql`), then Linear silver (`07_silver_load_linear.sql`)
+
+**Automation decision — Windows Task Scheduler**
+
+GitHub Actions (Microsoft-hosted runners) cannot reach `INTSQLSERVER01` because it is on the internal network. SQL Server Agent was also ruled out because the operator does not have OS-level server access, only database credentials. Decision: automate via Windows Task Scheduler on the operator's own machine, which already has network/VPN access to the server.
+
+**Morning refresh script — `script/morning_refresh.ps1`**
+
+Created `morning_refresh.ps1` to fully automate the daily database refresh.
+
+Key design decisions:
+
+- **Connection-first pattern**: tests the ODBC connection before doing anything. Handles office (direct) and remote (VPN) transparently — same code path, different network conditions.
+- **Idempotent**: writes the success date to `logs/last_success.txt`. If the task fires multiple times in one day (hourly repetition), subsequent runs exit immediately.
+- **Retry via Task Scheduler**: the script exits with code 1 if the DB is unreachable; the Task Scheduler trigger (weekdays, 07:00-20:00, every hour) retries naturally.
+- **StartWhenAvailable**: if the laptop was off during a scheduled run, the task fires as soon as the machine wakes up.
+- **SOS alert**: if it is past 16:00 on a weekday and no successful run has occurred today *or* on the previous working day, a Windows Forms balloon notification fires and a flag `.txt` file is written to the Desktop.
+- **Encoding**: all string literals use ASCII only. Em-dashes and other Unicode characters in PowerShell 5.1 scripts cause parse errors when the file is read as Windows-1252 (the runtime default); the UTF-8 byte sequence for `—` contains `0x94`, which Windows-1252 reads as a right double-quote, breaking all subsequent string literals.
+- Uses the repo's `.venv\Scripts\python.exe` if present; falls back to system Python.
+
+Registration:
+```powershell
+powershell -ExecutionPolicy Bypass -File "script\morning_refresh.ps1" -Register
+```
+
+The hourly repetition (PT1H for PT13H duration) must be set manually in Task Scheduler GUI because PowerShell 5.1's CIM layer does not always support direct property assignment on the `Repetition` object of a `MSFT_TaskWeeklyTrigger`.
+
+**Full pipeline — confirmed working**
+
+Complete end-to-end flow verified:
+1. GitHub Actions commits nightly snapshot JSON files to the repo (automated)
+2. `git pull` fetches new files to the local machine
+3. `bronze_loader.py` loads new/updated records into bronze tables (incremental)
+4. `silver_loader.py` rebuilds both silver tables from bronze (TRUNCATE + full rebuild)
+5. Gold views (`FactFreshdesk`, `FactLinear`) are always current — no rebuild step needed
+6. Power BI connects to gold layer
+
+**Note on VPN**: the operator must be on the Intersolia network (office or VPN) for steps 2-4 to reach `INTSQLSERVER01`. The morning_refresh.ps1 retry logic handles days when VPN connects later than 07:00.
+
+---
+
 ## 2026-06-05
 
 **Migration till produktionsserver — `InternalStatistics` på `INTSQLSERVER01`**
