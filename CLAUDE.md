@@ -30,14 +30,26 @@ Full architecture in README.md. Full decision history in History.md.
 | Silver load script | ✅ Done | ✅ Done |
 | Gold dim_date | ✅ Done | ✅ Done (shared) |
 | Gold fact views | ✅ Done | ✅ Done |
-| Power BI | ❌ Not started | ❌ Not started |
+| Power BI | 🔄 In progress | 🔄 In progress |
+| Silver refresh automation | ❌ Not started | ❌ Not started |
 
-**Next task: Connect Power BI to gold layer**
-- Open Power BI Desktop → Get Data → SQL Server
+**Active tracks:**
+
+**Track 1 — Power BI visuals (user has started this)**
+- Connect Power BI Desktop → Get Data → SQL Server
 - Server: `INTSQLSERVER01`, Database: `InternalStatistics`
 - Import `gold.DimDate`, `gold.FactFreshdesk`, `gold.FactLinear`
 - Create DATE relationships: DimDate.date_key → FactFreshdesk.created_at and FactLinear.created_at
 - Add role-playing date relationships for first_passed_at, first_waiting_at, closed_at
+
+**Track 2 — Automate silver refresh via GitHub Actions (next session)**
+- Goal: run `bronze_loader.py` + silver SQL scripts automatically after each nightly snapshot, without triggering from the laptop
+- Current gap: the existing workflow only handles API snapshots → JSON → git commit. It does NOT load bronze or rebuild silver.
+- Key constraint to investigate: GitHub Actions uses Microsoft-hosted runners (external internet), which likely cannot reach `INTSQLSERVER01` directly. Options to explore:
+  - **Self-hosted runner** on a machine inside Intersolia's network that can reach the SQL Server (most likely path)
+  - **SQL Server Agent** job on `INTSQLSERVER01` itself, triggered on a schedule (no GitHub dependency)
+  - **Hybrid:** GitHub Actions commits the files; a SQL Server Agent job polls for new files and runs bronze_loader + silver scripts on a server that has both network access and Python
+- Also needed: `script/silver_loader.py` — Python script (using pyodbc, same pattern as bronze_loader.py) that executes `05_silver_load_freshdesk.sql` and `07_silver_load_linear.sql`. This makes the silver step runnable from anywhere without sqlcmd.
 
 ---
 
@@ -166,7 +178,7 @@ Gold naming: **PascalCase** — `DimDate`, `FactFreshdesk`, `FactLinear`. All cr
 
 ---
 
-## Morning refresh (manual, local)
+## Morning refresh (manual, local — interim until automation is done)
 
 ```powershell
 git pull
@@ -175,7 +187,7 @@ sqlcmd -S INTSQLSERVER01 -d InternalStatistics -U dittanvändarnamn -P dittlöse
 sqlcmd -S INTSQLSERVER01 -d InternalStatistics -U dittanvändarnamn -P dittlösenord -i "sql\07_silver_load_linear.sql"
 ```
 
-A `script/morning_refresh.ps1` will be created when all layers are complete.
+This will be replaced by GitHub Actions automation (see Track 2 above). No `morning_refresh.ps1` will be built — automation goes through GitHub Actions instead.
 
 ## Power BI connection point
 
@@ -185,11 +197,12 @@ run live queries against silver, so the seconds-long truncation window is not a 
 
 ---
 
-## Planned automation (future)
+## Planned automation (next session)
 
-- `script/morning_refresh.ps1` — one script for git pull + bronze + all silver + gold
-- Windows Task Scheduler or SQL Server Agent for unattended runs
-- SSIS / SQL Server Agent when moved to a production server
+- `script/silver_loader.py` — Python script (pyodbc, same pattern as bronze_loader.py) to run silver SQL scripts without sqlcmd
+- Extend `.github/workflows/nightly-snapshots.yml` to also run bronze + silver after a successful snapshot commit — OR use SQL Server Agent / a self-hosted runner if the hosted runner can't reach `INTSQLSERVER01`
+- Investigate whether `INTSQLSERVER01` is reachable from GitHub-hosted runners (it almost certainly isn't — need a self-hosted runner or SQL Server Agent)
+- SSIS / SQL Server Agent when moved to a fully managed production setup
 
 ---
 
