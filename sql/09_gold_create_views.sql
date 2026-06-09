@@ -84,16 +84,20 @@ GO
 --   Collapses 'backlog' and 'unstarted' into 'Backlog / Unstarted'
 --   to avoid the two-value split in Power BI slicers.
 --
--- days_to_start:  calendar days from created_at to started_at.
--- days_to_close:  calendar days from created_at to closed_at.
--- age_days:       for open issues — days since created_at (today's date).
+-- days_to_start:  inclusive days from created_at to started_at (same day = 1).
+-- days_to_close:  inclusive days from created_at to closed_at (same day = 1).
+-- age_days:       for open issues — inclusive days since created_at (same day = 1).
 --                 NULL for closed/cancelled issues (use days_to_close instead).
 --
+-- +1 added to all DATEDIFF results so that same-day = 1 day worked on,
+-- next day = 2 days, etc. ("days worked on" interpretation).
 -- DATEDIFF(DAY, ...) returns NULL if either argument is NULL — correct
 -- behaviour since we don't want a metric when the date is unknown.
 CREATE OR ALTER VIEW gold.FactLinear AS
 SELECT
     id,
+    identifier,
+    title,
     state_name,
     state_type,
 
@@ -123,15 +127,15 @@ SELECT
     completed_at,
     closed_at,
 
-    DATEDIFF(DAY, created_at, started_at)            AS days_to_start,
-    DATEDIFF(DAY, created_at, closed_at)             AS days_to_close,
+    DATEDIFF(DAY, created_at, started_at) + 1        AS days_to_start,
+    DATEDIFF(DAY, created_at, closed_at)  + 1        AS days_to_close,
 
     -- age_days: only meaningful for issues that are not yet closed.
     -- Using CAST(GETUTCDATE() AS DATE) keeps it consistent with silver
     -- DATE columns (no time component).
     CASE
         WHEN closed_at IS NULL
-        THEN DATEDIFF(DAY, created_at, CAST(GETUTCDATE() AS DATE))
+        THEN DATEDIFF(DAY, created_at, CAST(GETUTCDATE() AS DATE)) + 1
         ELSE NULL
     END                                              AS age_days,
 

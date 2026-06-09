@@ -43,6 +43,10 @@ BEGIN
         -- Primärnyckel — ett issue, en rad (Linear-ID är GUID-sträng)
         id              NVARCHAR(50)    NOT NULL,
 
+        -- Mänskligt läsbar identifierare och rubrik (t.ex. "OPEX-42")
+        identifier      NVARCHAR(50)    NULL,
+        title           NVARCHAR(500)   NULL,
+
         -- Aktuell status som fritext och kategori
         state_name      NVARCHAR(100)   NULL,
         state_type      NVARCHAR(50)    NULL,   -- backlog/unstarted/started/completed/cancelled
@@ -93,4 +97,17 @@ BEGIN
 END
 ELSE
     PRINT 'Finns redan: silver.linear_issues';
+
+-- Lägg till identifier och title om de saknas (för befintliga tabeller)
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id = OBJECT_ID('silver.linear_issues') AND name = 'identifier')
+BEGIN
+    ALTER TABLE silver.linear_issues ADD identifier NVARCHAR(50) NULL;
+    PRINT 'Lade till kolumn: identifier';
+END
+
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE object_id = OBJECT_ID('silver.linear_issues') AND name = 'title')
+BEGIN
+    ALTER TABLE silver.linear_issues ADD title NVARCHAR(500) NULL;
+    PRINT 'Lade till kolumn: title';
+END
 GO

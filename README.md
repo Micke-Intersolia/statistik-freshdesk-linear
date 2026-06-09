@@ -100,6 +100,8 @@ Fields kept (10 + audit):
 | Column | Type | Notes |
 |---|---|---|
 | `id` | NVARCHAR PK | Linear GUID |
+| `identifier` | NVARCHAR | Human-readable issue ID, e.g. "OPEX-42" |
+| `title` | NVARCHAR | Issue title |
 | `state_name` | NVARCHAR | Current status text, e.g. "In Progress" |
 | `state_type` | NVARCHAR | Category: `unstarted`, `started`, `completed`, `cancelled` |
 | `priority` | TINYINT | 0=None, 1=Urgent, 2=High, 3=Medium, 4=Low |
@@ -113,7 +115,7 @@ Fields kept (10 + audit):
 | `trashed` | BIT | |
 | `is_incident` | BIT | 1 if labels contains "incident" (case-insensitive) |
 
-Fields dropped from bronze: `identifier`, `number`, `title`, `description`, `state_id`, `assignee_id/email`, `team_id/name`, `project_id`, `parent_*`, `cycle_*`, `archived_at`, `canceled_at`, `due_date`, `estimate`.
+Fields dropped from bronze: `number`, `description`, `state_id`, `assignee_id/email`, `team_id/name`, `project_id`, `parent_*`, `cycle_*`, `archived_at`, `canceled_at`, `due_date`, `estimate`. Note: `identifier` and `title` were initially dropped but restored — they are needed for tooltips and issue identification in Power BI.
 
 **Filter:** issues where `identifier LIKE 'DEV%'` AND `team_name = 'Development'` — both conditions must be true to exclude. Issues in the Development team without a DEV-prefix identifier, or DEV-prefix issues in other teams, are kept.
 
@@ -170,24 +172,47 @@ DimDate connects to both fact views on `date_key = created_at` (and optionally o
 
 **`gold.FactFreshdesk` ✅ Complete** — view over `silver.freshdesk_tickets`. Adds `status_label` (human-readable status name), `triage_status` ('Waiting' / 'Passed' / 'Denied' / 'Other' — main slicer for OPEX triage reporting).
 
-**`gold.FactLinear` ✅ Complete** — view over `silver.linear_issues`. Adds `state_label` (collapses `backlog`/`unstarted` → 'Backlog / Unstarted'), `priority_label`, `days_to_start`, `days_to_close`, `age_days` (open issues only).
+**`gold.FactLinear` ✅ Complete** — view over `silver.linear_issues`. Adds `state_label` (collapses `backlog`/`unstarted` → 'Backlog / Unstarted'), `priority_label`, `days_to_start`, `days_to_close`, `age_days` (open issues only). All day metrics use inclusive counting (`DATEDIFF + 1`) so same-day = 1 day, next day = 2 days — "days worked on" interpretation.
 
 ---
 
-### 📊 Power BI Dashboard _(planned)_
+### 📊 Power BI Dashboard
 
-Two report sections fed from the gold layer:
+Connects to the gold layer only (`gold.DimDate`, `gold.FactFreshdesk`, `gold.FactLinear`). Import mode — data refreshed manually in Power BI Desktop after the daily pipeline run.
 
-**Freshdesk — Support Ticket Statistics**
-- Ticket volume over time (daily / weekly / monthly)
-- Status distribution (open, pending, resolved, closed)
-- Breakdown by group and product
-- SLA and response trends
+**Freshdesk page** (built, currently set aside — not the active focus)
+- KPI cards: Created, Waiting for Triage, Passed Triage, Escalation Rate, Triage Denied — current period vs. previous with Δ
+- Period toggle: Week / Month
+- Bar+line chart: created tickets per month with escalation rate line (rolling 12 months, current month excluded)
+- "Tickets waiting longer than X days" slicer group (What-if parameter, default 30 days)
 
-**Linear — Issue Tracking**
-- Issue volume and throughput by team and project
-- Status and priority distribution
-- Cycle time and completion trends
+**Linear Page 1 — Overview**
+- KPI cards: Created Issues, Closed Issues, Open Issues, Incidents, Oldest Issue — current period vs. previous with Δ
+- Period toggle: Week / Month (shared with Freshdesk measures)
+- Bar+line chart: Created + Closed bars per month, Open Issues line on secondary axis
+
+**Linear Page 2 — Trends**
+- Month slicer (multi-select dropdown)
+- KPIs: Avg and Median days to close (slicer-connected) + Oldest Open Issue (all-time, slicer-independent)
+- Chart 1: 3-month moving average — Created and Closed issue volume
+- Chart 2: 3-month moving average — days per lifecycle stage (Created→Started, Started→Closed, Created→Closed)
+
+**Linear Page 3 — Distribution**
+- Month slicer
+- KPIs: Avg and Median days to close
+- Issues per Project Group (horizontal bar)
+- Avg and Median days to close per Project Group (table, sorted by avg descending)
+- Lead Time buckets: 1 day / 2–7 / 8–14 / 15–30 / 31–90 / >90 days (colour-coded green→red via conditional formatting rules)
+
+**Linear Page 4 — People**
+- Month slicer (connected to table and bar chart; disconnected from line chart)
+- Line chart: Created issues per assignee per month — full trend, slicer-independent; legend used as interactive filter (Ctrl+click to highlight a person)
+- Table: Assignee | Created | Closed | Open Issues Assignee | Avg Days to Close | Incidents — slicer-connected
+- Clustered horizontal bar: Created + Closed per assignee — slicer-connected
+
+**Power BI tooling**
+- **DAX Studio** (free, daxstudio.org) — connect to open .pbix, run `EVALUATE INFO.MEASURES()` to export all measures and DAX expressions to Excel/CSV for documentation
+- **Tabular Editor** (free version, tabulareditor.com) — browse and bulk-edit measures across the model
 
 ---
 

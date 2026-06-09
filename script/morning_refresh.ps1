@@ -208,7 +208,9 @@ Write-Log "Connected. Starting pipeline..."
 Set-Location $REPO_ROOT
 
 Write-Log "Step 1/3  git pull"
+$ErrorActionPreference = "Continue"
 $out = git pull 2>&1
+$ErrorActionPreference = "Stop"
 Write-Log ($out -join " | ")
 if ($LASTEXITCODE -ne 0) {
     Write-Log "git pull failed - aborting." "ERROR"

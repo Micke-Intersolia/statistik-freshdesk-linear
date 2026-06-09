@@ -40,6 +40,8 @@ BEGIN TRY
         --   utan DEV-prefix, inkluderas.
         SELECT
             id,
+            identifier,
+            title,
             state_name,
             state_type,
             priority,
@@ -63,11 +65,13 @@ BEGIN TRY
     )
 
     INSERT INTO silver.linear_issues
-        (id, state_name, state_type, priority,
+        (id, identifier, title, state_name, state_type, priority,
          created_at, started_at, completed_at, closed_at,
          project_name, assignee_name, labels, trashed, is_incident)
     SELECT
         id,
+        identifier,
+        title,
         state_name,
         state_type,
         priority,

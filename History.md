@@ -236,6 +236,59 @@ A `script/morning_refresh.ps1` automation script is planned for when both silver
 
 ---
 
+## 2026-06-09
+
+**morning_refresh.ps1 — git pull bug fixed**
+
+The script was silently dying at "Step 1/3 git pull" on days when GitHub Actions had committed new snapshot files (i.e. when git pull actually downloaded content). Root cause: git writes download progress to stderr; `2>&1` in PowerShell 5.1 captures native command stderr as `ErrorRecord` objects; `$ErrorActionPreference = "Stop"` terminates on the first `ErrorRecord`. The fix wraps each native command call (`git pull`, `& $PYTHON`) with `$ErrorActionPreference = "Continue"` before and `$ErrorActionPreference = "Stop"` after, while still checking `$LASTEXITCODE` for real failures.
+
+**Power BI — Linear pages 1, 2, 3 built**
+
+Focus shifted from Freshdesk to Linear. Three Linear report pages built in Power BI Desktop.
+
+*Page 1 — Overview:*
+Mirrors the Freshdesk page structure. KPI cards with period Δ (Created, Closed, Open, Incidents, Oldest Issue). Period toggle (Week/Month) via disconnected `PeriodType` table. Bar+line chart: Created + Closed bars per month, Open Issues line on secondary axis. Chart cross-filtering to KPI cards disabled via Edit Interactions (conflicts with TODAY()-based period measures).
+
+*Page 2 — Trends:*
+Month dropdown slicer (DimDate[Month Label], sorted by month_sort). Two KPI cards slicer-connected (avg/median days to close via USERELATIONSHIP on closed_at). One KPI card slicer-independent (oldest open issue, uses ALL(FactLinear) to ignore all filters). Visual labels distinguish "Filtered by selected period" from "All time". Two line charts with 3-month moving averages: volume trend (Created 3M MA, Closed 3M MA) and lifecycle stage duration (Created→Started, Started→Closed, Created→Closed). MA measures use ALL(DimDate) and direct FactLinear date filters to look back across the 3-month window regardless of slicer state. MA charts slicer-disconnected via Edit Interactions.
+
+*Page 3 — Distribution:*
+Month slicer connected to all visuals. KPIs: avg and median days to close. Issues per Project Group horizontal bar chart. Project Group summary table (avg + median days to close per project, sorted by avg descending — closed issues in selected period only). Lead Time bucket chart with 6 buckets (1 day through >90 days), colour-coded green→red via Format → Visual → Bars → fx → Rules based on Lead Time Sort column. Blank bucket (open issues) excluded via visual-level filter.
+
+*Calculated columns added to FactLinear in Power BI:*
+- `Project Group`: SWITCH on project_name → iChemistry / iPublisher / Chemsoft / Unassigned / Other
+- `Lead Time Bucket`: SWITCH on days_to_close into 6 text ranges; BLANK for open issues
+- `Lead Time Sort`: numeric 1–6 sort key for Lead Time Bucket
+
+*DimDate calculated column added in Power BI:*
+- `Month Label`: `"'" & RIGHT(FORMAT(year,"0000"),2) & " " & month_short` — sorted by `month_sort`. Ensures months display as "'25 Jan" etc. and sort chronologically in slicers and charts.
+- `Is Current Month`: flags the current calendar month — used as a visual-level filter to exclude the in-progress month from trend charts.
+
+*Power BI measure naming convention established:*
+Measure tables are named `_L Measures`, `_L Measures 2`, `_L Measures 3`, `_L Measures 4` (not `_L2 Measures` etc.). Measure names are plain and descriptive without page prefixes — e.g. `Avg Days to Close`, not `L2 Avg Days to Close`. All future measure suggestions should follow this convention.
+
+*identifier and title restored to silver and gold:*
+`identifier` (e.g. "OPEX-42") and `title` were initially dropped from silver as "not needed for reporting." This was a mistake — they are essential for identifying specific issues in tooltips and drillthrough. Restored by: (1) adding `ALTER TABLE` guards to `06_silver_create_tables_linear.sql` so the columns are added safely to the existing table without dropping it; (2) adding `identifier` and `title` to the CTE SELECT and INSERT in `07_silver_load_linear.sql`; (3) passing them through in `09_gold_create_views.sql`. Run scripts 06 → 07 → 09 in order in SSMS after any future handover.
+
+*Lead Time bucket fix — duplicate bars:*
+The Lead Time Sort column used `<= 1` for sort value 1, which matched both `days_to_close = 0` (Same day) and `days_to_close = 1` (next day). The Lead Time column assigned both "Same day" and "Up to one week" labels to overlapping ranges. Power BI split "Up to one week" into two bars (one per sort key). Fixed by aligning Lead Time Sort thresholds exactly to the Lead Time column logic.
+
+*Day counting — inclusive "days worked on":*
+`DATEDIFF(DAY, created_at, closed_at)` returns 0 for same-day closures. Changed to `DATEDIFF(...) + 1` throughout `sql/09_gold_create_views.sql` so that same-day = 1, next day = 2 — matching the intuitive "days worked on" interpretation. Applied to `days_to_start`, `days_to_close`, and `age_days`. Lead Time bucket `= 0` updated to `= 1` accordingly, as is Lead Time Sort. All other bucket thresholds unchanged.
+
+*Key DAX lessons from this session:*
+- DAX reserved words: `start` and `end` cannot be used as variable names — use `periodStart`/`periodEnd`
+- Measure references inside CALCULATE filter arguments fail — capture as VAR first
+- COALESCE(..., 0) needed for measures that should return 0 rather than BLANK on empty periods
+- For slicer-independent measures: `CALCULATE(..., REMOVEFILTERS())` or `ALL(FactLinear)` inside FILTER
+- For role-playing date relationships in measures: `USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at])`
+- Moving average pattern: `VAR monthEnd = MAX(DimDate[date_key])` captured before `ALL(DimDate)` clears the context, then direct date filters on FactLinear columns
+
+*Linear data note:*
+Linear adoption at Intersolia ramped up in Feb 2026. Only 13 issues have created_at before Feb 2026 (6 in Oct '25, 4 in Nov '25, 2 in Dec '25, 1 in Jan '26). This is real data, not a pipeline gap.
+
+---
+
 ## 2026-06-08
 
 **Silver loader — `script/silver_loader.py`**
@@ -284,6 +337,20 @@ Complete end-to-end flow verified:
 6. Power BI connects to gold layer
 
 **Note on VPN**: the operator must be on the Intersolia network (office or VPN) for steps 2-4 to reach `INTSQLSERVER01`. The morning_refresh.ps1 retry logic handles days when VPN connects later than 07:00.
+
+**Power BI — Linear Page 4 (People) built**
+
+Fourth Linear report page added. Tab names set: Overview, Trends, Distribution, People.
+
+*Layout:* Month slicer at top. Line chart (full width, slicer-disconnected) showing Created issues per assignee per month — one line per person via the `Assignee` calculated column in the Legend field. No separate people slicer — the line chart's own legend acts as the colour guide; Ctrl+click on a legend item highlights that person's line. Table and clustered horizontal bar below (both slicer-connected): Assignee | Created | Closed | Open Issues Assignee | Avg Days to Close | Incidents; bar shows Created + Closed side by side.
+
+*Measures:* `_L Measures 3` table created for page 4 with `Created` (COUNTROWS), `Closed` (USERELATIONSHIP on closed_at), and `Incidents`. `Open Issues Assignee` placed in `_L Measures 2` (REMOVEFILTERS(DimDate), ISBLANK(closed_at) — all-time backlog per person). `Avg Days to Close` reused from `_L Measures 2` as-is.
+
+*Why no Chiclet Slicer:* Chiclet Slicer was installed but dropped — it only supports global selected/unselected colours, not per-item colours. Using the line chart legend instead is cleaner and natively supported.
+
+*Why new measures instead of reusing `Linear Created`:* `Linear Created` uses the period toggle logic (VAR periodStart/periodEnd from the PeriodType table), which collapses the month axis into a single period value. New plain `Created = COUNTROWS(FactLinear)` responds purely to DimDate filter context and Assignee legend, which is what the trend line chart needs.
+
+Report sent to client (2026-06-09) for review and feedback.
 
 ---
 
