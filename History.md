@@ -236,6 +236,32 @@ A `script/morning_refresh.ps1` automation script is planned for when both silver
 
 ---
 
+## 2026-06-11
+
+**Pipeline handover documentation**
+
+Created `docs/pipeline-setup-instructions.md` — a self-contained guide for whoever sets up the daily refresh pipeline on a new machine. Covers two options:
+
+*Option A — operator's Windows machine (Task Scheduler):* Same setup as Michael's machine. Suitable when the operator's PC is on and network-connected most working days. Steps: install Git, Python 3.12, ODBC Driver 17; clone repo with PAT; create credentials files; register Task Scheduler task with hourly repetition.
+
+*Option B — SQL Server (SQL Server Agent):* Full pipeline runs on `INTSQLSERVER01`, independent of any operator machine. Requires IT to install Git and Python on the server and confirm outbound HTTPS to github.com. SQL Agent job runs `morning_refresh.ps1` via CmdExec at 07:00 daily.
+
+**GitHub PAT for private repo access**
+
+The repo is private — git clone/pull requires a GitHub Personal Access Token. Setup:
+- Account-level: github.com → profile → Settings → Developer settings → Fine-grained tokens
+- Permissions: Contents: Read-only (Metadata: Read granted automatically)
+- Expiration: No expiration (project must outlive any single operator)
+- Scope: single repository only
+
+Token stored locally in `credentials/github_token.txt` (git-ignored). The script does not read this file — git/Windows Credential Manager handles auth after the initial clone. The file exists purely for handover reference.
+
+**Why credentials/ stays git-ignored despite the repo being private**
+
+Git history is permanent. Credentials committed now would be visible forever via `git log` even after deletion, to anyone ever granted repo access. The small inconvenience of out-of-band credential sharing is worth it.
+
+---
+
 ## 2026-06-09
 
 **morning_refresh.ps1 — git pull bug fixed**

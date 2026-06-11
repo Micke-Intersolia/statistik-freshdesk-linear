@@ -315,6 +315,8 @@ Repository secrets required (already configured):
 
 When this project transfers to a new operator, complete these steps once.
 
+> **Full instructions** (including Option B — SQL Server Agent setup): see `docs/pipeline-setup-instructions.md`
+
 ### Prerequisites
 
 - [Git for Windows](https://git-scm.com/download/win)
@@ -322,22 +324,27 @@ When this project transfers to a new operator, complete these steps once.
 - [ODBC Driver 17 for SQL Server](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server)
 - `pip install requests pyodbc`
 - Access to the Intersolia network (office or VPN)
-- The SQL Server connection string for `INTSQLSERVER01` — **this is not stored in GitHub**; obtain it from IT or the outgoing person
+- A GitHub Personal Access Token (PAT) — obtain from the outgoing person (`credentials/github_token.txt` on their machine), or generate a new one (github.com → profile → Settings → Developer settings → Fine-grained tokens → Contents: Read, no expiration, this repo only)
+- The SQL Server connection string for `INTSQLSERVER01` — obtain from the outgoing person (`credentials/sql_connection.txt`) or IT
 
 ### Step-by-step
 
 **1. Clone the repository**
+
+The repo is private. Replace `<TOKEN>` with the PAT:
 ```powershell
-git clone https://github.com/Micke-Intersolia/statistik-freshdesk-linear.git
+git clone https://Micke-Intersolia:<TOKEN>@github.com/Micke-Intersolia/statistik-freshdesk-linear.git
 cd statistik-freshdesk-linear
 ```
 
-**2. Create the credentials file**
+**2. Create the credentials files**
 
-Create `credentials\sql_connection.txt` (this folder is git-ignored and will never be committed):
+Create `credentials\sql_connection.txt` (git-ignored, never committed):
 ```
 DRIVER={ODBC Driver 17 for SQL Server};SERVER=INTSQLSERVER01;DATABASE=InternalStatistics;UID=your_username;PWD=your_password;
 ```
+
+Create `credentials\github_token.txt` with the PAT — for future reference and re-cloning.
 
 **3. Verify the connection**
 ```powershell

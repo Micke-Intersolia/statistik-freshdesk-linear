@@ -326,11 +326,14 @@ When this project transfers to a new operator, they need to do the following onc
 - The SQL connection string for `INTSQLSERVER01` — this is **not** in GitHub Secrets; get it from IT or the outgoing person
 
 **One-time setup**
-1. Clone the repo: `git clone https://github.com/Micke-Intersolia/statistik-freshdesk-linear.git`
-2. Create `credentials/sql_connection.txt` with the connection string (format: `DRIVER={ODBC Driver 17 for SQL Server};SERVER=INTSQLSERVER01;DATABASE=InternalStatistics;UID=xxx;PWD=xxx;`)
-3. Register the Task Scheduler task (as Administrator): `powershell -ExecutionPolicy Bypass -File "script\morning_refresh.ps1" -Register`
-4. In Task Scheduler: open the task → Triggers → Edit → tick "Repeat task every: 1 hour" for 13 hours
-5. Authenticate git to GitHub once by running `git pull` in the repo — Windows Credential Manager will cache the token
+1. Get a GitHub PAT from the outgoing person (or generate one: github.com → profile → Settings → Developer settings → Fine-grained tokens → read-only, Contents permission, no expiration, scoped to this repo)
+2. Clone the repo: `git clone https://Micke-Intersolia:<TOKEN>@github.com/Micke-Intersolia/statistik-freshdesk-linear.git`
+3. Create `credentials/sql_connection.txt` with the connection string (format: `DRIVER={ODBC Driver 17 for SQL Server};SERVER=INTSQLSERVER01;DATABASE=InternalStatistics;UID=xxx;PWD=xxx;`)
+4. Create `credentials/github_token.txt` with the PAT — for future reference and re-cloning
+5. Register the Task Scheduler task (as Administrator): `powershell -ExecutionPolicy Bypass -File "script\morning_refresh.ps1" -Register`
+6. In Task Scheduler: open the task → Triggers → Edit → tick "Repeat task every: 1 hour" for 13 hours
+
+Full instructions for handover (including Option B — SQL Server Agent): `docs/pipeline-setup-instructions.md`
 
 **GitHub Actions** (already configured — no action needed)
 - Snapshot scripts run nightly automatically
@@ -340,7 +343,8 @@ When this project transfers to a new operator, they need to do the following onc
 
 ## Security constraints
 
-- `credentials/` is git-ignored — never commit API keys or connection strings
+- `credentials/` is git-ignored — never commit API keys or connection strings, even though the repo is private (git history is permanent; repo access may expand)
+- `credentials/sql_connection.txt` — SQL Server connection string
+- `credentials/github_token.txt` — GitHub PAT for git clone/pull (read-only, no expiration)
 - API keys: `FRESHDESK_API_KEY`, `LINEAR_API_KEY` (env vars or `credentials/*.txt`)
-- SQL connection string: `SQL_CONNECTION_STRING` env var or `credentials/sql_connection.txt`
 - GitHub Secrets configured: `LINEAR_API_KEY`, `FRESHDESK_API_KEY`
