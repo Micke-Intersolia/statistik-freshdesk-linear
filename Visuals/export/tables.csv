@@ -1,0 +1,11 @@
+ID,ModelID,Name,DataCategory,Description,IsHidden,TableStorageID,ModifiedTime,StructureModifiedTime,SystemFlags,ShowAsVariationsOnly,IsPrivate,DefaultDetailRowsDefinitionID,AlternateSourcePrecedence,RefreshPolicyID,CalculationGroupID,ExcludeFromModelRefresh,LineageTag,SourceLineageTag,SystemManaged,ExcludeFromAutomaticAggregations
+12,1,"FactFreshdesk","","",False,176,2026-06-05 09:17:21.690,2026-06-09 11:35:24.080,0,False,False,,0,,,False,"c1c24573-bcbc-44cf-a62d-184f18b9eac2","",False,False
+15,1,"FactLinear","","",False,178,2026-06-05 09:17:25.853,2026-06-09 12:29:43.613,0,False,False,,0,,,False,"604eef7b-20f4-4934-b50a-305f53633224","",False,False
+18,1,"DimDate","","",False,180,2026-06-05 09:17:15.020,2026-06-09 11:35:24.080,0,False,False,,0,,,False,"dceec6da-994e-4da2-9b59-7a7c58b8e758","",False,False
+2316,1,"_FD Measures","","",False,2324,2026-06-08 12:01:58.566,2026-06-09 11:35:24.080,0,False,False,,0,,,False,"2e471881-a281-435d-b925-0e71384f38d5","",False,False
+2528,1,"_Helper Measures","","",False,2534,2026-06-08 12:02:05.743,2026-06-11 13:37:17.470,2,False,False,,0,,,False,"0de1387e-ddaf-42e4-8dd4-856b214ec6d7","",False,False
+2973,1,"_L Measures 1","","",False,2979,2026-06-09 12:33:00.903,2026-06-09 07:37:18.076,2,False,False,,0,,,False,"be4ecc42-7ef1-4f63-bb89-99ba8a9c6349","",False,False
+3453,1,"PeriodType","","",False,3461,2026-06-08 11:43:35.386,2026-06-08 11:43:35.386,0,False,False,,0,,,False,"49aaff9d-3d03-402b-9de0-a5debcc79d7d","",False,False
+8030,1,"Wait Threshold","","",False,8036,2026-06-09 07:48:07.946,2026-06-09 07:48:07.946,2,False,False,,0,,,False,"167a5fa4-1009-46e9-81d7-b54f130d77e3","",False,False
+8290,1,"_L Measures 2","","",False,8296,2026-06-09 09:35:51.020,2026-06-09 13:00:19.716,2,False,False,,0,,,False,"1f7dc2c9-6266-4e7e-82f1-a8796f1860e3","",False,False
+14545,1,"_L Measures 3","","",False,14551,2026-06-09 13:00:36.170,2026-06-09 13:01:26.896,2,False,False,,0,,,False,"731e3f12-cf12-4c84-8654-71ac77875583","",False,False

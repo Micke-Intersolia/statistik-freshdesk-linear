@@ -1,0 +1,43 @@
+ID,TableID,ExplicitName,InferredName,ExplicitDataType,InferredDataType,DataCategory,Description,IsHidden,State,IsUnique,IsKey,IsNullable,Alignment,TableDetailPosition,IsDefaultLabel,IsDefaultImage,SummarizeBy,ColumnStorageID,Type,SourceColumn,ColumnOriginID,Expression,FormatString,IsAvailableInMDX,SortByColumnID,AttributeHierarchyID,ModifiedTime,StructureModifiedTime,RefreshedTime,SystemFlags,KeepUniqueRows,DisplayOrdinal,ErrorMessage,SourceProviderType,DisplayFolder,EncodingHint,RelatedColumnDetailsID,AlternateOfID,LineageTag,SourceLineageTag
+9289,15,"Project Group","",1,2,"","",False,1,False,False,True,1,-1,False,False,2,9291,2,"",,"
+  SWITCH(TRUE(),
+      FactLinear[project_name] = ""iChemistry"", ""iChemistry"",
+      FactLinear[project_name] = ""iPublisher"", ""iPublisher"",
+      FactLinear[project_name] = ""Chemsoft"", ""Chemsoft"",
+      ISBLANK(FactLinear[project_name]), ""Unassigned"",
+      ""Other""
+  )
+","",True,,9290,2026-06-11 10:11:26.646,2026-06-09 09:06:46.773,2026-06-11 10:11:26.646,0,False,0,"","","",0,,,"b020be1e-eb53-4fe0-b442-38058b61270a",""
+9674,15,"Lead Time","",1,2,"","",False,1,False,False,True,1,-1,False,False,2,9676,2,"",,"
+  SWITCH(TRUE(),
+      ISBLANK(FactLinear[days_to_close]), BLANK(),
+      FactLinear[days_to_close] = 1,  ""Same day"",
+      FactLinear[days_to_close] <= 7,  ""2–7 days"",
+      FactLinear[days_to_close] <= 14, ""8–14 days"",
+      FactLinear[days_to_close] <= 30, ""15–30 days"",
+      FactLinear[days_to_close] <= 90, ""31–90 days"",
+      ""+90 days""
+  )
+","",True,9854,9675,2026-06-11 10:11:26.646,2026-06-09 10:11:02.343,2026-06-11 10:11:26.646,0,False,0,"","","",0,,,"a011c91a-c416-4427-9162-163a095d391b",""
+9854,15,"Lead Time Sort","",1,6,"","",False,1,False,False,True,1,-1,False,False,3,9856,2,"",,"
+  SWITCH(TRUE(),
+      ISBLANK(FactLinear[days_to_close]), 99,
+      FactLinear[days_to_close] = 1,   1,
+      FactLinear[days_to_close] <= 7,  2,
+      FactLinear[days_to_close] <= 14, 3,
+      FactLinear[days_to_close] <= 30, 4,
+      FactLinear[days_to_close] <= 90, 5,
+      6
+  )","0",True,,9855,2026-06-11 10:11:26.646,2026-06-09 10:10:40.136,2026-06-11 10:11:26.646,0,False,0,"","","",0,,,"c1547e5e-a195-4a58-b816-30323d3468cd",""
+13894,15,"Assignee","",1,2,"","",False,1,False,False,True,1,-1,False,False,2,13896,2,"",,"IF(ISBLANK(FactLinear[assignee_name]), ""Unassigned"", FactLinear[assignee_name])","",True,,13895,2026-06-11 10:11:26.666,2026-06-09 12:29:43.613,2026-06-11 10:11:26.666,0,False,0,"","","",0,,,"28c47695-3ff4-4be3-9aec-463de7cf2f5d",""
+2347,18,"IsPastOrToday","",1,6,"","",False,1,False,False,True,1,-1,False,False,3,2349,2,"",,"
+IF(DimDate[date_key] <= TODAY(), 
+    1, 
+    0
+)","0",True,,2348,2026-06-11 10:11:26.646,2026-06-05 09:23:53.496,2026-06-11 13:49:40.666,0,False,0,"","","",0,,,"05925dfe-4176-4d3e-89e5-f8c2eab95069",""
+5314,18,"Week starting","",1,2,"","",False,1,False,False,True,1,-1,False,False,2,5316,2,"",,"FORMAT(DimDate[date_key] - DimDate[day_of_week_num] + 1, ""D MMM"")","",True,,5315,2026-06-11 10:11:26.663,2026-06-08 14:05:09.090,2026-06-11 10:11:26.663,0,False,0,"","","",0,,,"2b56f1c5-4d50-4f1c-8f85-4e900b7b7e86",""
+5507,18,"Month","",1,2,"","",False,1,False,False,True,1,-1,False,False,2,5509,2,"",,"DimDate[month_short] & "" '"" & RIGHT(FORMAT(DimDate[year], ""0000""), 2)","",True,57,5508,2026-06-11 10:11:26.666,2026-06-08 14:10:27.533,2026-06-11 10:11:26.666,0,False,0,"","","",0,,,"ae2efb9d-d785-4181-b5b2-b6187ac4c697",""
+5647,18,"Is Current Month","",1,6,"","",False,1,False,False,True,1,-1,False,False,3,5649,2,"",,"IF(
+      DimDate[month_sort] = YEAR(TODAY()) * 100 + MONTH(TODAY()),
+      1, 0
+  )","0",True,,5648,2026-06-11 10:11:26.646,2026-06-08 14:13:22.143,2026-06-11 13:49:40.666,0,False,0,"","","",0,,,"9579a6d0-05f2-4c93-97e5-407e5913ed46",""

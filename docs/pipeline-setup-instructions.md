@@ -85,19 +85,12 @@ Open a Command Prompt and run (replace `<TOKEN>` and `<REPO_PATH>`):
 git clone https://Micke-Intersolia:<TOKEN>@github.com/Micke-Intersolia/statistik-freshdesk-linear.git <REPO_PATH>
 ```
 
-#### 6. Create the credentials files
+#### 6. Add the credentials folder
+Michael will provide a zipped `credentials` folder. Extract it directly into `<REPO_PATH>` so the result is:
 ```
-mkdir <REPO_PATH>\credentials
-notepad <REPO_PATH>\credentials\sql_connection.txt
+<REPO_PATH>\credentials\sql_connection.txt
+<REPO_PATH>\credentials\github_token.txt
 ```
-Paste the SQL Server connection string Michael provided. Save and close Notepad.
-
-Then store the GitHub token for future reference (e.g. if the repo needs to be re-cloned on a new machine):
-```
-notepad <REPO_PATH>\credentials\github_token.txt
-```
-Paste the GitHub PAT Michael provided. Save and close Notepad.
-
 These files are excluded from git — they exist only on this machine.
 
 #### 7. Register the Task Scheduler task
@@ -138,6 +131,7 @@ has outbound internet access to GitHub.
 - Outbound HTTPS (port 443) from `INTSQLSERVER01` to `github.com` is permitted
 - Git for Windows can be installed on `INTSQLSERVER01`
 - Python 3.12 can be installed on `INTSQLSERVER01`
+- ODBC Driver 17 for SQL Server can be installed on `INTSQLSERVER01` (needed by Python — separate from SQL Server itself)
 - The SQL Server Agent service account (or a proxy account) has write permissions
   to the chosen installation folder on the server
 
@@ -150,14 +144,14 @@ All steps below are performed on `INTSQLSERVER01` unless stated otherwise.
 **Before you start — choose an installation folder**
 
 Decide where the repository will be cloned on the server. Suggested locations
-(use whichever fits your organisation's conventions):
+(use whichever drive and folder convention your organisation uses):
 ```
-C:\Apps\statistik-freshdesk-linear
-C:\Scripts\statistik-freshdesk-linear
-D:\Apps\statistik-freshdesk-linear        (if applications live on D:)
+<X>:\Apps\statistik-freshdesk-linear
+<X>:\Scripts\statistik-freshdesk-linear
 ```
-Avoid `C:\Program Files` (requires elevated rights for every git pull).  
-We will call the chosen path `<REPO_PATH>` throughout these instructions.
+Replace `<X>:` with the appropriate drive letter. Avoid `C:\Program Files`
+(requires elevated rights for every git pull).  
+We will call the full chosen path `<REPO_PATH>` throughout these instructions.
 
 **Important:** The SQL Server Agent service account must have read/write access
 to `<REPO_PATH>`. IT should create this folder and grant the service account
@@ -189,19 +183,12 @@ Run (replace `<TOKEN>` and `<REPO_PATH>`):
 git clone https://Micke-Intersolia:<TOKEN>@github.com/Micke-Intersolia/statistik-freshdesk-linear.git <REPO_PATH>
 ```
 
-#### 5. Create the credentials files (on the server)
+#### 5. Add the credentials folder (on the server)
+Michael will provide a zipped `credentials` folder. Extract it directly into `<REPO_PATH>` so the result is:
 ```
-mkdir <REPO_PATH>\credentials
-notepad <REPO_PATH>\credentials\sql_connection.txt
+<REPO_PATH>\credentials\sql_connection.txt
+<REPO_PATH>\credentials\github_token.txt
 ```
-Paste the SQL Server connection string, save and close.
-
-Then store the GitHub token for future reference:
-```
-notepad <REPO_PATH>\credentials\github_token.txt
-```
-Paste the GitHub PAT, save and close.
-
 These files are excluded from git — they exist only on the server.
 
 #### 6. Verify the script runs manually

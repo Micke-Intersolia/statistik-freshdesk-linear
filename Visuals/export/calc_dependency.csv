@@ -1,0 +1,2731 @@
+DATABASE_NAME,OBJECT_TYPE,TABLE,OBJECT,EXPRESSION,REFERENCED_OBJECT_TYPE,REFERENCED_TABLE,REFERENCED_OBJECT,REFERENCED_EXPRESSION,QUERY
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ATTRIBUTE_HIERARCHY","DimDate","quarter_name","","ATTRIBUTE_HIERARCHY","DimDate","quarter_num","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ATTRIBUTE_HIERARCHY","DimDate","month_name","","ATTRIBUTE_HIERARCHY","DimDate","month_num","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ATTRIBUTE_HIERARCHY","DimDate","month_short","","ATTRIBUTE_HIERARCHY","DimDate","month_num","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ATTRIBUTE_HIERARCHY","DimDate","day_name","","ATTRIBUTE_HIERARCHY","DimDate","day_of_week_num","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ATTRIBUTE_HIERARCHY","DimDate","day_short","","ATTRIBUTE_HIERARCHY","DimDate","day_of_week_num","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ACTIVE_RELATIONSHIP","FactFreshdesk","fbf49f21-a0bc-6d70-3fe9-d29e3d931bb0","","COLUMN","FactFreshdesk","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ACTIVE_RELATIONSHIP","FactFreshdesk","fbf49f21-a0bc-6d70-3fe9-d29e3d931bb0","","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ACTIVE_RELATIONSHIP","FactLinear","f96ceb63-f67c-ee49-94cf-170baa59869f","","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ACTIVE_RELATIONSHIP","FactLinear","f96ceb63-f67c-ee49-94cf-170baa59869f","","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactFreshdesk","052dabf6-628d-9d38-0309-ba0cc09502e5","","COLUMN","FactFreshdesk","denied_triage_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactFreshdesk","052dabf6-628d-9d38-0309-ba0cc09502e5","","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactFreshdesk","e781dabd-a6b6-fb17-109d-d5847877a347","","COLUMN","FactFreshdesk","first_passed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactFreshdesk","e781dabd-a6b6-fb17-109d-d5847877a347","","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactFreshdesk","a4e7f635-0b8c-ae01-e925-b7235baf4896","","COLUMN","FactFreshdesk","first_waiting_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactFreshdesk","a4e7f635-0b8c-ae01-e925-b7235baf4896","","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactLinear","823f3e02-b610-6836-ee64-9f380c3941d4","","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactLinear","823f3e02-b610-6836-ee64-9f380c3941d4","","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactLinear","35127388-6db2-fb0b-758b-1a12b68d8440","","COLUMN","FactLinear","completed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","RELATIONSHIP","FactLinear","35127388-6db2-fb0b-758b-1a12b68d8440","","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )","COLUMN","FactFreshdesk","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","IsPastOrToday","
+IF(DimDate[date_key] <= TODAY(), 
+    1, 
+    0
+)","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","IsPastOrToday","
+IF(DimDate[date_key] <= TODAY(), 
+    1, 
+    0
+)","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Last Completed Week","
+MAXX(
+    FILTER(
+        ALL(DimDate),
+        DimDate[date_key] < TODAY()
+    ),
+    DimDate[isoweek]
+)
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Last Completed Week","
+MAXX(
+    FILTER(
+        ALL(DimDate),
+        DimDate[date_key] < TODAY()
+    ),
+    DimDate[isoweek]
+)
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Last Completed Week","
+MAXX(
+    FILTER(
+        ALL(DimDate),
+        DimDate[date_key] < TODAY()
+    ),
+    DimDate[isoweek]
+)
+","COLUMN","DimDate","isoweek","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Last Date in Data","
+MAXX(
+    FILTER(
+        ALL(DimDate),
+        DimDate[date_key] < TODAY()
+    ),
+    DimDate[date_key]
+)","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Last Date in Data","
+MAXX(
+    FILTER(
+        ALL(DimDate),
+        DimDate[date_key] < TODAY()
+    ),
+    DimDate[date_key]
+)","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Selected Period","
+    SELECTEDVALUE(PeriodType[Period], ""Week"")
+","TABLE","PeriodType","PeriodType","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Selected Period","
+    SELECTEDVALUE(PeriodType[Period], ""Week"")
+","COLUMN","PeriodType","Period","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+","MEASURE","_Helper Measures","Selected Period","
+    SELECTEDVALUE(PeriodType[Period], ""Week"")
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)","MEASURE","_Helper Measures","Selected Period","
+    SELECTEDVALUE(PeriodType[Period], ""Week"")
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+","MEASURE","_Helper Measures","Selected Period","
+    SELECTEDVALUE(PeriodType[Period], ""Week"")
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+","MEASURE","_Helper Measures","Selected Period","
+    SELECTEDVALUE(PeriodType[Period], ""Week"")
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Period Label","
+  VAR p = [Selected Period]
+  VAR s = [Period Start]
+  RETURN ""Period: "" & IF(
+      p = ""Week"",
+      ""W"" & WEEKNUM(s, 21),
+      FORMAT(s, ""MMMM"")
+  )","MEASURE","_Helper Measures","Selected Period","
+    SELECTEDVALUE(PeriodType[Period], ""Week"")
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Period Label","
+  VAR p = [Selected Period]
+  VAR s = [Period Start]
+  RETURN ""Period: "" & IF(
+      p = ""Week"",
+      ""W"" & WEEKNUM(s, 21),
+      FORMAT(s, ""MMMM"")
+  )","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )
+","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )
+","COLUMN","FactFreshdesk","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )
+","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )
+","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets Δ%","
+  DIVIDE([Created Tickets] - [Created Tickets Prev], [Created Tickets Prev])","MEASURE","_FD Measures","Created Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Created Tickets Δ%","
+  DIVIDE([Created Tickets] - [Created Tickets Prev], [Created Tickets Prev])","MEASURE","_FD Measures","Created Tickets Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","COLUMN","FactFreshdesk","first_waiting_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )
+","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )
+","COLUMN","FactFreshdesk","first_waiting_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )
+","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )
+","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage Δ%","
+  DIVIDE([Waiting for Triage] - [Waiting for Triage Prev], [Waiting for Triage Prev])
+","MEASURE","_FD Measures","Waiting for Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Waiting for Triage Δ%","
+  DIVIDE([Waiting for Triage] - [Waiting for Triage Prev], [Waiting for Triage Prev])
+","MEASURE","_FD Measures","Waiting for Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )
+","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )
+","COLUMN","FactFreshdesk","first_passed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )
+","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )
+","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )","COLUMN","FactFreshdesk","first_passed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage Δ%","
+  DIVIDE([Passed Triage] - [Passed Triage Prev], [Passed Triage Prev])","MEASURE","_FD Measures","Passed Triage","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Passed Triage Δ%","
+  DIVIDE([Passed Triage] - [Passed Triage Prev], [Passed Triage Prev])","MEASURE","_FD Measures","Passed Triage Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalated Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalated Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","COLUMN","FactFreshdesk","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalated Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","COLUMN","FactFreshdesk","first_waiting_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalated Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalated Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate","
+  DIVIDE([Escalated Tickets], [Created Tickets])
+","MEASURE","_FD Measures","Created Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate","
+  DIVIDE([Escalated Tickets], [Created Tickets])
+","MEASURE","_FD Measures","Escalated Tickets","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  DIVIDE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[created_at] >= periodStart,
+          FactFreshdesk[created_at] <= periodEnd,
+          NOT ISBLANK(FactFreshdesk[first_waiting_at])
+      ),
+      [Created Tickets Prev]
+  )","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  DIVIDE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[created_at] >= periodStart,
+          FactFreshdesk[created_at] <= periodEnd,
+          NOT ISBLANK(FactFreshdesk[first_waiting_at])
+      ),
+      [Created Tickets Prev]
+  )","COLUMN","FactFreshdesk","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  DIVIDE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[created_at] >= periodStart,
+          FactFreshdesk[created_at] <= periodEnd,
+          NOT ISBLANK(FactFreshdesk[first_waiting_at])
+      ),
+      [Created Tickets Prev]
+  )","COLUMN","FactFreshdesk","first_waiting_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  DIVIDE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[created_at] >= periodStart,
+          FactFreshdesk[created_at] <= periodEnd,
+          NOT ISBLANK(FactFreshdesk[first_waiting_at])
+      ),
+      [Created Tickets Prev]
+  )","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  DIVIDE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[created_at] >= periodStart,
+          FactFreshdesk[created_at] <= periodEnd,
+          NOT ISBLANK(FactFreshdesk[first_waiting_at])
+      ),
+      [Created Tickets Prev]
+  )","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  DIVIDE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[created_at] >= periodStart,
+          FactFreshdesk[created_at] <= periodEnd,
+          NOT ISBLANK(FactFreshdesk[first_waiting_at])
+      ),
+      [Created Tickets Prev]
+  )","MEASURE","_FD Measures","Created Tickets Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate Δpp","
+  [Escalation Rate] - [Escalation Rate Prev]  // percentage points, not %","MEASURE","_FD Measures","Escalation Rate","
+  DIVIDE([Escalated Tickets], [Created Tickets])
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate Δpp","
+  [Escalation Rate] - [Escalation Rate Prev]  // percentage points, not %","MEASURE","_FD Measures","Escalation Rate Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  DIVIDE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[created_at] >= periodStart,
+          FactFreshdesk[created_at] <= periodEnd,
+          NOT ISBLANK(FactFreshdesk[first_waiting_at])
+      ),
+      [Created Tickets Prev]
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[denied_triage] = TRUE(),
+          FactFreshdesk[denied_triage_at] >= periodStart,
+          FactFreshdesk[denied_triage_at] <= periodEnd
+      ),
+      0
+  )","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[denied_triage] = TRUE(),
+          FactFreshdesk[denied_triage_at] >= periodStart,
+          FactFreshdesk[denied_triage_at] <= periodEnd
+      ),
+      0
+  )","COLUMN","FactFreshdesk","denied_triage","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[denied_triage] = TRUE(),
+          FactFreshdesk[denied_triage_at] >= periodStart,
+          FactFreshdesk[denied_triage_at] <= periodEnd
+      ),
+      0
+  )","COLUMN","FactFreshdesk","denied_triage_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[denied_triage] = TRUE(),
+          FactFreshdesk[denied_triage_at] >= periodStart,
+          FactFreshdesk[denied_triage_at] <= periodEnd
+      ),
+      0
+  )","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[denied_triage] = TRUE(),
+          FactFreshdesk[denied_triage_at] >= periodStart,
+          FactFreshdesk[denied_triage_at] <= periodEnd
+      ),
+      0
+  )","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+    CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[denied_triage] = TRUE(),
+      FactFreshdesk[denied_triage_at] >= periodStart,
+      FactFreshdesk[denied_triage_at] <= periodEnd
+  ),
+  0
+  )","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+    CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[denied_triage] = TRUE(),
+      FactFreshdesk[denied_triage_at] >= periodStart,
+      FactFreshdesk[denied_triage_at] <= periodEnd
+  ),
+  0
+  )","COLUMN","FactFreshdesk","denied_triage","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+    CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[denied_triage] = TRUE(),
+      FactFreshdesk[denied_triage_at] >= periodStart,
+      FactFreshdesk[denied_triage_at] <= periodEnd
+  ),
+  0
+  )","COLUMN","FactFreshdesk","denied_triage_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+    CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[denied_triage] = TRUE(),
+      FactFreshdesk[denied_triage_at] >= periodStart,
+      FactFreshdesk[denied_triage_at] <= periodEnd
+  ),
+  0
+  )","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+    CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[denied_triage] = TRUE(),
+      FactFreshdesk[denied_triage_at] >= periodStart,
+      FactFreshdesk[denied_triage_at] <= periodEnd
+  ),
+  0
+  )","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied Δ","
+var diff = [Triage Denied] - [Triage Denied Prev]
+RETURN diff","MEASURE","_FD Measures","Triage Denied","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[denied_triage] = TRUE(),
+          FactFreshdesk[denied_triage_at] >= periodStart,
+          FactFreshdesk[denied_triage_at] <= periodEnd
+      ),
+      0
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Triage Denied Δ","
+var diff = [Triage Denied] - [Triage Denied Prev]
+RETURN diff","MEASURE","_FD Measures","Triage Denied Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+    CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[denied_triage] = TRUE(),
+      FactFreshdesk[denied_triage_at] >= periodStart,
+      FactFreshdesk[denied_triage_at] <= periodEnd
+  ),
+  0
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate (Chart)","
+  VAR total     = COUNTROWS(FactFreshdesk)
+  VAR escalated = CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )
+  RETURN
+  IF(ISBLANK(total), 0, DIVIDE(escalated, total) * 100)","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","Escalation Rate (Chart)","
+  VAR total     = COUNTROWS(FactFreshdesk)
+  VAR escalated = CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )
+  RETURN
+  IF(ISBLANK(total), 0, DIVIDE(escalated, total) * 100)","COLUMN","FactFreshdesk","first_waiting_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","HIERARCHY","DimDate","Date hierarchy","","ATTRIBUTE_HIERARCHY","DimDate","year","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","Week starting","FORMAT(DimDate[date_key] - DimDate[day_of_week_num] + 1, ""D MMM"")","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","Week starting","FORMAT(DimDate[date_key] - DimDate[day_of_week_num] + 1, ""D MMM"")","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","Week starting","FORMAT(DimDate[date_key] - DimDate[day_of_week_num] + 1, ""D MMM"")","COLUMN","DimDate","day_of_week_num","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","Month","DimDate[month_short] & "" '"" & RIGHT(FORMAT(DimDate[year], ""0000""), 2)","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","Month","DimDate[month_short] & "" '"" & RIGHT(FORMAT(DimDate[year], ""0000""), 2)","COLUMN","DimDate","year","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","Month","DimDate[month_short] & "" '"" & RIGHT(FORMAT(DimDate[year], ""0000""), 2)","COLUMN","DimDate","month_short","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ATTRIBUTE_HIERARCHY","DimDate","Month","","ATTRIBUTE_HIERARCHY","DimDate","month_sort","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","Is Current Month","IF(
+      DimDate[month_sort] = YEAR(TODAY()) * 100 + MONTH(TODAY()),
+      1, 0
+  )","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","DimDate","Is Current Month","IF(
+      DimDate[month_sort] = YEAR(TODAY()) * 100 + MONTH(TODAY()),
+      1, 0
+  )","COLUMN","DimDate","month_sort","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Check Week","
+FORMAT([Start of Last Week], ""yyyy-mm-dd"")
+& "" -> ""
+& FORMAT([End of Last Week], ""yyyy-mm-dd"")","MEASURE","_Helper Measures","Start of Last Week","
+VAR TodayDate = TODAY()
+VAR WeekdayNum = WEEKDAY(TodayDate, 2)
+RETURN
+    TodayDate - WeekdayNum - 6",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Check Week","
+FORMAT([Start of Last Week], ""yyyy-mm-dd"")
+& "" -> ""
+& FORMAT([End of Last Week], ""yyyy-mm-dd"")","MEASURE","_Helper Measures","End of Last Week","
+VAR TodayDate = TODAY()
+VAR WeekdayNum = WEEKDAY(TodayDate, 2)
+RETURN
+    TodayDate - WeekdayNum",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Debug Week Flag","
+VAR LastWeek = [Last Completed Week]
+VAR CurrentWeek =
+    SELECTEDVALUE(DimDate[isoweek])
+RETURN
+SWITCH(
+    TRUE(),
+    CurrentWeek = LastWeek, ""Last Week"",
+    CurrentWeek = LastWeek - 1, ""Week Before"",
+    ""Other""
+)","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Debug Week Flag","
+VAR LastWeek = [Last Completed Week]
+VAR CurrentWeek =
+    SELECTEDVALUE(DimDate[isoweek])
+RETURN
+SWITCH(
+    TRUE(),
+    CurrentWeek = LastWeek, ""Last Week"",
+    CurrentWeek = LastWeek - 1, ""Week Before"",
+    ""Other""
+)","COLUMN","DimDate","isoweek","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Debug Week Flag","
+VAR LastWeek = [Last Completed Week]
+VAR CurrentWeek =
+    SELECTEDVALUE(DimDate[isoweek])
+RETURN
+SWITCH(
+    TRUE(),
+    CurrentWeek = LastWeek, ""Last Week"",
+    CurrentWeek = LastWeek - 1, ""Week Before"",
+    ""Other""
+)","MEASURE","_Helper Measures","Last Completed Week","
+MAXX(
+    FILTER(
+        ALL(DimDate),
+        DimDate[date_key] < TODAY()
+    ),
+    DimDate[isoweek]
+)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created Δ%","
+  DIVIDE([Linear Created] - [Linear Created Prev], [Linear Created Prev])
+","MEASURE","_L Measures 1","Linear Created","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created Δ%","
+  DIVIDE([Linear Created] - [Linear Created Prev], [Linear Created Prev])
+","MEASURE","_L Measures 1","Linear Created Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed Δ%","
+  DIVIDE([Linear Closed] - [Linear Closed Prev], [Linear Closed Prev])
+","MEASURE","_L Measures 1","Linear Closed","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed Δ%","
+  DIVIDE([Linear Closed] - [Linear Closed Prev], [Linear Closed Prev])
+","MEASURE","_L Measures 1","Linear Closed Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Period End","
+  VAR periodEnd = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Period End","
+  VAR periodEnd = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Period End","
+  VAR periodEnd = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Period End","
+  VAR periodEnd = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Period End","
+  VAR periodEnd = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Prev Period End","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Prev Period End","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Prev Period End","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Prev Period End","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open at Prev Period End","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open Δ","
+  [Linear Open at Period End] - [Linear Open at Prev Period End]
+","MEASURE","_L Measures 1","Linear Open at Period End","
+  VAR periodEnd = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open Δ","
+  [Linear Open at Period End] - [Linear Open at Prev Period End]
+","MEASURE","_L Measures 1","Linear Open at Prev Period End","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","COLUMN","FactLinear","is_incident","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","COLUMN","FactLinear","is_incident","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents Δ","
+  [Linear Incidents] - [Linear Incidents Prev]
+","MEASURE","_L Measures 1","Linear Incidents","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Incidents Δ","
+  [Linear Incidents] - [Linear Incidents Prev]
+","MEASURE","_L Measures 1","Linear Incidents Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Created (Chart)","
+  COUNTROWS(FactLinear)
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed (Chart)","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed (Chart)","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed (Chart)","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Closed (Chart)","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open Issues (Chart)","
+  VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+  RETURN
+  COUNTROWS(
+      FILTER(
+          ALL(FactLinear),
+          FactLinear[created_at] <= monthEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+      )
+  )","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open Issues (Chart)","
+  VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+  RETURN
+  COUNTROWS(
+      FILTER(
+          ALL(FactLinear),
+          FactLinear[created_at] <= monthEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+      )
+  )","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open Issues (Chart)","
+  VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+  RETURN
+  COUNTROWS(
+      FILTER(
+          ALL(FactLinear),
+          FactLinear[created_at] <= monthEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+      )
+  )","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open Issues (Chart)","
+  VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+  RETURN
+  COUNTROWS(
+      FILTER(
+          ALL(FactLinear),
+          FactLinear[created_at] <= monthEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+      )
+  )","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Open Issues (Chart)","
+  VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+  RETURN
+  COUNTROWS(
+      FILTER(
+          ALL(FactLinear),
+          FactLinear[created_at] <= monthEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+      )
+  )","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","days_to_close","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","MEASURE","_Helper Measures","Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","MEASURE","_Helper Measures","Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","days_to_close","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close Δ","
+  [Linear Avg Days to Close] - [Linear Avg Days to Close Prev] 
+","MEASURE","_L Measures 1","Linear Avg Days to Close","
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Avg Days to Close Δ","
+  [Linear Avg Days to Close] - [Linear Avg Days to Close Prev] 
+","MEASURE","_L Measures 1","Linear Avg Days to Close Prev","
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Oldest Issue","
+  VAR today = TODAY()
+  RETURN
+  MAXX(
+      FILTER(FactLinear, ISBLANK(FactLinear[closed_at])),
+      DATEDIFF(FactLinear[created_at], today, DAY)
+  )","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Oldest Issue","
+  VAR today = TODAY()
+  RETURN
+  MAXX(
+      FILTER(FactLinear, ISBLANK(FactLinear[closed_at])),
+      DATEDIFF(FactLinear[created_at], today, DAY)
+  )","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Oldest Issue","
+  VAR today = TODAY()
+  RETURN
+  MAXX(
+      FILTER(FactLinear, ISBLANK(FactLinear[closed_at])),
+      DATEDIFF(FactLinear[created_at], today, DAY)
+  )","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Oldest Issue Prev","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  MAXX(
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      ),
+      DATEDIFF(FactLinear[created_at], periodEnd, DAY)
+  )","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Oldest Issue Prev","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  MAXX(
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      ),
+      DATEDIFF(FactLinear[created_at], periodEnd, DAY)
+  )","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Oldest Issue Prev","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  MAXX(
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      ),
+      DATEDIFF(FactLinear[created_at], periodEnd, DAY)
+  )","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Oldest Issue Prev","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  MAXX(
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      ),
+      DATEDIFF(FactLinear[created_at], periodEnd, DAY)
+  )","MEASURE","_Helper Measures","Prev Period End","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Oldest Issue Δ","
+  [Linear Oldest Issue] - [Linear Oldest Issue Prev]","MEASURE","_L Measures 1","Linear Oldest Issue","
+  VAR today = TODAY()
+  RETURN
+  MAXX(
+      FILTER(FactLinear, ISBLANK(FactLinear[closed_at])),
+      DATEDIFF(FactLinear[created_at], today, DAY)
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 1","Linear Oldest Issue Δ","
+  [Linear Oldest Issue] - [Linear Oldest Issue Prev]","MEASURE","_L Measures 1","Linear Oldest Issue Prev","
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  MAXX(
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      ),
+      DATEDIFF(FactLinear[created_at], periodEnd, DAY)
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","FD Waited Longest","
+  VAR earliestWaiting =
+      CALCULATE(
+          MIN(FactFreshdesk[first_waiting_at]),
+          FactFreshdesk[triage_status] = ""Waiting""
+      )
+  RETURN
+  IF(
+      ISBLANK(earliestWaiting),
+      BLANK(),
+      DATEDIFF(earliestWaiting, TODAY(), DAY)
+  )
+","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","FD Waited Longest","
+  VAR earliestWaiting =
+      CALCULATE(
+          MIN(FactFreshdesk[first_waiting_at]),
+          FactFreshdesk[triage_status] = ""Waiting""
+      )
+  RETURN
+  IF(
+      ISBLANK(earliestWaiting),
+      BLANK(),
+      DATEDIFF(earliestWaiting, TODAY(), DAY)
+  )
+","COLUMN","FactFreshdesk","triage_status","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","FD Waited Longest","
+  VAR earliestWaiting =
+      CALCULATE(
+          MIN(FactFreshdesk[first_waiting_at]),
+          FactFreshdesk[triage_status] = ""Waiting""
+      )
+  RETURN
+  IF(
+      ISBLANK(earliestWaiting),
+      BLANK(),
+      DATEDIFF(earliestWaiting, TODAY(), DAY)
+  )
+","COLUMN","FactFreshdesk","first_waiting_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","Wait Threshold","Wait Threshold Value","SELECTEDVALUE('Wait Threshold'[Wait Threshold], 30)","CALC_TABLE","Wait Threshold","Wait Threshold","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","Wait Threshold","Wait Threshold Value","SELECTEDVALUE('Wait Threshold'[Wait Threshold], 30)","CALC_COLUMN","Wait Threshold","Wait Threshold","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","FD Tickets Waiting Over Threshold","
+  VAR threshold = [Wait Threshold Value]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FILTER(
+          FactFreshdesk,
+          FactFreshdesk[triage_status] = ""Waiting"" &&
+          DATEDIFF(FactFreshdesk[first_waiting_at], TODAY(), DAY) > threshold
+      )
+  )","TABLE","FactFreshdesk","FactFreshdesk","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","FD Tickets Waiting Over Threshold","
+  VAR threshold = [Wait Threshold Value]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FILTER(
+          FactFreshdesk,
+          FactFreshdesk[triage_status] = ""Waiting"" &&
+          DATEDIFF(FactFreshdesk[first_waiting_at], TODAY(), DAY) > threshold
+      )
+  )","COLUMN","FactFreshdesk","triage_status","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","FD Tickets Waiting Over Threshold","
+  VAR threshold = [Wait Threshold Value]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FILTER(
+          FactFreshdesk,
+          FactFreshdesk[triage_status] = ""Waiting"" &&
+          DATEDIFF(FactFreshdesk[first_waiting_at], TODAY(), DAY) > threshold
+      )
+  )","COLUMN","FactFreshdesk","first_waiting_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_FD Measures","FD Tickets Waiting Over Threshold","
+  VAR threshold = [Wait Threshold Value]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FILTER(
+          FactFreshdesk,
+          FactFreshdesk[triage_status] = ""Waiting"" &&
+          DATEDIFF(FactFreshdesk[first_waiting_at], TODAY(), DAY) > threshold
+      )
+  )","MEASURE","Wait Threshold","Wait Threshold Value","SELECTEDVALUE('Wait Threshold'[Wait Threshold], 30)",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Days to Close","
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Days to Close","
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Days to Close","
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Days to Close","
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","days_to_close","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Days to Close","
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Median Days to Close","
+  CALCULATE(
+      MEDIAN(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Median Days to Close","
+  CALCULATE(
+      MEDIAN(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Median Days to Close","
+  CALCULATE(
+      MEDIAN(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Median Days to Close","
+  CALCULATE(
+      MEDIAN(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","days_to_close","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Median Days to Close","
+  CALCULATE(
+      MEDIAN(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Created 3M MA","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          FactLinear[created_at] >= window3Start,
+          FactLinear[created_at] <= monthEnd),
+      3)
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Created 3M MA","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          FactLinear[created_at] >= window3Start,
+          FactLinear[created_at] <= monthEnd),
+      3)
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Created 3M MA","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          FactLinear[created_at] >= window3Start,
+          FactLinear[created_at] <= monthEnd),
+      3)
+","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Created 3M MA","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          FactLinear[created_at] >= window3Start,
+          FactLinear[created_at] <= monthEnd),
+      3)
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Closed 3M MA","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          NOT ISBLANK(FactLinear[closed_at]),
+          FactLinear[closed_at] >= window3Start,
+          FactLinear[closed_at] <= monthEnd),
+      3)
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Closed 3M MA","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          NOT ISBLANK(FactLinear[closed_at]),
+          FactLinear[closed_at] >= window3Start,
+          FactLinear[closed_at] <= monthEnd),
+      3)
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Closed 3M MA","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          NOT ISBLANK(FactLinear[closed_at]),
+          FactLinear[closed_at] >= window3Start,
+          FactLinear[closed_at] <= monthEnd),
+      3)
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Closed 3M MA","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          NOT ISBLANK(FactLinear[closed_at]),
+          FactLinear[closed_at] >= window3Start,
+          FactLinear[closed_at] <= monthEnd),
+      3)
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(FILTER(FactLinear, NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(FILTER(FactLinear, NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(FILTER(FactLinear, NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(FILTER(FactLinear, NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","FactLinear","days_to_close","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(FILTER(FactLinear, NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Started 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])
+              && FactLinear[days_to_start] >= 0),
+          FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Started 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])
+              && FactLinear[days_to_start] >= 0),
+          FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Started 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])
+              && FactLinear[days_to_start] >= 0),
+          FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","FactLinear","started_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Started 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])
+              && FactLinear[days_to_start] >= 0),
+          FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Started 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])
+              && FactLinear[days_to_start] >= 0),
+          FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","FactLinear","days_to_start","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Created to Started 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])
+              && FactLinear[days_to_start] >= 0),
+          FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Started to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close] - FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Started to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close] - FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Started to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close] - FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","FactLinear","started_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Started to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close] - FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Started to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close] - FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","FactLinear","days_to_start","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Started to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close] - FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","FactLinear","days_to_close","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Avg Started to Closed 3M","
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close] - FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","FactLinear","Project Group","
+  SWITCH(TRUE(),
+      FactLinear[project_name] = ""iChemistry"", ""iChemistry"",
+      FactLinear[project_name] = ""iPublisher"", ""iPublisher"",
+      FactLinear[project_name] = ""Chemsoft"", ""Chemsoft"",
+      ISBLANK(FactLinear[project_name]), ""Unassigned"",
+      ""Other""
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","FactLinear","Project Group","
+  SWITCH(TRUE(),
+      FactLinear[project_name] = ""iChemistry"", ""iChemistry"",
+      FactLinear[project_name] = ""iPublisher"", ""iPublisher"",
+      FactLinear[project_name] = ""Chemsoft"", ""Chemsoft"",
+      ISBLANK(FactLinear[project_name]), ""Unassigned"",
+      ""Other""
+  )
+","COLUMN","FactLinear","project_name","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Issue","
+  CALCULATE(
+      MAXX(
+          FILTER(ALL(FactLinear), ISBLANK(FactLinear[closed_at])),
+          DATEDIFF(FactLinear[created_at], TODAY(), DAY)
+      )
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Issue","
+  CALCULATE(
+      MAXX(
+          FILTER(ALL(FactLinear), ISBLANK(FactLinear[closed_at])),
+          DATEDIFF(FactLinear[created_at], TODAY(), DAY)
+      )
+  )
+","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Issue","
+  CALCULATE(
+      MAXX(
+          FILTER(ALL(FactLinear), ISBLANK(FactLinear[closed_at])),
+          DATEDIFF(FactLinear[created_at], TODAY(), DAY)
+      )
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","FactLinear","Lead Time","
+  SWITCH(TRUE(),
+      ISBLANK(FactLinear[days_to_close]), BLANK(),
+      FactLinear[days_to_close] = 1,  ""Same day"",
+      FactLinear[days_to_close] <= 7,  ""2–7 days"",
+      FactLinear[days_to_close] <= 14, ""8–14 days"",
+      FactLinear[days_to_close] <= 30, ""15–30 days"",
+      FactLinear[days_to_close] <= 90, ""31–90 days"",
+      ""+90 days""
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","FactLinear","Lead Time","
+  SWITCH(TRUE(),
+      ISBLANK(FactLinear[days_to_close]), BLANK(),
+      FactLinear[days_to_close] = 1,  ""Same day"",
+      FactLinear[days_to_close] <= 7,  ""2–7 days"",
+      FactLinear[days_to_close] <= 14, ""8–14 days"",
+      FactLinear[days_to_close] <= 30, ""15–30 days"",
+      FactLinear[days_to_close] <= 90, ""31–90 days"",
+      ""+90 days""
+  )
+","COLUMN","FactLinear","days_to_close","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","ATTRIBUTE_HIERARCHY","FactLinear","Lead Time","","ATTRIBUTE_HIERARCHY","FactLinear","Lead Time Sort","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","FactLinear","Lead Time Sort","
+  SWITCH(TRUE(),
+      ISBLANK(FactLinear[days_to_close]), 99,
+      FactLinear[days_to_close] = 1,   1,
+      FactLinear[days_to_close] <= 7,  2,
+      FactLinear[days_to_close] <= 14, 3,
+      FactLinear[days_to_close] <= 30, 4,
+      FactLinear[days_to_close] <= 90, 5,
+      6
+  )","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","FactLinear","Lead Time Sort","
+  SWITCH(TRUE(),
+      ISBLANK(FactLinear[days_to_close]), 99,
+      FactLinear[days_to_close] = 1,   1,
+      FactLinear[days_to_close] <= 7,  2,
+      FactLinear[days_to_close] <= 14, 3,
+      FactLinear[days_to_close] <= 30, 4,
+      FactLinear[days_to_close] <= 90, 5,
+      6
+  )","COLUMN","FactLinear","days_to_close","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Identifier","
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[identifier]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Identifier","
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[identifier]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Identifier","
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[identifier]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Identifier","
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[identifier]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","COLUMN","FactLinear","identifier","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Title","
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[title]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Title","
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[title]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","COLUMN","FactLinear","created_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Title","
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[title]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 2","Oldest Open Title","
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[title]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","COLUMN","FactLinear","title","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","FactLinear","Assignee","IF(ISBLANK(FactLinear[assignee_name]), ""Unassigned"", FactLinear[assignee_name])","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","CALC_COLUMN","FactLinear","Assignee","IF(ISBLANK(FactLinear[assignee_name]), ""Unassigned"", FactLinear[assignee_name])","COLUMN","FactLinear","assignee_name","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Closed","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Closed","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Closed","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Closed","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","COLUMN","DimDate","date_key","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Created","
+  COUNTROWS(FactLinear)
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Open","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      ISBLANK(FactLinear[closed_at])
+  )","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Open","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      ISBLANK(FactLinear[closed_at])
+  )","TABLE","DimDate","DimDate","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Open","
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      ISBLANK(FactLinear[closed_at])
+  )","COLUMN","FactLinear","closed_at","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Incidents","
+  CALCULATE(COUNTROWS(FactLinear), FactLinear[is_incident] = TRUE())
+","TABLE","FactLinear","FactLinear","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_L Measures 3","Incidents","
+  CALCULATE(COUNTROWS(FactLinear), FactLinear[is_incident] = TRUE())
+","COLUMN","FactLinear","is_incident","",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Prev Period Label","
+  VAR p = [Selected Period]
+  VAR s = [Prev Period Start]
+  RETURN ""Previous: "" & IF(
+      p = ""Week"",
+      ""W"" & WEEKNUM(s, 21),
+      FORMAT(s, ""MMMM"")
+  )","MEASURE","_Helper Measures","Selected Period","
+    SELECTEDVALUE(PeriodType[Period], ""Week"")
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Prev Period Label","
+  VAR p = [Selected Period]
+  VAR s = [Prev Period Start]
+  RETURN ""Previous: "" & IF(
+      p = ""Week"",
+      ""W"" & WEEKNUM(s, 21),
+      FORMAT(s, ""MMMM"")
+  )","MEASURE","_Helper Measures","Prev Period Start","
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Period Summary","
+  ""Period: "" & [Period Label] & "" | Previous: "" & [Prev Period Label]","MEASURE","_Helper Measures","Period Label","
+  VAR p = [Selected Period]
+  VAR s = [Period Start]
+  RETURN ""Period: "" & IF(
+      p = ""Week"",
+      ""W"" & WEEKNUM(s, 21),
+      FORMAT(s, ""MMMM"")
+  )",""
+"a1ff3d32-1acd-487c-91dd-7c21024152f8","MEASURE","_Helper Measures","Period Summary","
+  ""Period: "" & [Period Label] & "" | Previous: "" & [Prev Period Label]","MEASURE","_Helper Measures","Prev Period Label","
+  VAR p = [Selected Period]
+  VAR s = [Prev Period Start]
+  RETURN ""Previous: "" & IF(
+      p = ""Week"",
+      ""W"" & WEEKNUM(s, 21),
+      FORMAT(s, ""MMMM"")
+  )",""

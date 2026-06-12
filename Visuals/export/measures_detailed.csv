@@ -1,0 +1,547 @@
+ID,TableID,Name,Description,DataType,Expression,FormatString,IsHidden,State,ModifiedTime,StructureModifiedTime,KPIID,IsSimpleMeasure,ErrorMessage,DisplayFolder,DetailRowsDefinitionID,DataCategory,FormatStringDefinitionID,LineageTag,SourceLineageTag
+2344,2316,"Created Tickets","",6,"
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )","0",False,1,2026-06-08 12:21:03.763,2026-06-05 09:20:28.790,,False,"","",,"",,"51fe9cb7-d05b-42d2-9cec-d443eb256301",""
+4138,2316,"Created Tickets Prev","",6,"
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd
+  )
+","0",False,1,2026-06-08 12:25:00.176,2026-06-08 12:24:39.623,,False,"","",,"",,"ad5c34b5-a87f-4ccd-a553-e8f20e3307fe",""
+4182,2316,"Created Tickets Δ%","",8,"
+  DIVIDE([Created Tickets] - [Created Tickets Prev], [Created Tickets Prev])","",False,1,2026-06-08 12:57:29.706,2026-06-08 12:57:29.703,,False,"","",,"",5018,"88709a40-d83c-4fa0-8fbb-41382b04985d",""
+4227,2316,"Waiting for Triage","",6,"
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","0",False,1,2026-06-08 12:29:34.176,2026-06-08 12:29:30.820,,False,"","",,"",,"479e0f10-92c2-486a-a8f4-eb90ec81e932",""
+4271,2316,"Waiting for Triage Prev","",6,"
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_waiting_at] >= periodStart,
+      FactFreshdesk[first_waiting_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )
+","0",False,1,2026-06-08 12:29:51.693,2026-06-08 12:29:49.730,,False,"","",,"",,"a961ba9a-5cae-4e98-8411-5d10f5aa60a5",""
+4315,2316,"Waiting for Triage Δ%","",8,"
+  DIVIDE([Waiting for Triage] - [Waiting for Triage Prev], [Waiting for Triage Prev])
+","",False,1,2026-06-08 12:30:25.816,2026-06-08 12:58:42.863,,False,"","",,"",5021,"88c2b08f-9190-4a56-8f28-eba902819e29",""
+4381,2316,"Passed Triage","",6,"
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )
+","0",False,1,2026-06-08 12:30:40.866,2026-06-08 12:30:38.586,,False,"","",,"",,"d82ffd09-b402-45eb-a596-f22b9b642fc7",""
+4425,2316,"Passed Triage Prev","",6,"
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[first_passed_at] >= periodStart,
+      FactFreshdesk[first_passed_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_passed_at])
+  )","0",False,1,2026-06-08 12:31:19.853,2026-06-08 12:31:17.413,,False,"","",,"",,"dab341a6-c106-4405-81bc-f82a5b5a9002",""
+4469,2316,"Passed Triage Δ%","",8,"
+  DIVIDE([Passed Triage] - [Passed Triage Prev], [Passed Triage Prev])","",False,1,2026-06-08 12:31:51.020,2026-06-08 12:58:11.140,,False,"","",,"",5019,"3a52d08f-6c72-4d85-835b-cd939dc5eada",""
+4535,2316,"Escalated Tickets","",6,"
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[created_at] >= periodStart,
+      FactFreshdesk[created_at] <= periodEnd,
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )","0",False,1,2026-06-08 12:31:58.290,2026-06-08 12:31:54.610,,False,"","",,"",,"c793863e-13a6-439b-a5d4-52f75913901c",""
+4579,2316,"Escalation Rate","",8,"
+  DIVIDE([Escalated Tickets], [Created Tickets])
+","0.0\ %;-0.0\ %;0.0\ %",False,1,2026-06-08 13:00:52.256,2026-06-08 12:32:28.296,,False,"","",,"",,"e4190f5b-a546-490f-b54e-d67cd0d56100",""
+4645,2316,"Escalation Rate Prev","",8,"
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  DIVIDE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[created_at] >= periodStart,
+          FactFreshdesk[created_at] <= periodEnd,
+          NOT ISBLANK(FactFreshdesk[first_waiting_at])
+      ),
+      [Created Tickets Prev]
+  )","0.0\ %;-0.0\ %;0.0\ %",False,1,2026-06-08 13:01:13.023,2026-06-08 12:32:45.823,,False,"","",,"",,"7885bb79-bc1b-474e-95f4-a36014028eae",""
+4690,2316,"Escalation Rate Δpp","",8,"
+  [Escalation Rate] - [Escalation Rate Prev]  // percentage points, not %","0.0\ %;-0.0\ %;0.0\ %",False,1,2026-06-08 13:01:45.566,2026-06-08 12:33:05.346,,False,"","",,"",,"051be9be-cdb6-4b12-96fb-c2a624707845",""
+4735,2316,"Triage Denied","",6,"
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactFreshdesk),
+          FactFreshdesk[denied_triage] = TRUE(),
+          FactFreshdesk[denied_triage_at] >= periodStart,
+          FactFreshdesk[denied_triage_at] <= periodEnd
+      ),
+      0
+  )","0",False,1,2026-06-08 13:07:02.343,2026-06-08 12:33:18.850,,False,"","",,"",,"4a5bfd9b-8be5-48b2-9e9f-5237c6828814",""
+4779,2316,"Triage Denied Prev","",6,"
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+    CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FactFreshdesk[denied_triage] = TRUE(),
+      FactFreshdesk[denied_triage_at] >= periodStart,
+      FactFreshdesk[denied_triage_at] <= periodEnd
+  ),
+  0
+  )","0",False,1,2026-06-08 13:07:46.246,2026-06-08 12:33:32.650,,False,"","",,"",,"0c69eaa9-6460-4117-af0c-62945c5db17d",""
+4823,2316,"Triage Denied Δ","",6,"
+var diff = [Triage Denied] - [Triage Denied Prev]
+RETURN diff","",False,1,2026-06-08 13:10:21.073,2026-06-08 13:10:21.073,,False,"","",,"",5148,"dde9770c-ff8c-44e5-bde5-b1ddf8f57e07",""
+4868,2316,"Escalation Rate (Chart)","",8,"
+  VAR total     = COUNTROWS(FactFreshdesk)
+  VAR escalated = CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      NOT ISBLANK(FactFreshdesk[first_waiting_at])
+  )
+  RETURN
+  IF(ISBLANK(total), 0, DIVIDE(escalated, total) * 100)","",False,1,2026-06-08 13:45:22.700,2026-06-08 12:34:14.760,,False,"","",,"",,"70f35dd2-fbe1-4ea2-9325-c3a02bb8d467",""
+7944,2316,"FD Waited Longest","",6,"
+  VAR earliestWaiting =
+      CALCULATE(
+          MIN(FactFreshdesk[first_waiting_at]),
+          FactFreshdesk[triage_status] = ""Waiting""
+      )
+  RETURN
+  IF(
+      ISBLANK(earliestWaiting),
+      BLANK(),
+      DATEDIFF(earliestWaiting, TODAY(), DAY)
+  )
+","0",False,1,2026-06-09 07:40:59.590,2026-06-09 07:40:45.203,,False,"","",,"",,"8d5a3bca-54c3-43b6-a9f5-691a7bc7ec4a",""
+8116,2316,"FD Tickets Waiting Over Threshold","",6,"
+  VAR threshold = [Wait Threshold Value]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactFreshdesk),
+      FILTER(
+          FactFreshdesk,
+          FactFreshdesk[triage_status] = ""Waiting"" &&
+          DATEDIFF(FactFreshdesk[first_waiting_at], TODAY(), DAY) > threshold
+      )
+  )","0",False,1,2026-06-09 07:54:47.133,2026-06-09 07:49:04.020,,False,"","",,"",,"6bdd7582-efbc-4a09-bcf3-0bbc32423f3f",""
+2599,2528,"Last Completed Week","",6,"
+MAXX(
+    FILTER(
+        ALL(DimDate),
+        DimDate[date_key] < TODAY()
+    ),
+    DimDate[isoweek]
+)
+","0",False,1,2026-06-08 14:05:01.466,2026-06-05 09:51:36.606,,False,"","",,"",,"15b20d99-c385-45fc-a246-df4958dff685",""
+3151,2528,"Last Date in Data","",9,"
+MAXX(
+    FILTER(
+        ALL(DimDate),
+        DimDate[date_key] < TODAY()
+    ),
+    DimDate[date_key]
+)","General Date",False,1,2026-06-05 10:05:19.726,2026-06-05 10:05:17.236,,False,"","",,"",,"dbbc5ba0-26b2-4567-96be-9cf5ce466d20",""
+3195,2528,"Start of Last Week","",9,"
+VAR TodayDate = TODAY()
+VAR WeekdayNum = WEEKDAY(TodayDate, 2)
+RETURN
+    TodayDate - WeekdayNum - 6","General Date",False,1,2026-06-05 10:09:39.556,2026-06-05 10:05:27.253,,False,"","",,"",,"6e47a4d7-9ccf-41b3-99c1-b68b7de9aefc",""
+3239,2528,"End of Last Week","",9,"
+VAR TodayDate = TODAY()
+VAR WeekdayNum = WEEKDAY(TodayDate, 2)
+RETURN
+    TodayDate - WeekdayNum","General Date",False,1,2026-06-05 10:09:55.783,2026-06-05 10:05:43.466,,False,"","",,"",,"b78ffd8f-0379-40a9-8471-e61110f81e83",""
+3620,2528,"Selected Period","",2,"
+    SELECTEDVALUE(PeriodType[Period], ""Week"")
+","",False,1,2026-06-08 11:44:28.430,2026-06-08 11:44:03.053,,False,"","",,"",,"a4b6d732-fa5e-4f7b-b1a4-1534673b920e",""
+3664,2528,"Period Start","",9,"
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)          -- Monday=1, Sunday=7
+  VAR lastMonday = today - weekday + 1 - 7 -- Monday of last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday, EDATE(firstThisMonth, -1))
+","General Date",False,1,2026-06-08 11:45:37.470,2026-06-08 11:44:52.116,,False,"","",,"",,"076b42ca-ccad-46b8-b994-a64d851f95b2",""
+3729,2528,"Period End","",9,"
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastSunday = today - weekday + 1 - 1 -- Sunday ending last complete week
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastSunday, firstThisMonth - 1)","General Date",False,1,2026-06-08 11:46:04.506,2026-06-08 11:45:42.180,,False,"","",,"",,"cfb1b5bb-c68b-47d8-9805-0d0ceb8d9ace",""
+3836,2528,"Prev Period Start","",9,"
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR twoWeeksAgoMonday = today - weekday + 1 - 14
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", twoWeeksAgoMonday, EDATE(firstThisMonth, -2))
+","General Date",False,1,2026-06-08 12:16:26.000,2026-06-08 12:16:21.643,,False,"","",,"",,"5f8cccbb-bbcc-4251-8a6b-23a36762e34c",""
+3880,2528,"Prev Period End","",9,"
+  VAR today   = TODAY()
+  VAR p       = [Selected Period]
+  VAR weekday = WEEKDAY(today, 2)
+  VAR lastMonday = today - weekday + 1 - 7
+  VAR firstThisMonth = DATE(YEAR(today), MONTH(today), 1)
+  RETURN IF(p = ""Week"", lastMonday - 1, EDATE(firstThisMonth, -1) - 1)
+","General Date",False,1,2026-06-08 12:17:06.680,2026-06-08 12:17:03.340,,False,"","",,"",,"58ed0d8f-2aaa-46ec-814d-de6f7738e0f2",""
+3924,2528,"Period Label","",2,"
+  VAR p = [Selected Period]
+  VAR s = [Period Start]
+  RETURN ""Period: "" & IF(
+      p = ""Week"",
+      ""W"" & WEEKNUM(s, 21),
+      FORMAT(s, ""MMMM"")
+  )","",False,1,2026-06-11 13:47:04.936,2026-06-08 12:17:23.836,,False,"","",,"",,"bc205036-476b-405b-af79-c0f56a3d46fb",""
+5915,2528,"Check Week","",2,"
+FORMAT([Start of Last Week], ""yyyy-mm-dd"")
+& "" -> ""
+& FORMAT([End of Last Week], ""yyyy-mm-dd"")","",False,1,2026-06-09 07:05:34.133,2026-06-09 07:05:34.106,,False,"","",,"",,"8b928e88-0de0-445a-b263-aa2e02182f5b",""
+6001,2528,"Debug Week Flag","",2,"
+VAR LastWeek = [Last Completed Week]
+VAR CurrentWeek =
+    SELECTEDVALUE(DimDate[isoweek])
+RETURN
+SWITCH(
+    TRUE(),
+    CurrentWeek = LastWeek, ""Last Week"",
+    CurrentWeek = LastWeek - 1, ""Week Before"",
+    ""Other""
+)","",False,1,2026-06-09 07:05:41.266,2026-06-09 07:05:41.243,,False,"","",,"",,"2e023768-03cf-4ebb-890c-f75eea58b634",""
+16848,2528,"Prev Period Label","",2,"
+  VAR p = [Selected Period]
+  VAR s = [Prev Period Start]
+  RETURN ""Previous: "" & IF(
+      p = ""Week"",
+      ""W"" & WEEKNUM(s, 21),
+      FORMAT(s, ""MMMM"")
+  )","",False,1,2026-06-11 13:49:40.433,2026-06-11 13:15:29.806,,False,"","",,"",,"b99cb645-834a-49d5-a08c-8ffb2b323381",""
+16934,2528,"Period Summary","",2,"
+  ""Period: "" & [Period Label] & "" | Previous: "" & [Prev Period Label]","",False,1,2026-06-11 13:49:40.456,2026-06-11 13:37:17.470,,False,"","",,"",,"b6583b00-9b8e-4ecc-bf68-eac6a78dcdb9",""
+5829,2973,"Linear Created","",6,"
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","0",False,1,2026-06-09 07:05:07.900,2026-06-09 07:05:04.996,,False,"","",,"",,"e38851a4-5197-4c39-bde7-31d9bace151e",""
+6045,2973,"Linear Created Prev","",6,"
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[created_at] >= periodStart,
+      FactLinear[created_at] <= periodEnd
+  )
+","0",False,1,2026-06-09 07:06:00.903,2026-06-09 07:05:47.500,,False,"","",,"",,"1c444186-686c-4c41-8706-044f1af9e676",""
+6131,2973,"Linear Created Δ%","",8,"
+  DIVIDE([Linear Created] - [Linear Created Prev], [Linear Created Prev])
+","",False,1,2026-06-09 07:11:36.396,2026-06-09 07:11:36.396,,False,"","",,"",7338,"8f723008-5693-4f5c-8583-e5453b4429a3",""
+6218,2973,"Linear Closed","",6,"
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","0",False,1,2026-06-09 07:06:26.526,2026-06-09 07:06:19.176,,False,"","",,"",,"e394d36b-d64c-4584-bd7e-3c3f580d7227",""
+6304,2973,"Linear Closed Prev","",6,"
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","0",False,1,2026-06-09 07:06:36.933,2026-06-09 07:06:29.300,,False,"","",,"",,"7d04d5b7-4874-4014-86fe-2a2f143855c5",""
+6390,2973,"Linear Closed Δ%","",8,"
+  DIVIDE([Linear Closed] - [Linear Closed Prev], [Linear Closed Prev])
+","",False,1,2026-06-09 07:11:20.280,2026-06-09 07:11:20.280,,False,"","",,"",7337,"4a0a7189-f125-4ac6-aaf7-bff4a0d6df7b",""
+6477,2973,"Linear Open at Period End","",6,"
+  VAR periodEnd = [Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","0",False,1,2026-06-09 07:06:57.020,2026-06-09 07:06:55.320,,False,"","",,"",,"9131ae5b-024e-4942-9719-83501313be4b",""
+6563,2973,"Linear Open at Prev Period End","",6,"
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      )
+  )
+","0",False,1,2026-06-09 07:07:11.150,2026-06-09 07:07:00.116,,False,"","",,"",,"3ff5ee6c-9f55-4b32-a45f-8f5e2c405b58",""
+6649,2973,"Linear Open Δ","",6,"
+  [Linear Open at Period End] - [Linear Open at Prev Period End]
+","",False,1,2026-06-09 07:11:03.093,2026-06-09 07:11:03.093,,False,"","",,"",7336,"cb1f4b73-fe8f-418b-9af4-61000a8e65e5",""
+6735,2973,"Linear Incidents","",6,"
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","0",False,1,2026-06-09 07:32:23.316,2026-06-09 07:07:32.570,,False,"","",,"",,"3e90c143-435d-475a-afbe-294e2b0139e7",""
+6821,2973,"Linear Incidents Prev","",6,"
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  COALESCE(
+      CALCULATE(
+          COUNTROWS(FactLinear),
+          FactLinear[created_at] >= periodStart,
+          FactLinear[created_at] <= periodEnd,
+          FactLinear[is_incident] = TRUE()
+      ),
+      0
+  )","0",False,1,2026-06-09 07:32:35.253,2026-06-09 07:07:43.443,,False,"","",,"",,"6e29108a-cf29-4dd3-94f1-e868d9b6867a",""
+6907,2973,"Linear Incidents Δ","",6,"
+  [Linear Incidents] - [Linear Incidents Prev]
+","",False,1,2026-06-09 07:09:29.420,2026-06-09 07:09:29.420,,False,"","",,"",7335,"62c8c862-c01b-4b62-ad31-acb3fbb5ced1",""
+6993,2973,"Linear Created (Chart)","",6,"
+  COUNTROWS(FactLinear)
+","0",False,1,2026-06-09 07:08:10.750,2026-06-09 07:08:08.870,,False,"","",,"",,"d9317e9d-0fc9-4571-87cd-bb81fbf7b6cd",""
+7079,2973,"Linear Closed (Chart)","",6,"
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","0",False,1,2026-06-09 07:08:22.853,2026-06-09 07:08:20.813,,False,"","",,"",,"8599f8cd-8a4f-4603-9f93-784b2527ecf8",""
+7165,2973,"Linear Open Issues (Chart)","",6,"
+  VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+  RETURN
+  COUNTROWS(
+      FILTER(
+          ALL(FactLinear),
+          FactLinear[created_at] <= monthEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+      )
+  )","0",False,1,2026-06-11 12:50:46.023,2026-06-09 07:08:32.316,,False,"","",,"",,"5a2f2d99-4ef0-4c42-9498-f369d94b1cd8",""
+7339,2973,"Linear Avg Days to Close","",8,"
+  VAR periodStart = [Period Start]
+  VAR periodEnd   = [Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","",False,1,2026-06-09 07:17:54.960,2026-06-09 07:17:43.506,,False,"","",,"",,"f74d381f-bf75-46c5-b198-3fef678a76b7",""
+7426,2973,"Linear Avg Days to Close Prev","",8,"
+  VAR periodStart = [Prev Period Start]
+  VAR periodEnd   = [Prev Period End]
+  RETURN
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      FactLinear[closed_at] >= periodStart,
+      FactLinear[closed_at] <= periodEnd,
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","",False,1,2026-06-09 07:18:09.443,2026-06-09 07:18:07.306,,False,"","",,"",,"bddb40a4-da79-469c-bff2-ab4fa6f47364",""
+7513,2973,"Linear Avg Days to Close Δ","",8,"
+  [Linear Avg Days to Close] - [Linear Avg Days to Close Prev] 
+","",False,1,2026-06-09 07:20:24.610,2026-06-09 07:20:24.610,,False,"","",,"",7601,"c8e54bcf-b3ff-4d2b-be78-ecf7b9d188ae",""
+7686,2973,"Linear Oldest Issue","",6,"
+  VAR today = TODAY()
+  RETURN
+  MAXX(
+      FILTER(FactLinear, ISBLANK(FactLinear[closed_at])),
+      DATEDIFF(FactLinear[created_at], today, DAY)
+  )","0",False,1,2026-06-09 07:36:57.143,2026-06-09 07:35:56.700,,False,"","",,"",,"5a928d6d-0932-4e3e-9cfc-aafb73d92472",""
+7772,2973,"Linear Oldest Issue Prev","",6,"
+  VAR periodEnd = [Prev Period End]
+  RETURN
+  MAXX(
+      FILTER(
+          FactLinear,
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      ),
+      DATEDIFF(FactLinear[created_at], periodEnd, DAY)
+  )","0",False,1,2026-06-09 07:37:08.360,2026-06-09 07:37:06.700,,False,"","",,"",,"767bc38c-2f11-4f0e-bdc0-a045155870c7",""
+7858,2973,"Linear Oldest Issue Δ","",6,"
+  [Linear Oldest Issue] - [Linear Oldest Issue Prev]","0",False,1,2026-06-09 07:37:21.066,2026-06-09 07:37:18.076,,False,"","",,"",,"8ba71e98-9fe8-487d-b6ae-f06e0a3951d2",""
+8053,8030,"Wait Threshold Value","",6,"SELECTEDVALUE('Wait Threshold'[Wait Threshold], 30)","0",False,1,2026-06-09 07:48:07.996,2026-06-09 07:48:07.946,,False,"","",,"",,"9030e633-2f05-4e41-bdcb-45c5bcfae0cb",""
+8468,8290,"Avg Days to Close","",8,"
+  CALCULATE(
+      AVERAGE(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","0.0",False,1,2026-06-09 10:02:19.890,2026-06-09 09:02:17.693,,False,"","",,"",,"41ead661-30b3-40ea-8a9b-c6d553849365",""
+8597,8290,"Median Days to Close","",20,"
+  CALCULATE(
+      MEDIAN(FactLinear[days_to_close]),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","0",False,1,2026-06-09 09:23:08.300,2026-06-09 09:03:00.526,,False,"","",,"",,"f9e78dc5-01ac-4a4a-8456-fc49e7eac043",""
+8684,8290,"Created 3M MA","",8,"
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          FactLinear[created_at] >= window3Start,
+          FactLinear[created_at] <= monthEnd),
+      3)
+","",False,1,2026-06-09 09:04:26.780,2026-06-09 09:03:31.356,,False,"","",,"",,"23b890ea-843e-499a-bd18-7edcaa9ca1fa",""
+8857,8290,"Closed 3M MA","",8,"
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN DIVIDE(
+      CALCULATE(COUNTROWS(FactLinear), ALL(DimDate),
+          NOT ISBLANK(FactLinear[closed_at]),
+          FactLinear[closed_at] >= window3Start,
+          FactLinear[closed_at] <= monthEnd),
+      3)
+","",False,1,2026-06-09 09:04:20.463,2026-06-09 09:04:03.010,,False,"","",,"",,"32ab12a8-56ce-43b0-a08b-0dffce7e1f74",""
+9028,8290,"Avg Created to Closed 3M","",8,"
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(FILTER(FactLinear, NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","",False,1,2026-06-09 09:05:32.486,2026-06-09 09:05:30.076,,False,"","",,"",,"925fb141-942e-4455-9024-f4d754c0cdbb",""
+9115,8290,"Avg Created to Started 3M","",8,"
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])
+              && FactLinear[days_to_start] >= 0),
+          FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","",False,1,2026-06-09 09:05:51.113,2026-06-09 09:05:48.710,,False,"","",,"",,"02ae9ede-c2eb-4d58-ae34-91125dc02b1d",""
+9202,8290,"Avg Started to Closed 3M","",8,"
+  VAR monthEnd = MAX(DimDate[date_key])
+  VAR window3Start = DATE(YEAR(EDATE(monthEnd, -2)), MONTH(EDATE(monthEnd, -2)), 1)
+  RETURN CALCULATE(
+      AVERAGEX(
+          FILTER(FactLinear,
+              NOT ISBLANK(FactLinear[started_at])
+              && NOT ISBLANK(FactLinear[closed_at])),
+          FactLinear[days_to_close] - FactLinear[days_to_start]),
+      ALL(DimDate),
+      FactLinear[closed_at] >= window3Start,
+      FactLinear[closed_at] <= monthEnd)
+","",False,1,2026-06-09 09:06:17.893,2026-06-09 09:06:15.303,,False,"","",,"",,"980bed7b-4bfb-40af-af30-b118f8a61402",""
+9428,8290,"Oldest Open Issue","",6,"
+  CALCULATE(
+      MAXX(
+          FILTER(ALL(FactLinear), ISBLANK(FactLinear[closed_at])),
+          DATEDIFF(FactLinear[created_at], TODAY(), DAY)
+      )
+  )
+","0",False,1,2026-06-09 09:19:58.393,2026-06-09 09:19:54.086,,False,"","",,"",,"a3d68110-9486-41ad-907c-0a6046a3956a",""
+13594,8290,"Oldest Open Identifier","",2,"
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[identifier]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","",False,1,2026-06-09 12:02:41.760,2026-06-09 11:59:32.363,,False,"","",,"",,"11212418-3490-4d6e-9554-f059f5fd7f06",""
+13680,8290,"Oldest Open Title","",2,"
+  VAR oldestDate = CALCULATE(
+      MIN(FactLinear[created_at]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at])
+  )
+  RETURN CALCULATE(
+      MAX(FactLinear[title]),
+      ALL(FactLinear),
+      ISBLANK(FactLinear[closed_at]),
+      FactLinear[created_at] = oldestDate
+  )
+","",False,1,2026-06-09 11:59:59.833,2026-06-09 11:59:55.916,,False,"","",,"",,"8411454b-234b-401e-8fe7-3942a06b1fe4",""
+14637,14545,"Closed","",6,"
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]),
+      NOT ISBLANK(FactLinear[closed_at])
+  )
+","0",False,1,2026-06-09 13:00:02.413,2026-06-09 12:59:08.576,,False,"","",,"",,"5230147d-50e2-4837-a829-d53100804a73",""
+14807,14545,"Created","",6,"
+  COUNTROWS(FactLinear)
+","0",False,1,2026-06-09 13:00:11.276,2026-06-09 13:00:11.236,,False,"","",,"",,"2cdc4201-a94c-4a67-96f0-513441fd046b",""
+14892,14545,"Open","",6,"
+  CALCULATE(
+      COUNTROWS(FactLinear),
+      REMOVEFILTERS(DimDate),
+      ISBLANK(FactLinear[closed_at])
+  )","0",False,1,2026-06-09 13:01:15.856,2026-06-09 13:00:19.716,,False,"","",,"",,"e324ee75-0369-4eec-a511-d482160af1f5",""
+15019,14545,"Incidents","",6,"
+  CALCULATE(COUNTROWS(FactLinear), FactLinear[is_incident] = TRUE())
+","0",False,1,2026-06-09 13:01:29.943,2026-06-09 13:01:26.896,,False,"","",,"",,"23a9f976-0325-4aff-9ec3-6766f7035227",""

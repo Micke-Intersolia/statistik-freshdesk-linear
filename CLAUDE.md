@@ -33,38 +33,102 @@ Full architecture in README.md. Full decision history in History.md.
 | Gold fact views | ✅ Done | ✅ Done |
 | Power BI | 🔄 In progress | 🔄 In progress |
 
-**Active track: Power BI visuals — sent to client for review**
+**Active track: Power BI visuals — Summary page complete, sent to client for review**
 
-Four Linear report pages built. Freshdesk page built and set aside (not current focus). Report sent to client; awaiting feedback.
+Summary page built (2026-06-12). Six detail pages built (Linear + Freshdesk). Report sent to client; awaiting feedback.
 
-**Linear Page 1 — Overview**
+**Report structure — 7 pages + 2 tooltip pages (9 tabs total)**
+
+Tab order: Summary | Freshdesk | Linear - Overview | Linear - Trends | Linear - Distribution | Linear - Assignee | Linear - Assignee (details) | Tooltip - Oldest Issue | Tooltip - Assignee Weekly
+
+---
+
+**Page 1 — Summary** (tab: `Summary`)
+- Stakeholder landing page — overwork narrative at a glance
+- Intersolia logo (top left); "SUMMARY" title (top right)
+- Period toggle slicer: Week / Month; Period label cards: `Period Label`, `Prev Period Label`
+- KPI row 1 (Linear): Created Issues (Δ%), Closed Issues (Δ%), Open Issues (Δ), Incidents (Δ), Oldest Open Issue (red, with identifier below)
+- KPI row 2 (Freshdesk): Waiting for Triage (Δ%), Passed Triage (Δ%), Escalated Tickets % (Δpp)
+- Chart: bar+line — Created + Closed bars, Open Issues backlog line (last 4 months); same chart as Linear - Overview
+- Cross-filtering from chart to KPI cards disabled via Edit Interactions
+- No Linear or Freshdesk source logos — summary covers both sources
+
+---
+
+**Page 2 — Freshdesk** (tab: `Freshdesk`)
+- Period toggle slicer: Week / Month; Period label cards: `Period Label`, `Prev Period Label`
+- KPI cards: Created Tickets (with Δ%), Waiting for Triage (with Δ%), Passed Triage (with Δ%), Escalated Tickets % (with Δpp), Denied Triage (with Δ)
+- Right column: "Tickets waiting longer than X days" card (driven by `Wait Threshold` what-if parameter, default 30 days)
+- Chart: Created Tickets + Escalation Rate % over time (bar + line)
+- Note: Freshdesk page is functional but not the current reporting focus; all Freshdesk visuals filtered to current year only (remove ~June 2027 once 12 months of data have accumulated)
+
+**Page 3 — Linear - Overview** (tab: `Linear - Overview`)
 - KPI cards: Created Issues, Closed Issues, Open Issues, Incidents, Oldest Issue (all with period Δ except Oldest Issue)
+- Oldest Open Issue card shows value in red with identifier (e.g. OPEX-763) below it
 - Period toggle slicer: Week / Month (disconnected `PeriodType` table)
-- Chart: Line and clustered column — Created + Closed bars, Open Issues line (secondary axis)
-- Chart filter: `Is Current Month = 0`
+- Period label cards: `Period Label` and `Prev Period Label`
+- Chart: Line and clustered column — Created + Closed bars, Open Issues line (secondary axis, max=100)
+- Chart visual filter: last 4 months (on DimDate[date_key]); chart shows live current month
 - Cross-filtering from chart to KPI cards disabled via Edit Interactions
 
-**Linear Page 2 — Trends**
-- Month slicer (DimDate[Month Label], dropdown, multi-select)
+**Page 4 — Linear - Trends** (tab: `Linear - Trends`)
+- Month slicer (DimDate[Month], dropdown, multi-select)
 - KPI cards (slicer-connected): Days to close avg, Days to close median
-- KPI card (all-time, slicer-disconnected): Oldest open issue — visually separated with "All time" label
+- KPI card (all-time, slicer-disconnected): Oldest open issue (age in days) — shown in red; `Oldest Open Identifier` and `Oldest Open Title` cards alongside
 - Chart 1: Line chart — Created 3M MA + Closed 3M MA (slicer disconnected)
 - Chart 2: Line chart — Avg Created→Closed 3M, Avg Created→Started 3M, Avg Started→Closed 3M (slicer disconnected)
 
-**Linear Page 3 — Distribution**
-- Month slicer (same style as page 2, slicer connected to both charts and table)
-- KPI cards: Days to close avg + median (same measures as page 2, slicer connected)
+**Page 5 — Linear - Distribution** (tab: `Linear - Distribution`)
+- Month slicer (same style as page 3, slicer connected to both charts and table)
+- KPI cards: Days to close avg + median (same measures as page 3, slicer connected)
 - Left chart: Issues per Project Group (horizontal bar, slicer connected via created_at)
 - Table below left chart: Project Group | Avg days to close | Median days to close — sorted by avg descending; subtitle "Closed issues in selected period"
 - Right chart: Lead Time buckets (horizontal bar, conditional colours via Rules on Lead Time Sort, slicer connected via closed_at; visual filter excludes Blank bucket)
 
-**Linear Page 4 — People**
-- Month slicer (same as pages 2–3, connected to table and bar chart; disconnected from line chart)
-- Line chart: Created per assignee per month — X: Month Label, Y: `_L Measures 3[Created]`, Legend: `FactLinear[Assignee]`; slicer disconnected so full trend always visible; `Is Current Month = 0` filter; no separate legend/slicer — Ctrl+click on line chart legend items to highlight
-- Table: Assignee | Created | Closed | Open Issues Assignee | Avg Days to Close | Incidents; slicer connected; sorted by Created descending
+**Page 6 — Linear - Assignee** (tab: `Linear - Assignee`)
+- Month slicer: **tile/button style** (row of tiles across top), `DimDate[Month]`, multi-select, Select All enabled; connected to table and bar chart; disconnected from line chart
+- Page-level filter: last 12 months
+- Excluded assignees (page-level filter on `FactLinear[Assignee]`): **Kasper Mikkelsen, Pål Brattberg, Thomas Andersson** — excluded because they skew data and are not relevant to ongoing OPEX reporting; note displayed as text box on page
+- Line chart: Created per assignee per month — X: DimDate[Month], Y: `_L Measures 3[Created]`, Legend: `FactLinear[Assignee]`; slicer disconnected so full trend always visible; `Is Current Month = 0` filter; Ctrl+click legend items to highlight
+- Table: Assignee | Created | Closed | Open | Days to Close | Incidents; slicer connected; sorted by Created descending
 - Clustered horizontal bar: Created + Closed per assignee; slicer connected; sorted by Created descending
 - `Assignee` calculated column on FactLinear: `IF(ISBLANK(assignee_name), "Unassigned", assignee_name)`
-- Tab name: **People**
+
+**Page 7 — Linear - Assignee (details)** (tab: `Linear - Assignee (details)`)
+- No month slicer — both visuals use a fixed rolling 3 months + current month page-level filter
+- Assignee slicer (tile/button style, top of page); connected to all visuals; selecting one person isolates their data across the whole page
+- Page-level filter: rolling 3 months + current month
+- Excluded assignees (same as page 5): Kasper Mikkelsen, Pål Brattberg, Thomas Andersson
+- KPI card: `_L Measures 3[Open]` — current open backlog for selected assignee(s)
+- KPI card: `_L Measures 2[Avg Days to Close]` — avg days to close in the 3-month window for selected assignee(s)
+- Matrix (heat map): title "Created (blue) and Closed (green) issues last 3 months"; Rows=`FactLinear[Assignee]`, Columns=`DimDate[Month]`, Values=`_L Measures 3[Created]` (white→blue gradient) + `_L Measures 3[Closed]` (white→green gradient); field well headers renamed to single space; Tooltip page = "Tooltip - Assignee Weekly"
+- Line chart: "Backlog trend last three months" — X: `DimDate[Month]`, Y: `_L Measures 3[Open at Month End]`, Legend: `FactLinear[Assignee]`; `Is Current Month = 0` filter; Assignee slicer connected
+
+**Tooltip page 1 — Tooltip Oldest Issue** (tab: `Tooltip Oldest Issue`)
+- Triggered by hovering over the Oldest Open Issue card on the Linear pages
+- Contains a text box showing `_L Measures 2[Oldest Open Title]` — the full title of the currently oldest open Linear issue
+- Gives context to the age number (e.g. "FD263108: Investigate missing detailed data for restriction lists...")
+
+**Tooltip page 2 — Tooltip - Assignee Weekly** (tab: `Tooltip - Assignee Weekly`)
+- Triggered by hovering over any cell in the heat map matrix on page 6
+- Horizontal bar chart: Y axis = `DimDate[Month]`, values = Created (blue) + Closed (green)
+- Filter context (assignee + month) is passed automatically from the hovered matrix cell
+
+`_L Measures 3[Open at Month End]` — new measure added this session:
+```dax
+Open at Month End =
+VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+RETURN
+CALCULATE(
+    COUNTROWS(FILTER(
+        FactLinear,
+        FactLinear[created_at] <= monthEnd &&
+        (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+    )),
+    REMOVEFILTERS(DimDate)
+)
+```
+Assignee-aware version of `Linear Open Issues (Chart)` — uses `FactLinear` (not ALL) so Assignee legend filter passes through; REMOVEFILTERS(DimDate) replaces axis filter with monthEnd ceiling.
 
 **Planned: chart-to-KPI drill interaction**
 - Clicking a month bar should show that month vs. previous month in the KPI cards
@@ -248,16 +312,24 @@ run live queries against silver, so the seconds-long truncation window is not a 
 **Relationships (DATE-to-DATE, set up once at model creation):**
 - `DimDate.date_key` → `FactLinear.created_at` (active)
 - `DimDate.date_key` → `FactLinear.closed_at` (inactive, role-playing)
+- `DimDate.date_key` → `FactLinear.completed_at` (inactive, extra — not used by any USERELATIONSHIP)
 - `DimDate.date_key` → `FactFreshdesk.created_at` (active)
 - `DimDate.date_key` → `FactFreshdesk.first_waiting_at` (inactive, role-playing)
 - `DimDate.date_key` → `FactFreshdesk.first_passed_at` (inactive, role-playing)
+- `DimDate.date_key` → `FactFreshdesk.denied_triage_at` (inactive, extra — not used by any USERELATIONSHIP)
 
 **DimDate calculated columns (added in Power BI, not in SQL):**
 
 | Column | DAX | Sort by |
 |---|---|---|
-| `Month Label` | `"'" & RIGHT(FORMAT(year,"0000"),2) & " " & month_short` | `month_sort` |
+| `Month` | `month_short & " '" & RIGHT(FORMAT(year,"0000"),2)` — e.g. "Jun '26" | `month_sort` |
 | `Is Current Month` | `IF(month_sort = YEAR(TODAY())*100+MONTH(TODAY()),1,0)` | — |
+| `Quarter Label` | `"Q" & CEILING(DimDate[month_num] / 3, 1) & " '" & RIGHT(FORMAT(DimDate[year],"0000"),2)` — e.g. "Q2 '26". Note: uses `month_num` (integer), not `month` (text column) | `Quarter Sort` |
+| `Quarter Sort` | `DimDate[year] * 10 + CEILING(DimDate[month_num] / 3, 1)` | — |
+
+**Date Hierarchy** (right-click `Quarter Label` in Fields pane → Add to hierarchy → Create new hierarchy):
+Levels in order: `Quarter Label` → `Month` → `year_week` → `date_key`
+Enables drill-down on any chart: Quarter → Month → Week → Day.
 
 **FactLinear calculated columns (added in Power BI):**
 
@@ -265,7 +337,7 @@ run live queries against silver, so the seconds-long truncation window is not a 
 |---|---|
 | `Project Group` | SWITCH on project_name → iChemistry / iPublisher / Chemsoft / Unassigned / Other |
 | `Assignee` | `IF(ISBLANK(assignee_name), "Unassigned", assignee_name)` — shows "(Blank)" as "Unassigned" in visuals |
-| `Lead Time` | SWITCH on days_to_close: `= 1` → "Same day", `<= 7` → "Up to one week", `<= 14` → "Up to two weeks", `<= 30` → "Up to a month", `<= 90` → "Up to three months", else "More than three months", BLANK for open issues |
+| `Lead Time` | SWITCH on days_to_close: `= 1` → "Same day", `<= 7` → "2–7 days", `<= 14` → "8–14 days", `<= 30` → "15–30 days", `<= 90` → "31–90 days", else "+90 days", BLANK for open issues |
 | `Lead Time Sort` | Numeric 1–6 sort key for Lead Time column: `= 1` → 1, `<= 7` → 2, etc. (99 for BLANK) |
 
 **Note on day counting:** `days_to_close`, `days_to_start`, and `age_days` in the gold view all use `DATEDIFF(...) + 1` — "days worked on" inclusive counting where same-day = 1, next day = 2. Lead Time bucket `= 1` correctly captures same-day issues.
@@ -280,20 +352,21 @@ run live queries against silver, so the seconds-long truncation window is not a 
 - `Wait Threshold` — GENERATESERIES(1,180,1), default 30. Auto-generates `[Wait Threshold Value]` measure. Used on Freshdesk page for "tickets waiting over X days" card.
 
 **Measures tables — naming convention:**
-Table names: `_L Measures`, `_L Measures 2`, `_L Measures 3`, `_Helper Measures`, `_FD Measures`. No `_L Measures 4`.
+Table names: `_L Measures 1`, `_L Measures 2`, `_L Measures 3`, `_Helper Measures`, `_FD Measures`. No `_L Measures 4`.
 Measure names are plain and descriptive — NO page prefix (e.g. `Avg Days to Close`, not `L2 Avg Days to Close`).
 
 `_Helper Measures` — shared period logic used by both Freshdesk and Linear page 1:
-- `_Selected Period`, `_Period Start`, `_Period End`, `_Prev Period Start`, `_Prev Period End`, `Period Label`
+- `Selected Period`, `Period Start`, `Period End`, `Prev Period Start`, `Prev Period End`, `Period Label`, `Prev Period Label`
+- Also contains debug/dev helpers: `Check Week`, `Debug Week Flag`, `Last Completed Week`, `Last Date in Data`, `Start of Last Week`, `End of Last Week` — can be removed once no longer needed
 
-`_L Measures` — Linear page 1 KPI and chart measures:
+`_L Measures 1` — Linear page 1 KPI and chart measures:
 - `Linear Created`, `Linear Created Prev`, `Linear Created Δ%`
 - `Linear Closed`, `Linear Closed Prev`, `Linear Closed Δ%`
 - `Linear Open at Period End`, `Linear Open at Prev Period End`, `Linear Open Δ`
 - `Linear Incidents`, `Linear Incidents Prev`, `Linear Incidents Δ`
 - `Linear Avg Days to Close`, `Linear Avg Days to Close Prev`, `Linear Avg Days to Close Δ`
 - `Linear Oldest Issue` (standalone, no Prev/Δ)
-- `Linear Created (Chart)`, `Linear Closed (Chart)`, `Linear Open Issues (Chart)`
+- `Linear Created (Chart)`, `Linear Closed (Chart)`, `Linear Open Issues (Chart)` — chart measure uses `ALL(FactLinear)` + `MIN(MAX(DimDate[date_key]), TODAY())` + historical logic (`ISBLANK OR closed_at > monthEnd`)
 
 `_L Measures 2` — Linear pages 2–3 measures, plus one shared page 4 measure:
 - `Avg Days to Close` — USERELATIONSHIP(closed_at), slicer-aware
@@ -303,11 +376,10 @@ Measure names are plain and descriptive — NO page prefix (e.g. `Avg Days to Cl
 - `Oldest Open Title` — title of the oldest open issue (ALL, slicer-independent)
 - `Created 3M MA`, `Closed 3M MA` — 3-month rolling average of issue volume
 - `Avg Created to Started 3M`, `Avg Started to Closed 3M`, `Avg Created to Closed 3M` — 3-month rolling average of days per lifecycle stage (cohort = closed in window)
-- `Open Issues Assignee` — REMOVEFILTERS(DimDate), ISBLANK(closed_at) — all-time current open backlog per person; used on page 4 table
-
 `_L Measures 3` — Linear page 4 (People) measures:
 - `Created` — COUNTROWS(FactLinear), responds to DimDate active relationship + Assignee legend/row context
 - `Closed` — USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]), NOT ISBLANK(closed_at)
+- `Open` — REMOVEFILTERS(DimDate), ISBLANK(closed_at) — all-time current open backlog per person; used on page 4 table
 - `Incidents` — COUNTROWS where is_incident = TRUE()
 
 `_FD Measures` — Freshdesk page measures (set aside, not current focus)

@@ -1,0 +1,2 @@
+ID,TableID,Name,Description,IsHidden,State,HierarchyStorageID,ModifiedTime,StructureModifiedTime,RefreshedTime,DisplayFolder,HideMembers,LineageTag,SourceLineageTag
+5192,18,"Date hierarchy","",False,1,5194,2026-06-11 10:11:26.663,2026-06-08 13:49:19.120,2026-06-11 10:11:26.663,"",0,"dce010df-5ad3-420a-b1a6-6e31743c7ea0",""

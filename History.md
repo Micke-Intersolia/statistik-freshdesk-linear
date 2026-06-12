@@ -4,6 +4,38 @@ A running logbook of decisions, changes, and milestones for the Linear / Freshde
 
 ---
 
+## 2026-06-12
+
+**Summary page built — report now has 7 pages + 2 tooltip pages (9 tabs)**
+
+- Created `Summary` page as the new first tab — stakeholder landing page showing the overwork narrative at a glance
+- Layout: Intersolia logo + "SUMMARY" title; Period toggle slicer + Period label cards; KPI row 1 (Linear: Created, Closed, Open, Incidents, Oldest Open Issue); KPI row 2 (Freshdesk: Waiting for Triage, Passed Triage, Escalated %); bar+line chart (Created/Closed/Open backlog, last 4 months)
+- All KPI cards copied from existing pages — no new measures required
+- Chart-to-KPI cross-filtering disabled via Edit Interactions (same as Linear - Overview)
+- No Linear/Freshdesk source logos on Summary — it covers both
+
+**Date hierarchy added to DimDate**
+
+- Two new calculated columns on DimDate in Power BI: `Quarter Label` and `Quarter Sort`
+- `Quarter Label`: `"Q" & CEILING(DimDate[month_num] / 3, 1) & " '" & RIGHT(FORMAT(DimDate[year],"0000"),2)` — note: uses `month_num` (integer), NOT `month` (text column, which would error)
+- `Quarter Sort`: `DimDate[year] * 10 + CEILING(DimDate[month_num] / 3, 1)`
+- `Quarter Sort` set as sort column for `Quarter Label`
+- Date Hierarchy created: Quarter Label → Month → year_week → date_key
+- Enables drill-down on any chart from Quarter level down to day
+
+**Bronze vs silver assignee discrepancy investigated**
+
+- User noticed bronze had more issues per assignee and a completely missing assignee vs silver
+- Root cause confirmed: the `NOT (identifier LIKE 'DEV%' AND team_name = 'Development')` filter in silver load excluded DEV-prefixed issues entirely — the missing assignee only worked on DEV issues
+- No pipeline fix needed — the filter is correct by design
+
+**Rolling average measure pattern confirmed clean**
+
+- All 3M MA and lifecycle average measures (`Created 3M MA`, `Closed 3M MA`, `Avg Created to Closed 3M` etc.) use `ALL(DimDate)` with VAR-captured monthEnd — correct pattern, no double-counting risk
+- Verified by reading `Visuals/export/measures_detailed.csv`
+
+---
+
 ## 2026-06-01
 
 **Initial exploration**
@@ -236,6 +268,64 @@ A `script/morning_refresh.ps1` automation script is planned for when both silver
 
 ---
 
+## 2026-06-12
+
+**Screenshot audit — page structure confirmed**
+
+Reviewed 8 screenshots in `screenshots/`. Confirmed final report structure: 6 report pages + 2 tooltip pages = 8 tabs.
+
+Actual tab names (corrected in CLAUDE.md and report-guide.md):
+- Freshdesk | Linear - Overview | Linear - Trends | Linear - Distribution | Linear - Assignee | Linear - Assignee (details) | Tooltip Oldest Issue | Tooltip - Assignee Weekly
+
+Discrepancies found and fixed:
+- All Linear page tab names were wrong in CLAUDE.md ("Overview" not "Linear - Overview" etc.)
+- Page 5 tab was documented as "People" — actual tab is "Linear - Assignee"
+- Freshdesk page is fully built and functional (KPI cards, chart, Wait Threshold card) — was documented as "set aside"; now properly described
+- "Tooltip Oldest Issue" was completely undocumented — added; shows `Oldest Open Title` measure as a text box (the title of OPEX-763, the current oldest open issue)
+- "Tooltip - Assignee Weekly" was documented as showing year\_week bars — actual chart uses DimDate[Month] on Y-axis
+
+**Report user guide created**
+
+Created `docs/report-guide.md` — a plain-language guide to all five report pages for stakeholders and new Power BI users. Covers: what each page answers, how slicers work, what to look for in each visual, hover/click interaction tips, and a glossary. Intended as a presentation aid when sharing the report with OPEX stakeholders.
+
+---
+
+**New page: Linear - Assignee (details)**
+
+Created page 5 "Linear - Assignee (details)" as a deeper companion to page 4 (People).
+
+New measure added to `_L Measures 3`:
+```dax
+Open at Month End =
+VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+RETURN
+CALCULATE(
+    COUNTROWS(FILTER(
+        FactLinear,
+        FactLinear[created_at] <= monthEnd &&
+        (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+    )),
+    REMOVEFILTERS(DimDate)
+)
+```
+The existing `_L Measures 3[Open]` (REMOVEFILTERS + ISBLANK) is correct for the page 4 table (current-state snapshot per assignee). `Open at Month End` is needed for a historical trend line — it preserves the Assignee filter context while using the month axis as a ceiling date, not a filter.
+
+**Page 5 final layout:**
+- No month slicer — replaced with Assignee slicer (connected to all visuals)
+- Page filter: rolling 3 months + current month
+- KPI cards: Open (current backlog) + Avg Days to Close
+- Matrix: Assignee rows × Month columns, Created (white→blue) + Closed (white→green) gradients; field well headers renamed to single space to hide labels
+- Trend line: Open at Month End per assignee, Assignee slicer connected
+- Tooltip page ("Tooltip - Weekly"): bar chart showing year_week × Created/Closed; appears on hover over any matrix cell; filter context (assignee + month) passed automatically
+
+**Insight noted:** A person can show more Closed than Created in the matrix because Closed counts issues resolved in the period regardless of when they were created — closing old backlog items is the explanation.
+
+**Month slicer style updated on pages 4 and 5:** Changed from dropdown to **horizontal tile/button row**. `DimDate[Month]`, multi-select, Select All enabled. Both pages have a page-level filter for last 12 months.
+
+**Excluded assignees (pages 4 and 5):** Kasper Mikkelsen, Pål Brattberg, Thomas Andersson filtered out at page level on both People pages. They skew the data and are not relevant to ongoing OPEX reporting.
+
+---
+
 ## 2026-06-11
 
 **Pipeline handover documentation**
@@ -259,6 +349,148 @@ Token stored locally in `credentials/github_token.txt` (git-ignored). The script
 **Why credentials/ stays git-ignored despite the repo being private**
 
 Git history is permanent. Credentials committed now would be visible forever via `git log` even after deletion, to anyone ever granted repo access. The small inconvenience of out-of-band credential sharing is worth it.
+
+---
+
+**`Linear Open Issues (Chart)` — formula fix (three iterations)**
+
+The chart backlog line was misbehaving: dipping from May to June despite net-positive new issues, and failing to show the April dip where more issues were closed than opened.
+
+*Attempt 1 — REMOVEFILTERS(DimDate):*
+```dax
+VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+RETURN CALCULATE(
+    COUNTROWS(FILTER(FactLinear, ...)),
+    REMOVEFILTERS(DimDate)
+)
+```
+Still wrong. `REMOVEFILTERS(DimDate)` only clears filters originating from DimDate. Visual-level filters and cross-filters that land directly on `FactLinear` survive.
+
+*Attempt 2 — ISBLANK-only formula:*
+A simpler version that only counted `ISBLANK(closed_at)`. This produced a monotonically increasing staircase — it can never dip because it counts currently open issues by creation date. April had more closures than opens; that dip is invisible to a formula that only checks current state.
+
+*Attempt 3 — correct formula (final):*
+```dax
+Linear Open Issues (Chart) =
+VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+RETURN
+COUNTROWS(
+    FILTER(
+        ALL(FactLinear),
+        FactLinear[created_at] <= monthEnd &&
+        (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+    )
+)
+```
+`ALL(FactLinear)` clears every external filter on the table regardless of origin. `MIN(..., TODAY())` caps the current month so it doesn't speculate about future dates. The `ISBLANK OR closed_at > monthEnd` logic correctly reconstructs the historical backlog at each month-end point.
+
+**Key lesson — `REMOVEFILTERS` vs `ALL`:**
+`REMOVEFILTERS(DimDate)` removes only DimDate-originated filters. In a chart context with visual-level filters or cross-filters that target FactLinear directly, those survive. `ALL(FactLinear)` is the correct choice for any measure that must see the full table regardless of filter context — use it in the FILTER iterator, not as a CALCULATE modifier.
+
+---
+
+**Period label measures — format update**
+
+`Period Label` updated (no year, ISO week number):
+```dax
+Period Label =
+VAR p = [Selected Period]
+VAR s = [Period Start]
+RETURN "Period: " & IF(
+    p = "Week",
+    "W" & WEEKNUM(s, 21),
+    FORMAT(s, "MMMM")
+)
+```
+
+`Prev Period Label` — new measure added to `_Helper Measures`:
+```dax
+Prev Period Label =
+VAR p = [Selected Period]
+VAR s = [Prev Period Start]
+RETURN "Previous: " & IF(
+    p = "Week",
+    "W" & WEEKNUM(s, 21),
+    FORMAT(s, "MMMM")
+)
+```
+
+`WEEKNUM(date, 21)` = ISO 8601 week mode in DAX: Monday-based, week 1 = first week containing a Thursday. Both measures return the period identifier only — no year, since the report always shows recent data and year is redundant noise.
+
+Both are placed as small card visuals on page 1 alongside the period toggle slicer.
+
+`Period Summary` (combined version) also created, but the two separate cards are the preferred layout. Note: `Period Summary` has a double-prefix bug (`"Period: " & [Period Label]` produces "Period: Period: W23") — documented in ToDo.md item 7a for future cleanup.
+
+---
+
+**Visual settings — page 1 chart**
+
+- Visual-level filter: last 4 months (on `DimDate[date_key]`) — keeps the chart readable without drowning in sparse early Linear data
+- `Is Current Month = 0` visual filter **removed** — chart now shows the live current month as it accumulates
+- Secondary Y axis (Open Issues line): max set manually to 100 — prevents the backlog line from dominating the scale and compressing the Created/Closed bars
+
+Cross-filtering from chart to KPI cards remains disabled via Edit Interactions (chart click does not update cards). Full chart-to-KPI drill is documented in ToDo.md item 5.
+
+---
+
+**SQL verification pattern for period dates**
+
+When cross-checking Power BI KPI values against silver, use separate CASE WHEN expressions — a WHERE clause on created_at would incorrectly restrict the closed count too:
+
+```sql
+SELECT
+    SUM(CASE WHEN created_at BETWEEN '2026-05-25' AND '2026-05-31' THEN 1 ELSE 0 END) AS created,
+    SUM(CASE WHEN closed_at  BETWEEN '2026-05-25' AND '2026-05-31' THEN 1 ELSE 0 END) AS closed
+FROM silver.linear_issues;
+-- Result: created=60, closed=55 — both match KPI cards in Week mode
+```
+
+Open backlog verification:
+```sql
+SELECT COUNT(*) AS open_at_may31
+FROM silver.linear_issues
+WHERE created_at <= '2026-05-31'
+  AND (closed_at IS NULL OR closed_at > '2026-05-31');
+-- Result: 64 — matches "Linear Open at Prev Period End" KPI in Week mode
+```
+
+**Same-period throughput insight:** of 55 issues closed in May 25–31, only 39 were also created that same week. The other 16 were older backlog items cleared that week. This split (throughput vs backlog clearance) is a planned future metric for the detail pages.
+
+---
+
+**ToDo.md created**
+
+New file `ToDo.md` at project root. Contains step-by-step Power BI instructions for 6 planned items:
+
+1. **Front page / summary** — stakeholder landing page, layout suggestions, reuses existing measures
+2. **Detail pages** — Quarter columns for DimDate, date hierarchy, volume drill chart, open issues table
+3. **Assignee daily/weekly flow** — matrix heat map, cumulative open per assignee line chart
+4. **% Closed Over Threshold** — what-if parameter (`Close Threshold`, 1–180 days, default 30) + measure for Distribution page
+5. **Chart-to-KPI drill** — ISFILTERED(DimDate) approach to rewrite helper measures; most complex item, do last
+6. **Remove Freshdesk year filter** — scheduled ~June 2027 once 12+ months of data have accumulated
+
+---
+
+**Model export audit — CSV discrepancies found and fixed**
+
+Read 6 CSV files from `Visuals/export/` (measures_detailed, calc_columns, tables, relations, hierarchies, calc_dependency) and cross-referenced against CLAUDE.md. Found and corrected 7 documentation errors in CLAUDE.md:
+
+| Issue | Was | Corrected to |
+|---|---|---|
+| Measure table name | `_L Measures` | `_L Measures 1` |
+| DimDate column name | `Month Label` | `Month` |
+| Month DAX formula order | `"'26 Jun"` | `"Jun '26"` |
+| Lead Time bucket labels | "Up to one week" etc. | "2–7 days", "8–14 days" etc. |
+| `Open` measure location | `Open Issues Assignee` in `_L Measures 2` | `Open` in `_L Measures 3` |
+| Helper measure names | `_Selected Period` etc. (underscores) | `Selected Period` etc. (no underscores) |
+| Relationships | 5 documented | 7 actual (2 extra: `completed_at`, `denied_triage_at`) |
+
+Power BI cleanup items (no code errors, model works correctly) added as ToDo.md section 7:
+- Fix `Period Summary` double-prefix formula
+- Review/delete two unused inactive relationships (`completed_at`, `denied_triage_at`)
+- Delete debug measures `Check Week` and `Debug Week Flag` when no longer needed
+- Decide whether to rename `Open` measure for better table column header clarity
+- Verify Lead Time chart legend shows current bucket label names
 
 ---
 
@@ -377,6 +609,65 @@ Fourth Linear report page added. Tab names set: Overview, Trends, Distribution, 
 *Why new measures instead of reusing `Linear Created`:* `Linear Created` uses the period toggle logic (VAR periodStart/periodEnd from the PeriodType table), which collapses the month axis into a single period value. New plain `Created = COUNTROWS(FactLinear)` responds purely to DimDate filter context and Assignee legend, which is what the trend line chart needs.
 
 Report sent to client (2026-06-09) for review and feedback.
+
+---
+
+**Power BI — `Linear Open Issues (Chart)` formula fixed (2026-06-11)**
+
+The backlog line on page 1 was showing incorrect values. Three formula versions were tried:
+
+*Version 1 — original (`ISBLANK OR closed_at > monthEnd`):* Correct for historical months — counts issues open at end of each month including ones since closed. Caused an apparent drop in the current partial month because past months included issues not-yet-closed at that date, inflating them relative to today. Root cause: filter context leakage — `REMOVEFILTERS(DimDate)` did not fully clear all external filters in the chart's per-month context.
+
+*Version 2 — ISBLANK only:* Wrong. A monotonically increasing cumulative count of today's open issues by creation date. Can never dip even when more issues were closed than opened in a month. Visually showed wild acceleration and ignored the April net-negative correctly.
+
+*Version 3 — final correct formula:*
+```dax
+Linear Open Issues (Chart) =
+VAR monthEnd = MIN(MAX(DimDate[date_key]), TODAY())
+RETURN
+COUNTROWS(
+    FILTER(
+        ALL(FactLinear),
+        FactLinear[created_at] <= monthEnd &&
+        (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > monthEnd)
+    )
+)
+```
+Key changes: `ALL(FactLinear)` (not `REMOVEFILTERS(DimDate)`) clears all external filter context on the table. `MIN(..., TODAY())` caps the current month at today so it doesn't speculate about future activity. Historical months: correct true backlog at month end. Current month: today's open count. April dip (more closed than opened) now correctly shows.
+
+**Key lesson:** `REMOVEFILTERS(DimDate)` only removes the DimDate filter. In a chart with visual-level filters, page filters, or cross-filters that land directly on FactLinear, those survive. `ALL(FactLinear)` is the safe choice for measures that must see the full table regardless of context.
+
+**`Prev Period Label` measure added to `_Helper Measures`:**
+```dax
+Prev Period Label =
+VAR p = [Selected Period]
+VAR s = [Prev Period Start]
+VAR e = [Prev Period End]
+RETURN IF(
+    p = "Week",
+    FORMAT(s, "D MMM") & "–" & FORMAT(e, "D MMM YYYY"),
+    FORMAT(s, "MMMM YYYY")
+)
+```
+Mirrors `Period Label` exactly. Both added as small card visuals on page 1 to show users the exact date ranges being compared.
+
+**SQL verification pattern for period dates:**
+When cross-checking Power BI KPI values against silver, use separate queries for created and closed — the WHERE clause must not restrict both at once:
+```sql
+SELECT
+    SUM(CASE WHEN created_at BETWEEN 'X' AND 'Y' THEN 1 ELSE 0 END) AS created,
+    SUM(CASE WHEN closed_at  BETWEEN 'X' AND 'Y' THEN 1 ELSE 0 END) AS closed
+FROM silver.linear_issues;
+```
+Confirmed: previous period = May 25–31; created=60, closed=55 match KPI. Open at May 31 = 64 (week mode) confirmed via SQL.
+
+**Same-period throughput insight:**
+Of 55 issues closed in May 25–31, only 39 were also created that same week (same-period created-and-resolved). The other 16 were older backlog items resolved that week. This split is a useful future metric for the detail pages: "throughput" (same-period) vs "backlog clearance" (older items).
+
+**Visual settings:**
+- Chart date filter: last 4 months (visual-level filter on DimDate[date_key])
+- `Is Current Month = 0` visual filter removed — chart now shows live current month
+- Secondary Y axis max: 100 (manual, to make backlog line more readable)
 
 ---
 

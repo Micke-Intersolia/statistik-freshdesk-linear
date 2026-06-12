@@ -180,35 +180,19 @@ DimDate connects to both fact views on `date_key = created_at` (and optionally o
 
 Connects to the gold layer only (`gold.DimDate`, `gold.FactFreshdesk`, `gold.FactLinear`). Import mode — data refreshed manually in Power BI Desktop after the daily pipeline run.
 
-**Freshdesk page** (built, currently set aside — not the active focus)
-- KPI cards: Created, Waiting for Triage, Passed Triage, Escalation Rate, Triage Denied — current period vs. previous with Δ
-- Period toggle: Week / Month
-- Bar+line chart: created tickets per month with escalation rate line (rolling 12 months, current month excluded)
-- "Tickets waiting longer than X days" slicer group (What-if parameter, default 30 days)
+**7 pages + 2 tooltip pages (9 tabs total):**
 
-**Linear Page 1 — Overview**
-- KPI cards: Created Issues, Closed Issues, Open Issues, Incidents, Oldest Issue — current period vs. previous with Δ
-- Period toggle: Week / Month (shared with Freshdesk measures)
-- Bar+line chart: Created + Closed bars per month, Open Issues line on secondary axis
-
-**Linear Page 2 — Trends**
-- Month slicer (multi-select dropdown)
-- KPIs: Avg and Median days to close (slicer-connected) + Oldest Open Issue (all-time, slicer-independent)
-- Chart 1: 3-month moving average — Created and Closed issue volume
-- Chart 2: 3-month moving average — days per lifecycle stage (Created→Started, Started→Closed, Created→Closed)
-
-**Linear Page 3 — Distribution**
-- Month slicer
-- KPIs: Avg and Median days to close
-- Issues per Project Group (horizontal bar)
-- Avg and Median days to close per Project Group (table, sorted by avg descending)
-- Lead Time buckets: 1 day / 2–7 / 8–14 / 15–30 / 31–90 / >90 days (colour-coded green→red via conditional formatting rules)
-
-**Linear Page 4 — People**
-- Month slicer (connected to table and bar chart; disconnected from line chart)
-- Line chart: Created issues per assignee per month — full trend, slicer-independent; legend used as interactive filter (Ctrl+click to highlight a person)
-- Table: Assignee | Created | Closed | Open Issues Assignee | Avg Days to Close | Incidents — slicer-connected
-- Clustered horizontal bar: Created + Closed per assignee — slicer-connected
+| Tab | Contents |
+|---|---|
+| **Summary** | Stakeholder landing page — Linear + Freshdesk KPIs at a glance, rising backlog chart |
+| **Freshdesk** | Created, Waiting for Triage, Passed Triage, Escalation Rate, Denied Triage; bar+line chart; "tickets waiting over X days" what-if threshold |
+| **Linear - Overview** | Created, Closed, Open, Incidents, Oldest Issue KPIs with period Δ; period toggle (Week/Month); bar+line chart last 4 months |
+| **Linear - Trends** | Avg/median days to close; 3-month moving averages (volume + lifecycle stages) |
+| **Linear - Distribution** | Issues per Project Group; Lead Time buckets (colour-coded); avg/median by project; % Closed Over Threshold what-if parameter; Assignee slicer |
+| **Linear - Assignee** | Per-person Created/Closed/Open/Incidents table; line chart (full trend); bar chart; tile month slicer |
+| **Linear - Assignee (details)** | Heat map matrix (Created=blue, Closed=green); backlog trend line; KPI cards; rolling 3 months + current |
+| **Tooltip - Oldest Issue** | Shows title and assignee of oldest open issue — triggered by hovering Oldest Issue card |
+| **Tooltip - Assignee Weekly** | Created/Closed bar chart by month — triggered by hovering heat map cell |
 
 **Power BI tooling**
 - **DAX Studio** (free, daxstudio.org) — connect to open .pbix, run `EVALUATE INFO.MEASURES()` to export all measures and DAX expressions to Excel/CSV for documentation
