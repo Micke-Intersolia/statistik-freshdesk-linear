@@ -1,0 +1,21 @@
+{
+  "ts": "20260613T002300Z",
+  "total_tickets": 4969,
+  "pages": 50,
+  "script_version": "2.1",
+  "page_size": 100,
+  "include_fields": "",
+  "updated_since": null,
+  "domain": "intersolia",
+  "fields": [
+    "id",
+    "subject",
+    "status",
+    "priority",
+    "created_at",
+    "updated_at",
+    "due_by",
+    "group_id",
+    "product_id"
+  ]
+}
