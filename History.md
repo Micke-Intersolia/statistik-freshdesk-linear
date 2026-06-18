@@ -4,6 +4,55 @@ A running logbook of decisions, changes, and milestones for the Linear / Freshde
 
 ---
 
+## 2026-06-18
+
+**Full Power BI dashboard redesign — Intersolia brand theme applied, overwork narrative made central**
+
+**Brand theme created**
+- New file: `powerbi/intersolia-opex-theme.json`
+- Primary green #2C786C, dark header #101828, Inter font, Gray 50 (#F9FAFB) page background
+- Semantic colours: good=#2C786C (green), neutral=#F79009 (amber), bad=#F04438 (red)
+- Applied via View → Themes → Browse for themes in Power BI Desktop
+- All pages automatically picked up consistent font, background, and border styling
+
+**Page count reduced: 9 tabs → 8 tabs**
+- Deleted `Linear - Assignee (details)` tab
+- Heatmap matrix and backlog trend line chart moved into the main `Linear - Assignee` page
+- Tab order now: Summary | Linear - Assignee | Freshdesk | Linear - Overview | Linear - Trends | Linear - Distribution | Tooltip - Oldest Issue | Tooltip - Assignee Weekly
+
+**Page redesigns**
+- All pages: dark header rectangle (#101828) top of canvas with white Intersolia logo
+- **Summary**: hero bar+line chart expanded to 6 months; Oldest Issue KPI card in red; all KPIs white on #F9FAFB
+- **Linear - Assignee** (now page 2): moved up in tab order; backlog trend line chart (Open at Month End per person) made the hero visual — rising line = personal overwork; month slicer changed from tile/button to dropdown (less busy); heatmap folded in from deleted details tab at bottom
+- **Linear - Overview**: KPI cards given more vertical space for breathing room; chart extended to 6 months
+- **Linear - Trends**: dark header; chart titles clarified
+- **Linear - Distribution**: four KPI cards including two new overwork metrics (Avg Open Backlog Age, Backlog Growth); project group bars forced to brand green; lead time gradient green (#2C786C) → red (#F04438); light teal (#DAF1EB) background strip behind KPI row
+
+**New DAX measures added to _L Measures 2**
+- `Avg Open Backlog Age`: average age_days of currently open issues (ALL(DimDate), ISBLANK(closed_at)) — reveals how stale the backlog is regardless of slicer selection
+- `Backlog Growth`: net change in open issue count using MIN/MAX(DimDate[date_key]) as period boundaries — responds to month slicer and page-level relative date filters automatically
+- DAX note: `then` and `now` are reserved words in DAX — variable names `VAR cutoffToday`, `VAR cutoffAgo`, `VAR openNow`, `VAR openPrev` used instead
+
+**New Open at Month End measure (_L Measures 3)**
+- `Open at Month End`: assignee-aware backlog snapshot per month — uses FactLinear (not ALL) so Assignee legend context passes through; REMOVEFILTERS(DimDate) replaces axis filter with VAR monthEnd ceiling
+
+**Background colour lesson**
+- Page background #F9FAFB (Gray 50) and brand P50 green #F4FAF9 are nearly identical — strip visual disappeared
+- Fix: use #DAF1EB (brand P100 green) as background strip behind KPI rows — clearly visible as a light teal tint
+
+**Matrix heatmap colours updated**
+- Created gradient changed from white→blue to white→red (#F04438) — red = pressure/intake is bad
+- Closed gradient stays white→green (#2C786C) — green = throughput is good
+- Set via Format pane → Visual tab → Cell elements → Series dropdown → Background color fx
+
+**Clarification: KPI delta indicators**
+- All Δ values are plain numeric text (e.g. "+6.7%", "+9") — no arrow/trend indicators on any card
+
+**Presentation notes created**
+- New file: `docs/presentation-notes.md` — Swedish/English speaking bullets per page for stakeholder walkthroughs
+
+---
+
 ## 2026-06-12
 
 **Summary page built — report now has 7 pages + 2 tooltip pages (9 tabs)**

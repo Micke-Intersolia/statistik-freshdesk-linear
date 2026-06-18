@@ -31,27 +31,26 @@ Full architecture in README.md. Full decision history in History.md.
 | Silver refresh automation | ✅ Done | ✅ Done (shared) |
 | Gold dim_date | ✅ Done | ✅ Done (shared) |
 | Gold fact views | ✅ Done | ✅ Done |
-| Power BI | 🔄 In progress | 🔄 In progress |
+| Power BI | ✅ Done | ✅ Done |
 
-**Active track: Power BI visuals — Summary page complete, sent to client for review**
+**Active track: Power BI brand redesign complete (2026-06-18)**
 
-Summary page built (2026-06-12). Six detail pages built (Linear + Freshdesk). Report sent to client; awaiting feedback.
+Full Intersolia brand redesign applied. Dark header on all pages, brand colour theme throughout, all pages rebuilt. 9 tabs → 8 tabs (Linear - Assignee (details) deleted, heatmap folded into Linear - Assignee).
 
-**Report structure — 7 pages + 2 tooltip pages (9 tabs total)**
+**Report structure — 6 pages + 2 tooltip pages (8 tabs total)**
 
-Tab order: Summary | Freshdesk | Linear - Overview | Linear - Trends | Linear - Distribution | Linear - Assignee | Linear - Assignee (details) | Tooltip - Oldest Issue | Tooltip - Assignee Weekly
+Tab order: Summary | Linear - Assignee | Freshdesk | Linear - Overview | Linear - Trends | Linear - Distribution | Tooltip - Oldest Issue | Tooltip - Assignee Weekly
 
 ---
 
 **Page 1 — Summary** (tab: `Summary`)
 - Stakeholder landing page — overwork narrative at a glance
-- Intersolia logo (top left); "SUMMARY" title (top right)
-- Period toggle slicer: Week / Month; Period label cards: `Period Label`, `Prev Period Label`
-- KPI row 1 (Linear): Created Issues (Δ%), Closed Issues (Δ%), Open Issues (Δ), Incidents (Δ), Oldest Open Issue (red, with identifier below)
-- KPI row 2 (Freshdesk): Waiting for Triage (Δ%), Passed Triage (Δ%), Escalated Tickets % (Δpp)
-- Chart: bar+line — Created + Closed bars, Open Issues backlog line (last 4 months); same chart as Linear - Overview
+- Dark header strip (#101828) with white Intersolia logo; Period label cards + Week/Month toggle slicer in header area
+- **Chart as hero** (full width, top of content area): bar+line — Created (brand green #2C786C) + Closed (light green #54B09E) bars, Open backlog line (amber #F79009); last 6 months; title off; legend entry renamed to "Open Issues (backlog)"
 - Cross-filtering from chart to KPI cards disabled via Edit Interactions
-- No Linear or Freshdesk source logos — summary covers both sources
+- KPI row below chart: Created (Δ%), Closed (Δ%), Open Issues (Δ), Incidents (Δ), Oldest Open Issue (red card: #FEE2E2 background, #F04438 border, red number + identifier below)
+- Freshdesk compact row at bottom: Waiting for Triage (Δ%), Passed Triage (Δ%), Escalated Tickets % (Δpp)
+- No source logos
 
 ---
 
@@ -62,47 +61,38 @@ Tab order: Summary | Freshdesk | Linear - Overview | Linear - Trends | Linear - 
 - Chart: Created Tickets + Escalation Rate % over time (bar + line)
 - Note: Freshdesk page is functional but not the current reporting focus; all Freshdesk visuals filtered to current year only (remove ~June 2027 once 12 months of data have accumulated)
 
-**Page 3 — Linear - Overview** (tab: `Linear - Overview`)
-- KPI cards: Created Issues, Closed Issues, Open Issues, Incidents, Oldest Issue (all with period Δ except Oldest Issue)
-- Oldest Open Issue card shows value in red with identifier (e.g. OPEX-763) below it
-- Period toggle slicer: Week / Month (disconnected `PeriodType` table)
-- Period label cards: `Period Label` and `Prev Period Label`
-- Chart: Line and clustered column — Created + Closed bars, Open Issues line (secondary axis, max=100)
-- Chart visual filter: last 4 months (on DimDate[date_key]); chart shows live current month
+**Page 4 — Linear - Overview** (tab: `Linear - Overview`)
+- Dark header (#101828) with white logo; Period labels + Week/Month toggle in header area
+- KPI cards (larger sizing): Created Issues (Δ%), Closed Issues (Δ%), Open Issues (Δ), Incidents (Δ), Oldest Open Issue (red card: #FEE2E2 background, #F04438 border)
+- Chart: bar+line — Created + Closed bars, Open backlog line (amber); last 6 months (extended from 4); title off; legend renamed to "Open backlog"
 - Cross-filtering from chart to KPI cards disabled via Edit Interactions
 
-**Page 4 — Linear - Trends** (tab: `Linear - Trends`)
+**Page 5 — Linear - Trends** (tab: `Linear - Trends`)
+- Dark header (#101828) with white logo
 - Month slicer (DimDate[Month], dropdown, multi-select)
-- KPI cards (slicer-connected): Days to close avg, Days to close median
-- KPI card (all-time, slicer-disconnected): Oldest open issue (age in days) — shown in red; `Oldest Open Identifier` and `Oldest Open Title` cards alongside
-- Chart 1: Line chart — Created 3M MA + Closed 3M MA (slicer disconnected)
-- Chart 2: Line chart — Avg Created→Closed 3M, Avg Created→Started 3M, Avg Started→Closed 3M (slicer disconnected)
+- KPI cards: Days to close avg, Days to close median (slicer-connected); Oldest open issue (red card, slicer-disconnected, ALL-time)
+- Chart 1: "Issue volume — 3-month rolling average" — Created 3M MA + Closed 3M MA (slicer disconnected)
+- Chart 2: "Lead time breakdown — 3-month rolling average" — Avg Created→Closed 3M, Avg Created→Started 3M, Avg Started→Closed 3M (slicer disconnected)
 
-**Page 5 — Linear - Distribution** (tab: `Linear - Distribution`)
-- Month slicer (same style as page 3, slicer connected to both charts and table)
-- KPI cards: Days to close avg + median (same measures as page 3, slicer connected)
-- Left chart: Issues per Project Group (horizontal bar, slicer connected via created_at)
-- Table below left chart: Project Group | Avg days to close | Median days to close — sorted by avg descending; subtitle "Closed issues in selected period"
-- Right chart: Lead Time buckets (horizontal bar, conditional colours via Rules on Lead Time Sort, slicer connected via closed_at; visual filter excludes Blank bucket)
+**Page 6 — Linear - Distribution** (tab: `Linear - Distribution`)
+- Dark header (#101828) with white logo
+- Month + Assignee slicers (dropdowns); page-level relative date filter: last 6 months
+- KPI strip with light teal background (#DAF1EB): Days to close avg, Days to close median, Avg Open Backlog Age (all-time, slicer-independent), Backlog Growth (slicer-aware — shows growth across selected date range)
+- Left chart: Issues per Project Group (horizontal bar); all bars same brand green (#2C786C) — length tells the story, not colour
+- Table: Project Group | Avg days to close | Median days to close — sorted by avg descending
+- Right chart: Lead Time buckets — green→amber→red gradient: Same day=#2C786C, 2–7 days=#54B09E, 8–14 days=#B1E2D5, 15–30 days=#F79009, 31–90 days=#F04438, +90 days=#7F1D1D
 
-**Page 6 — Linear - Assignee** (tab: `Linear - Assignee`)
-- Month slicer: **tile/button style** (row of tiles across top), `DimDate[Month]`, multi-select, Select All enabled; connected to table and bar chart; disconnected from line chart
+**Page 2 — Linear - Assignee** (tab: `Linear - Assignee`) — moved to second position
+- Dark header (#101828) with white logo
+- Month slicer: **dropdown** (changed from tile/button — too busy); `DimDate[Month]`, multi-select
 - Page-level filter: last 12 months
-- Excluded assignees (page-level filter on `FactLinear[Assignee]`): **Kasper Mikkelsen, Pål Brattberg, Thomas Andersson** — excluded because they skew data and are not relevant to ongoing OPEX reporting; note displayed as text box on page
-- Line chart: Created per assignee per month — X: DimDate[Month], Y: `_L Measures 3[Created]`, Legend: `FactLinear[Assignee]`; slicer disconnected so full trend always visible; `Is Current Month = 0` filter; Ctrl+click legend items to highlight
-- Table: Assignee | Created | Closed | Open | Days to Close | Incidents; slicer connected; sorted by Created descending
-- Clustered horizontal bar: Created + Closed per assignee; slicer connected; sorted by Created descending
+- Excluded assignees: **Pål Brattberg** (page-level filter on `FactLinear[Assignee]`)
+- **Backlog trend line chart (hero, disconnected from month slicer):** Open backlog per assignee per month — X: DimDate[Month], Y: `_L Measures 3[Open at Month End]`, Legend: `FactLinear[Assignee]`; rising line per person = overwork signal; `Is Current Month = 0` filter
+- Table: Assignee | Created | Closed | Open | Days to Close | Incidents; slicer connected; sorted by Created descending; internal padding 12px left/right
+- Matrix (heatmap, full width, bottom of page): Rows=Assignee, Cols=Month, `_L Measures 3[Created]` (white→red #F04438) + `_L Measures 3[Closed]` (white→green #2C786C); Tooltip page = "Tooltip - Assignee Weekly"; internal padding 12px left/right; folded in from deleted details tab
 - `Assignee` calculated column on FactLinear: `IF(ISBLANK(assignee_name), "Unassigned", assignee_name)`
 
-**Page 7 — Linear - Assignee (details)** (tab: `Linear - Assignee (details)`)
-- No month slicer — both visuals use a fixed rolling 3 months + current month page-level filter
-- Assignee slicer (tile/button style, top of page); connected to all visuals; selecting one person isolates their data across the whole page
-- Page-level filter: rolling 3 months + current month
-- Excluded assignees (same as page 5): Kasper Mikkelsen, Pål Brattberg, Thomas Andersson
-- KPI card: `_L Measures 3[Open]` — current open backlog for selected assignee(s)
-- KPI card: `_L Measures 2[Avg Days to Close]` — avg days to close in the 3-month window for selected assignee(s)
-- Matrix (heat map): title "Created (blue) and Closed (green) issues last 3 months"; Rows=`FactLinear[Assignee]`, Columns=`DimDate[Month]`, Values=`_L Measures 3[Created]` (white→blue gradient) + `_L Measures 3[Closed]` (white→green gradient); field well headers renamed to single space; Tooltip page = "Tooltip - Assignee Weekly"
-- Line chart: "Backlog trend last three months" — X: `DimDate[Month]`, Y: `_L Measures 3[Open at Month End]`, Legend: `FactLinear[Assignee]`; `Is Current Month = 0` filter; Assignee slicer connected
+**NOTE: Linear - Assignee (details) tab DELETED (2026-06-18)** — heatmap and backlog trend line moved into the main Linear - Assignee page.
 
 **Tooltip page 1 — Tooltip Oldest Issue** (tab: `Tooltip Oldest Issue`)
 - Triggered by hovering over the Oldest Open Issue card on the Linear pages
@@ -175,6 +165,7 @@ Assignee-aware version of `Linear Open Issues (Chart)` — uses `FactLinear` (no
 | `sql/09_gold_create_views.sql` | CREATE OR ALTER VIEW for gold.FactFreshdesk and gold.FactLinear |
 | `.github/workflows/nightly-snapshots.yml` | GitHub Actions automation |
 | `credentials/` | API keys + SQL connection string — never committed (git-ignored) |
+| `powerbi/intersolia-opex-theme.json` | Power BI brand theme — apply via View → Themes → Browse for themes |
 
 ---
 
@@ -351,6 +342,8 @@ Enables drill-down on any chart: Quarter → Month → Week → Day.
 **What-if parameters:**
 - `Wait Threshold` — GENERATESERIES(1,180,1), default 30. Auto-generates `[Wait Threshold Value]` measure. Used on Freshdesk page for "tickets waiting over X days" card.
 
+**KPI delta display:** All Δ values on KPI cards are shown as plain numeric text (e.g. "+6.7%" or "+9") — there are no arrow/trend indicators on any card.
+
 **Measures tables — naming convention:**
 Table names: `_L Measures 1`, `_L Measures 2`, `_L Measures 3`, `_Helper Measures`, `_FD Measures`. No `_L Measures 4`.
 Measure names are plain and descriptive — NO page prefix (e.g. `Avg Days to Close`, not `L2 Avg Days to Close`).
@@ -368,7 +361,7 @@ Measure names are plain and descriptive — NO page prefix (e.g. `Avg Days to Cl
 - `Linear Oldest Issue` (standalone, no Prev/Δ)
 - `Linear Created (Chart)`, `Linear Closed (Chart)`, `Linear Open Issues (Chart)` — chart measure uses `ALL(FactLinear)` + `MIN(MAX(DimDate[date_key]), TODAY())` + historical logic (`ISBLANK OR closed_at > monthEnd`)
 
-`_L Measures 2` — Linear pages 2–3 measures, plus one shared page 4 measure:
+`_L Measures 2` — Linear pages 2–3 and Distribution page measures:
 - `Avg Days to Close` — USERELATIONSHIP(closed_at), slicer-aware
 - `Median Days to Close` — USERELATIONSHIP(closed_at), slicer-aware
 - `Oldest Open Issue` — ALL(FactLinear), completely slicer-independent
@@ -376,6 +369,32 @@ Measure names are plain and descriptive — NO page prefix (e.g. `Avg Days to Cl
 - `Oldest Open Title` — title of the oldest open issue (ALL, slicer-independent)
 - `Created 3M MA`, `Closed 3M MA` — 3-month rolling average of issue volume
 - `Avg Created to Started 3M`, `Avg Started to Closed 3M`, `Avg Created to Closed 3M` — 3-month rolling average of days per lifecycle stage (cohort = closed in window)
+- `Avg Open Backlog Age` — average `age_days` of currently open issues (ALL(DimDate), ISBLANK(closed_at)); shows how old the backlog is on average
+  ```dax
+  Avg Open Backlog Age =
+  CALCULATE(
+      AVERAGE(FactLinear[age_days]),
+      ISBLANK(FactLinear[closed_at]),
+      ALL(DimDate)
+  )
+  ```
+- `Backlog Growth` — net change in open issue count across the current filter context (period boundaries from MIN/MAX DimDate); responds to month slicer and page-level relative date filters
+  ```dax
+  Backlog Growth =
+  VAR periodEnd   = MIN(MAX(DimDate[date_key]), TODAY())
+  VAR periodStart = MIN(DimDate[date_key])
+  VAR openAtEnd =
+      COUNTROWS(FILTER(ALL(FactLinear),
+          FactLinear[created_at] <= periodEnd &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodEnd)
+      ))
+  VAR openAtStart =
+      COUNTROWS(FILTER(ALL(FactLinear),
+          FactLinear[created_at] <= periodStart &&
+          (ISBLANK(FactLinear[closed_at]) || FactLinear[closed_at] > periodStart)
+      ))
+  RETURN openAtEnd - openAtStart
+  ```
 `_L Measures 3` — Linear page 4 (People) measures:
 - `Created` — COUNTROWS(FactLinear), responds to DimDate active relationship + Assignee legend/row context
 - `Closed` — USERELATIONSHIP(DimDate[date_key], FactLinear[closed_at]), NOT ISBLANK(closed_at)

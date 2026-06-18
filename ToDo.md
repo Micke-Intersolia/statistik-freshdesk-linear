@@ -88,9 +88,11 @@ OPEX wants to demonstrate workload and show individual contribution. Useful visu
 
 ---
 
-## 3. Assignee daily/weekly flow
+## ✅ 3. Assignee daily/weekly flow — DONE (2026-06-18)
 
-**Purpose:** Deeper version of the People page. Shows how work moves per person at weekly (or daily) resolution — useful for spotting who is overloaded, who is clearing backlog, and whether work is evenly distributed.
+Implemented as part of the full redesign. Heatmap (weekly/monthly matrix per assignee) folded from the deleted details tab into the main Linear - Assignee page. Hero visual changed from "Created per person" line chart to "Open at Month End per person" — rising lines show growing personal backlog = overwork signal. New `Open at Month End` measure added to `_L Measures 3`.
+
+**Purpose (original):** Deeper version of the People page. Shows how work moves per person at weekly (or daily) resolution — useful for spotting who is overloaded, who is clearing backlog, and whether work is evenly distributed.
 
 **Suggested visuals:**
 
@@ -119,11 +121,11 @@ OPEX wants to demonstrate workload and show individual contribution. Useful visu
 
 ---
 
-## 4. Lead time threshold — % of issues exceeding X days
+## ✅ 4. Lead time threshold — DONE (2026-06-18, different approach)
 
-The "same-period throughput" metric (created and closed in same period) is just a subset of the closed count — not independently interesting enough for its own card. Drop it.
+Implemented via the Lead Time bucket bar chart on Linear - Distribution with a green→red conditional colour gradient (green=fast, red=slow). The new `Backlog Growth` and `Avg Open Backlog Age` KPI cards provide the alarming overwork signals that % over threshold would have served. The what-if parameter approach was not implemented — not needed given the visualisation chosen.
 
-**Replace with: % of closed issues exceeding a threshold (like Freshdesk's Wait Threshold)**
+**Original plan (for reference):** Replace with: % of closed issues exceeding a threshold (like Freshdesk's Wait Threshold)
 
 **What-if parameter:**
 - Name: `Close Threshold`
