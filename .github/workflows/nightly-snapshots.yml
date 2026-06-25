@@ -78,6 +78,19 @@ jobs:
         env:
           FRESHDESK_API_KEY: ${{ secrets.FRESHDESK_API_KEY }}
 
+      - name: Prune old snapshots (keep newest 400 per source)
+        if: |
+          steps.idempotency.outputs.skip == 'false' &&
+          steps.linear.outcome == 'success' &&
+          steps.freshdesk.outcome == 'success'
+        run: |
+          # Keep the 400 most recent snapshot files per directory (~13 months).
+          # Backfill files (*_backfill_*) are never touched.
+          # Files already loaded into bronze are safe to remove from the repo.
+          for dir in raw/freshdesk raw/linear; do
+            ls -t ${dir}/*_snapshot_*.json 2>/dev/null | tail -n +401 | xargs -r rm -f
+          done
+
       - name: Commit and push snapshots
         if: |
           steps.idempotency.outputs.skip == 'false' &&
