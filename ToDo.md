@@ -66,38 +66,30 @@ IF(
 
 ---
 
-## 11. Ny Power BI-sida — Labels & Prioritet
+## 11. Ny Power BI-sida — Labels & Prioritet ⬅ NÄSTA SESSION
 
 **Vad:** En ny rapportsida med statistik grupperad på Linear-labels och prioritet.
 
-**Underlag — alla labels i nuläget (query 2026-06-25):**
+---
 
-| Label | Totalt | Stängt | Öppet |
-|---|---|---|---|
-| OwlMonitor | 162 | 160 | 2 |
-| Routine | 100 | 98 | 2 |
-| Bug | 77 | 62 | 15 |
-| Auto Reminder Task | 25 | 24 | 1 |
-| Improvement | 23 | 11 | 12 |
-| Investigation | 19 | 11 | 8 |
-| Phrases | 13 | 6 | 7 |
-| Lists | 10 | 9 | 1 |
-| Incident | 9 | 7 | 2 |
-| Recurring Issue | 9 | 9 | 0 |
-| Data restoration | 7 | 4 | 3 |
-| Auto Generated Report | 6 | 6 | 0 |
-| Customer Move | 4 | 3 | 1 |
-| Risk Assessment | 3 | 3 | 0 |
-| Mobil App | 3 | 1 | 2 |
-| Back2Triage | 3 | 3 | 0 |
-| Trafic Lights | 2 | 2 | 0 |
-| Feature | 1 | 1 | 0 |
-| Team effort | 1 | 1 | 0 |
-| Substitution | 1 | 0 | 1 |
-| Data Issue | 1 | 0 | 1 |
-| Maintenance | 1 | 1 | 0 |
+### Stakeholder-beslut (2026-06-25) — klara att bygga på
 
-**Föreslagna grupper:**
+| Fråga | Beslut |
+|---|---|
+| Automatiserade labels (OwlMonitor, Routine m.fl.) | **Visa** — de är manuellt arbete (ticket = du måste göra nåt) |
+| Gruppering i 6 grupper | **Godkänd** — men drill-down till enskilda labels krävs |
+| Issues utan label (58 %) | **Visa som "Ingen label"** — stakeholder förvånad över få labels |
+| Routine med Urgent/High | **Korrekt** — Routine = återkommande jobb, ofta quick wins |
+| Incidents utan prioritet | **OK** — ingen minimikrav på prioritet för incidents |
+| Investigation = nästan alltid hög prio | **Korrekt** — undersökningar prioriteras högt medvetet |
+| Medium dominerar (51 %) | Troligen en standard-default, inte medvetet val |
+| Urgent 98 % stängda | **Lyft som positivt nyckeltal** |
+| Low-prio fastnar | **Naturligt och accepterat** |
+| Issues utan prioritet (28 %) | **Visa som "Ingen prioritet"** — stakeholder prioriterar sällan, tar direkt i ordning |
+
+---
+
+### Godkänd label-gruppering
 
 | Grupp | Labels |
 |---|---|
@@ -105,67 +97,64 @@ IF(
 | Bug/Problem | Bug, Recurring Issue, Data Issue, Data restoration |
 | Förbättring | Improvement, Feature, Investigation |
 | Incident | Incident |
-| Produkt-specifikt | Phrases, Lists, Mobil App, Trafic Lights, Customer Move, Substitution |
+| Produkt-specifikt | Phrases, Lists, Mobil App*, Trafic Lights*, Customer Move, Substitution |
 | Process | Risk Assessment, Team effort, Maintenance, Back2Triage |
+| Ingen label | Issues där `labels` är blank |
 
-**Överlapp mellan labels (query 2026-06-25):**
+*Stavfel i källdata — normaliseras i Power BI via SWITCH, inte i SQL.
 
-| Antal labels per issue | Antal issues |
-|---|---|
-| 1 label | 422 |
-| 2 labels | 23 |
-| 3 labels | 4 |
+---
 
-Överlapp är litet (27 issues med flera labels) — en issue kan alltså dyka upp i flera labelgrupper. Hanteras enklast i Power BI via en bryggtabell (många-till-många), inte via en beräknad kolumn.
+### Implementationsplan
 
-**Label × Prioritet (query 2026-06-25):**
+**Steg 1 — Bryggtabell i Power Query**
+- Referera FactLinear i Power Query
+- Dela `labels`-kolumnen på `|`-separator → unpivot → en rad per label per issue
+- Resultat: tabell `FactLinear_Labels` med kolumnerna `id` + `label_name`
+- Issues utan labels ingår EJ i bryggtabellen — hanteras separat via mått
 
-| Label | No priority | Urgent | High | Medium | Low |
-|---|---|---|---|---|---|
-| OwlMonitor | 160 | — | 1 | 1 | — |
-| Routine | 9 | 5 | 8 | 77 | 1 |
-| Auto Reminder Task | 24 | — | — | 1 | — |
-| Auto Generated Report | 6 | — | — | — | — |
-| Bug | 1 | 6 | 18 | 45 | 7 |
-| Improvement | 7 | — | 8 | 7 | 1 |
-| Investigation | — | 4 | 8 | 5 | 2 |
-| Incident | 2 | 2 | 3 | 2 | — |
-| Recurring Issue | — | 2 | 1 | 6 | — |
-| Data restoration | — | 1 | 2 | 4 | — |
-| Phrases | — | — | 3 | 10 | — |
-| Lists | — | — | 2 | 7 | 1 |
-| Customer Move | — | — | — | 4 | — |
-| Mobil App | — | — | 2 | — | 1 |
-| Back2Triage | — | — | — | 3 | — |
-| Risk Assessment | — | — | 1 | 2 | — |
-| Trafic Lights | — | — | — | 2 | — |
-| Maintenance | 1 | — | — | — | — |
-| Substitution | — | — | — | 1 | — |
-| Team effort | — | — | 1 | — | — |
-| Feature | — | — | 1 | — | — |
-| Data Issue | — | — | — | 1 | — |
+**Steg 2 — Beräknad kolumn: Label Group**
+- Lägg till `Label Group`-kolumn på `FactLinear_Labels` via SWITCH på `label_name`
+- Normalisera stavfel: "Mobil App" → "Mobile App", "Trafic Lights" → "Traffic Lights"
 
-Noteringar:
-- **Automatiserade labels driver "No priority"-siffran:** OwlMonitor (160) + Auto Reminder Task (24) + Auto Generated Report (6) = 190 av totalt 302 "No priority"-issues. Om automatiserade filtreras bort sjunker "No priority" från 302 → ~112, vilket är mer meningsfullt att visa
-- **Routine har Urgent/High:** 5 Urgent + 8 High trots att det är en "Routine"-label — värt att fråga stakeholder om dessa är manuellt skapade eller om något är fel i labelanvändningen
-- **Investigation är nästan alltid hög prio:** 4 Urgent + 8 High av 19 totalt (63 %) — rimligt, undersökningar triggas av problem
-- **Incident saknar konsekvent prioritering:** 2 st har "No priority" — borde alla incidents vara Urgent eller High?
-- **Bug-fördelningen ser sund ut:** Tyngdpunkt på Medium (58 %) med en rimlig svans av Urgent/High
+**Steg 3 — Hierarki för drill-down**
+- Skapa hierarki på FactLinear_Labels: `Label Group` → `label_name`
+- Aktivera drill-down på stapeldiagrammet för labels
 
-**Notering:** Två stavfel i källdatan — "Mobil App" och "Trafic Lights" — normaliseras i Power BI via SWITCH, inte i SQL.
+**Steg 4 — Relationer**
+- Många-till-många: `FactLinear[id]` ↔ `FactLinear_Labels[id]`
+- "Ingen label"-issues: mått som räknar `ISBLANK(labels)` direkt från FactLinear
 
-**Täckningsgrad (query 2026-06-25):**
+**Steg 5 — Sidlayout**
+
+*Övre halvan — Labels:*
+- Horisontellt stapeldiagram: antal issues per Label Group (inkl. "Ingen label")
+  - Drill-down till enskild label
+  - Samma brand-gröna färg (#2C786C) — längden berättar historien
+- Måttsläpare: Totalt | Öppet | Stängt (via slicer eller toggle)
+
+*Nedre halvan — Prioritet:*
+- KPI-kort: **Urgent closure rate** (positivt nyckeltal — "98 % stängda")
+- Stapeldiagram: Issues per prioritet (Urgent → High → Medium → Low → Ingen prioritet)
+  - Färgkodning: Urgent=#F04438 (röd), High=#F79009 (amber), Medium=#2C786C (grön), Low=#54B09E, Ingen=#B1E2D5
+- Tabell: Prioritet | Totalt | Stängt | Öppet | Öppen andel %
+
+*Header:* Mörk (#101828) med vit logo + Month-slicer (dropdown), konsistent med övriga sidor.
+
+---
+
+### Underlagsdata (query 2026-06-25)
+
+**Täckningsgrad:**
 
 | Kategori | Antal | Andel |
 |---|---|---|
 | Ingen label | 634 | 58 % |
-| Automatiserade labels (OwlMonitor / Routine / Auto) | ~293 | 27 % |
-| Övriga labels (Bug, Improvement m.fl.) | ~156 | 14 % |
+| Automatiserade labels | ~293 | 27 % |
+| Övriga labels | ~156 | 14 % |
 | Incident | 9 | 1 % |
 
-58 % av alla issues saknar label — "Ingen label" måste vara en synlig kategori på sidan, annars ser statistiken missvisande ut.
-
-**Prioritetsfördelning (query 2026-06-25):**
+**Prioritetsfördelning:**
 
 | Prioritet | Totalt | Stängt | Öppet | Öppen andel |
 |---|---|---|---|---|
@@ -175,21 +164,13 @@ Noteringar:
 | Medium | 557 | 521 | 36 | 6 % |
 | Low | 24 | 20 | 4 | 17 % |
 
-Noteringar:
-- Medium dominerar (51 % av alla issues) — förväntat men värt att lyfta för stakeholder
-- Urgent hanteras snabbast — 98 % stängda, bara 1 öppen
-- Low har högst öppen andel (17 %) — låg-prio issues tenderar att fastna i backlog
-- No priority är 28 % av alla issues — samma frågeställning som "Ingen label": ska synas men med tydlig etikett
+**Överlapp:**
 
-**❓ Beslut krävs från stakeholder:**
-Automatiserade labels (OwlMonitor + Routine + Auto Reminder Task + Auto Generated Report) utgör **293 av alla labeled issues** — nästan hälften. De representerar systemgenererade uppgifter, inte mänskligt arbete.
-
-Alternativ:
-- **A) Filtrera bort** dem helt från sidan — renare bild av faktiskt arbete
-- **B) Visa separat** i en egen grupp "Automatiserat" — ger helhetsbild men kräver tydlig förklaring
-- **C) Toggle-slicer** som låter användaren växla — flexibelt men mer komplext
-
-Svaret påverkar om en Label Group-kolumn behöver en hårdkodad exkludering eller inte.
+| Antal labels per issue | Antal issues |
+|---|---|
+| 1 label | 422 |
+| 2 labels | 23 |
+| 3 labels | 4 |
 
 ---
 

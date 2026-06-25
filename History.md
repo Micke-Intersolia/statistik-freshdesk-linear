@@ -22,6 +22,15 @@ A running logbook of decisions, changes, and milestones for the Linear / Freshde
 - **SOS-mekanism:** watchdog-uppgiften skriver till Windows Application Event Log (källa `OPEX-Refresh`, händelse-ID 1001) vid utebliven refresh, plus valfritt Teams-meddelande via Incoming Webhook URL i `teams_webhook_url.txt`. Ersätter popup-notis som inte fungerar på servermiljö.
 - `docs/server-refresh-proposal.html` uppdaterad med korrekta uppgifter om System.Data.SqlClient (inte Invoke-Sqlcmd), korrekt loggfilsnamn och korrekt SOS-beskrivning.
 
+**Filretention i GitHub Actions + API-gränsvarning**
+- Nytt steg "Prune old snapshots" tillagt i `.github/workflows/nightly-snapshots.yml` — behåller de 400 senaste `*_snapshot_*.json`-filerna per katalog (~13 månaders historia). Backfill-filer rörs aldrig. Körs direkt innan commit-steget.
+- Varning tillagd i `server_refresh.ps1` efter `Get-RepoFiles`: om antalet snapshot-filer i någon katalog överstiger 950 loggas `[WARN]`-rad. GitHub contents-API:et returnerar max 1000 filer per katalog.
+- Bakgrund: ~210 filer per katalog nu, gränsen nås runt 2029 utan retention. Med 400-filsgränsen hålls vi alltid långt under taket.
+- Token uppgraderades tillfälligt till `workflow`-scope för att tillåta push av `.github/workflows/`-filen, sedan återställt till read-only.
+
+**Överlämning till IT — server_refresh.ps1**
+- `script/server_refresh.ps1`, `docs/server-refresh-proposal.pdf` och GitHub-token skickade till IT-ansvarig via Teams/SharePoint.
+
 **Dokumentation och driftsättning — överlämning till IT**
 
 **Project Group: "Unassigned" → "Uncategorized"**
