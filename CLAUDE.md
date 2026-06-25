@@ -132,11 +132,10 @@ Assignee-aware version of `Linear Open Issues (Chart)` — uses `FactLinear` (no
 
 **Automation summary (complete)**
 - Nightly snapshots: GitHub Actions → JSON files committed to repo (fully automated)
-- Daily database refresh: Windows Task Scheduler on the operator's machine → `morning_refresh.ps1`
-  - Checks DB connection first (handles office vs. VPN automatically)
-  - Retries every hour; SOS alert if no success by 16:00 on a working day
-  - Runs: git pull → bronze_loader.py → silver_loader.py
-  - Logs to `logs/refresh.log`, last success date to `logs/last_success.txt`
+- Daily database refresh: two alternatives depending on where the script runs:
+  - **Operator's machine** → `morning_refresh.ps1` (git pull → bronze_loader.py → silver_loader.py). Requires Git, Python, ODBC Driver. Logs to `logs/refresh.log`.
+  - **INTSQLSERVER01** → `server_refresh.ps1` (GitHub REST API → bronze via .NET SqlBulkCopy → silver SQL fetched from GitHub). No git, no Python. Logs to `logs/server_refresh.log`.
+  - Both: retry every hour; SOS if no success by 16:00. `morning_refresh.ps1` uses popup; `server_refresh.ps1` uses Windows Event Log + optional Teams webhook.
 - Gold views: always current (SQL views over silver, no rebuild step)
 
 **Planned: email summary on pipeline completion**
@@ -154,6 +153,7 @@ Assignee-aware version of `Linear Open Issues (Chart)` — uses `FactLinear` (no
 | `script/bronze_loader.py` | Incremental Python loader: JSON → bronze tables |
 | `script/silver_loader.py` | Python runner for the two silver SQL scripts (with bronze safety check) |
 | `script/morning_refresh.ps1` | Daily automation: git pull → bronze → silver. Also registers the Task Scheduler entry (`-Register` flag). |
+| `script/server_refresh.ps1` | Server-side alternative (runs on INTSQLSERVER01): GitHub REST API → bronze → silver, no git/Python. `-Register` registers two tasks: hourly refresh + 16:00 watchdog (Event Log + optional Teams alert). |
 | `script/freshdesk_snapshot_claude.py` | Nightly Freshdesk API snapshot |
 | `script/linear_snapshot_claude.py` | Nightly Linear GraphQL snapshot |
 | `sql/01_bronze_create_tables.sql` | CREATE TABLE for all bronze tables |

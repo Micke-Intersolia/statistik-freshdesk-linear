@@ -15,8 +15,6 @@
     --code-border: #C8DAD6;
     --warn-bg:     #FFF8EC;
     --warn-border: #F0C878;
-    --new-bg:      #EAF4F2;
-    --old-bg:      #F4F4F2;
   }
 
   html { background: var(--page-bg); }
@@ -41,7 +39,6 @@
     box-shadow: 0 2px 16px rgba(16,24,40,.07);
   }
 
-  /* ── Header ── */
   .doc-header {
     background: var(--dark);
     padding: 28px 40px 24px;
@@ -55,58 +52,26 @@
     color: var(--green-mid);
     margin-bottom: 6px;
   }
-  .doc-header h1 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #fff;
-    line-height: 1.2;
-    text-wrap: balance;
-  }
-  .doc-header .sub {
-    margin-top: 6px;
-    font-size: 13px;
-    color: rgba(255,255,255,.5);
-    font-style: italic;
-  }
+  .doc-header h1 { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.2; text-wrap: balance; }
+  .doc-header .sub { margin-top: 6px; font-size: 13px; color: rgba(255,255,255,.5); font-style: italic; }
   .doc-header .meta {
-    margin-top: 14px;
-    font-size: 12px;
-    color: rgba(255,255,255,.5);
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
+    margin-top: 14px; font-size: 12px; color: rgba(255,255,255,.5);
+    display: flex; gap: 24px; flex-wrap: wrap;
   }
   .doc-header .meta span strong { color: rgba(255,255,255,.8); font-weight: 500; }
 
-  /* ── Body ── */
   .doc-body { padding: 36px 40px 48px; }
 
-  /* ── Sections ── */
   section { margin-bottom: 36px; }
   section + section { border-top: 1px solid var(--green-rule); padding-top: 32px; }
 
-  h2 {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--dark);
-    margin-bottom: 12px;
-    text-wrap: balance;
-  }
-  h3 {
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: .09em;
-    margin-bottom: 16px;
-  }
+  h2 { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 12px; text-wrap: balance; }
+  h3 { font-size: 11px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .09em; margin-bottom: 16px; }
 
   p { margin-bottom: 10px; }
   p:last-child { margin-bottom: 0; }
   strong { font-weight: 600; }
-  a { color: var(--green); }
 
-  /* ── Info / warn boxes ── */
   .info-box {
     background: var(--green-pale);
     border-left: 3px solid var(--green);
@@ -117,19 +82,7 @@
   }
   .info-box strong { color: var(--green); }
 
-  .warn-box {
-    background: var(--warn-bg);
-    border-left: 3px solid var(--warn-border);
-    border-radius: 0 3px 3px 0;
-    padding: 11px 14px;
-    margin: 12px 0;
-    font-size: 13px;
-  }
-  .warn-box strong { color: #92680A; }
-
-  /* ── Numbered steps ── */
   .steps { display: flex; flex-direction: column; }
-
   .step {
     display: grid;
     grid-template-columns: 40px 1fr;
@@ -138,87 +91,40 @@
     border-bottom: 1px solid var(--green-rule);
   }
   .step:last-child { border-bottom: none; }
-
   .step-num {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--green);
-    color: #fff;
-    font-size: 13px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--green); color: #fff;
+    font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
   }
-  .step-content h4 {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--dark);
-    margin-bottom: 5px;
-    line-height: 1.3;
-  }
+  .step-content h4 { font-size: 14px; font-weight: 600; color: var(--dark); margin-bottom: 5px; line-height: 1.3; }
   .step-content p { font-size: 13px; }
 
-  /* ── Checklist ── */
-  ul.check {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin-top: 10px;
-  }
-  ul.check li {
-    font-size: 13px;
-    padding-left: 20px;
-    position: relative;
-  }
+  ul.check { list-style: none; display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  ul.check li { font-size: 13px; padding-left: 20px; position: relative; }
   ul.check li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--green);
-    font-weight: 700;
-    font-size: 11px;
-    top: 2px;
+    content: '✓'; position: absolute; left: 0;
+    color: var(--green); font-weight: 700; font-size: 11px; top: 2px;
   }
 
-  /* ── Install steps ── */
   ol.install {
-    list-style: none;
-    counter-reset: inst;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-top: 10px;
+    list-style: none; counter-reset: inst;
+    display: flex; flex-direction: column; gap: 14px; margin-top: 10px;
   }
   ol.install li {
     counter-increment: inst;
-    display: grid;
-    grid-template-columns: 22px 1fr;
-    gap: 0 10px;
-    font-size: 13px;
+    display: grid; grid-template-columns: 22px 1fr; gap: 0 10px; font-size: 13px;
   }
   ol.install li::before {
     content: counter(inst);
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: var(--green-pale);
-    border: 1.5px solid var(--green);
-    color: var(--green);
-    font-size: 10px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--green-pale); border: 1.5px solid var(--green);
+    color: var(--green); font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
   }
 
-  /* ── Code ── */
   code {
     font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
     font-size: 11.5px;
@@ -229,53 +135,36 @@
     color: #1A4A40;
   }
   pre {
-    background: var(--code-bg);
-    border: 1px solid var(--code-border);
-    border-radius: 4px;
-    padding: 12px 16px;
-    margin: 10px 0;
+    background: var(--code-bg); border: 1px solid var(--code-border);
+    border-radius: 4px; padding: 12px 16px; margin: 10px 0;
     overflow-x: auto;
     font-family: 'Cascadia Code', 'Consolas', 'Courier New', monospace;
-    font-size: 11.5px;
-    line-height: 1.55;
-    color: #1A4A40;
+    font-size: 11.5px; line-height: 1.55; color: #1A4A40;
   }
   pre code { background: none; border: none; padding: 0; font-size: inherit; color: inherit; }
 
-  /* ── Comparison table ── */
   .table-wrap { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; }
   th {
-    background: var(--green-pale);
-    color: var(--green);
-    font-weight: 600;
-    text-align: left;
-    padding: 8px 12px;
+    background: var(--green-pale); color: var(--green);
+    font-weight: 600; text-align: left; padding: 8px 12px;
     border: 1px solid var(--code-border);
-    font-size: 10.5px;
-    text-transform: uppercase;
-    letter-spacing: .06em;
+    font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em;
   }
   td { padding: 8px 12px; border: 1px solid var(--green-rule); vertical-align: top; line-height: 1.45; }
   tr:nth-child(even) td { background: #FAFCFB; }
   td.old { color: var(--muted); }
   td.new { color: var(--green); font-weight: 500; }
 
-  /* ── Fallback box ── */
   .fallback {
-    background: #F7F7F5;
-    border: 1px solid #D8D8D4;
-    border-radius: 4px;
-    padding: 16px 18px;
-    font-size: 13px;
+    background: #F7F7F5; border: 1px solid #D8D8D4;
+    border-radius: 4px; padding: 16px 18px; font-size: 13px;
   }
   .fallback h4 { font-size: 13px; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
 
-  /* ── Contact ── */
   .contact { font-size: 13px; color: var(--muted); }
   .contact a { color: var(--green); text-decoration: none; }
 
-  /* ── Print ── */
   @media print {
     html { background: #fff; }
     .page { max-width: 100%; margin: 0; border: none; border-radius: 0; box-shadow: none; }
@@ -294,18 +183,14 @@
   <header class="doc-header">
     <div class="eyebrow">Intersolia · OPEX Statistics · Förslag</div>
     <h1>server_refresh.ps1</h1>
-    <p class="sub">Native PowerShell-uppdatering direkt på SQL Server — utan Git, utan Python</p>
+    <p class="sub">Native PowerShell-uppdatering direkt på SQL Server</p>
     <div class="meta">
-      <span><strong>Framtaget av:</strong> Michael Brostrom</span>
-      <span><strong>För:</strong> Intersolia IT / Stakeholder</span>
       <span><strong>Datum:</strong> 2026-06-25</span>
-      <span><strong>Status:</strong> Förslag för godkännande</span>
     </div>
   </header>
 
   <div class="doc-body">
 
-    <!-- Bakgrund -->
     <section>
       <h2>Bakgrund och syfte</h2>
       <p>Det befintliga uppdateringsskriptet (<code>morning_refresh.ps1</code>) körs idag på en operatörsdator och kräver att Git och Python är installerade. Om uppdateringen ska köras direkt på <code>INTSQLSERVER01</code> faller detta bort — Git och Python är inte serverprogram och bör inte installeras i en produktionsmiljö.</p>
@@ -315,7 +200,6 @@
       <p>Resultatet är ett enda <code>.ps1</code>-script som kopieras till servern, registreras med Task Scheduler och sedan sköter sig självt.</p>
     </section>
 
-    <!-- Vad skriptet gör -->
     <section>
       <h3>Vad skriptet gör — steg för steg</h3>
       <div class="steps">
@@ -324,7 +208,7 @@
           <div class="step-num">1</div>
           <div class="step-content">
             <h4>Kontrollera databasanslutningen</h4>
-            <p>Precis som idag testas anslutningen till <code>InternalStatistics</code> på <code>INTSQLSERVER01</code> innan något arbete påbörjas. Om databasen inte svarar loggas en varning och skriptet avslutas — nästa schemalagda körning försöker igen automatiskt. Ingen data går förlorad.</p>
+            <p>Precis som idag testas anslutningen till <code>InternalStatistics</code> på <code>INTSQLSERVER01</code> innan något arbete påbörjas. Om databasen inte svarar loggas en varning och skriptet avslutar — nästa schemalagda körning försöker igen automatiskt. Ingen data går förlorad.</p>
           </div>
         </div>
 
@@ -356,125 +240,53 @@
           <div class="step-num">5</div>
           <div class="step-content">
             <h4>Bygg om silver-lagret</h4>
-            <p>När bronze-lagret är uppdaterat kör skriptet de två silver-SQL-skripten — ett för Freshdesk och ett för Linear. Dessa är inbäddade direkt i PowerShell-scriptet och körs via <code>Invoke-Sqlcmd</code>, som finns inbyggt i SQL Server 2022. Silver-lagret byggs om från grunden varje gång — samma design som idag.</p>
+            <p>När bronze-lagret är uppdaterat kör skriptet de två silver-SQL-skripten — ett för Freshdesk och ett för Linear. Skripten hämtas direkt från GitHub vid varje körning och körs via inbyggda .NET-bibliotek (<code>System.Data.SqlClient</code>). Det innebär att scriptet alltid använder den senaste versionen av silver-logiken utan att något behöver kopieras till servern manuellt. Silver-lagret byggs om från grunden varje gång — samma design som idag.</p>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- Jämförelse -->
-    <section>
-      <h2>Jämförelse med dagens lösning</h2>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th>Egenskap</th>
-              <th>Idag (morning_refresh.ps1)</th>
-              <th>Nytt (server_refresh.ps1)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Kräver Git</td>
-              <td class="old">Ja</td>
-              <td class="new">Nej</td>
-            </tr>
-            <tr>
-              <td>Kräver Python</td>
-              <td class="old">Ja</td>
-              <td class="new">Nej</td>
-            </tr>
-            <tr>
-              <td>Hämtar data från GitHub</td>
-              <td class="old">Via <code>git pull</code></td>
-              <td class="new">Via REST API</td>
-            </tr>
-            <tr>
-              <td>Körs lämpligast på</td>
-              <td class="old">Operatörsdator</td>
-              <td class="new">INTSQLSERVER01</td>
-            </tr>
-            <tr>
-              <td>Autentisering mot SQL</td>
-              <td class="old">Connection string med UID/PWD</td>
-              <td class="new">Windows Authentication (tjänstkontot)</td>
-            </tr>
-            <tr>
-              <td>Installationskrav</td>
-              <td class="old">Git, Python, ODBC Driver</td>
-              <td class="new">Ingenting — allt finns på servern</td>
-            </tr>
-            <tr>
-              <td>Loggfil</td>
-              <td>logs\refresh.log</td>
-              <td>Samma format, samma plats</td>
-            </tr>
-            <tr>
-              <td>SOS-alert vid utebliven körning</td>
-              <td>Popup + fil på skrivbordet</td>
-              <td>Identisk</td>
-            </tr>
-            <tr>
-              <td>Idempotens (säker att köra om)</td>
-              <td>Ja</td>
-              <td>Ja</td>
-            </tr>
-            <tr>
-              <td>Manuell körning</td>
-              <td>Ja, direkt från PowerShell</td>
-              <td>Ja, identisk</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Krav -->
     <section>
       <h2>Krav på servermiljön</h2>
       <p>Innan skriptet installeras behöver IT bekräfta följande:</p>
       <ul class="check">
-        <li><strong>Utgående HTTPS (port 443) tillåten</strong> från <code>INTSQLSERVER01</code> till <code>api.github.com</code> — skriptet hämtar data härifrån</li>
-        <li><strong><code>Invoke-Sqlcmd</code> tillgängligt</strong> — installeras automatiskt med SQL Server 2022 men kan behöva aktiveras; IT verifierar med ett enkelt kommando</li>
+        <li><strong>Utgående HTTPS (port 443) tillåten</strong> från <code>INTSQLSERVER01</code> till <code>api.github.com</code> — skriptet hämtar data och SQL-skript härifrån</li>
         <li><strong>En mapp på servern</strong> dit skriptet och loggfiler skrivs, t.ex. <code>D:\Scripts\opex-refresh\</code> — tjänstkontot behöver läs- och skrivbehörighet</li>
-        <li><strong>GitHub PAT</strong> — samma läsbehöriga nyckel som redan används; förvaras i en konfigurationsfil i mappen, aldrig i själva skriptet</li>
+        <li><strong>GitHub PAT</strong> — samma läsbehöriga nyckel som redan används; förvaras i <code>github_token.txt</code> i mappen, aldrig i själva skriptet</li>
         <li><strong>Databasbehörighet</strong> — tjänstkontot ges <code>db_datareader</code> + <code>db_datawriter</code> + <code>EXECUTE</code> på <code>InternalStatistics</code></li>
       </ul>
+      <div class="info-box" style="margin-top: 14px;">
+        <strong>Inga extra programvaror.</strong> Skriptet använder <code>System.Data.SqlClient</code> — ett .NET-bibliotek som ingår i Windows. Varken Python, Git eller ODBC-drivrutiner behöver installeras.
+      </div>
     </section>
 
-    <!-- Installation -->
     <section>
-      <h2>Installation — vad IT behöver göra (en gång)</h2>
+      <h2>Installation</h2>
       <ol class="install">
         <li><div>Skapa mappen på servern, t.ex. <code>D:\Scripts\opex-refresh\</code></div></li>
         <li><div>Kopiera skriptet (<code>server_refresh.ps1</code>) till mappen</div></li>
-        <li><div>Skapa filen <code>D:\Scripts\opex-refresh\credentials\github_token.txt</code> med GitHub PAT-nyckeln</div></li>
+        <li><div>Lägg filen <code>github_token.txt</code> i samma mapp</div></li>
         <li>
           <div>
             Öppna PowerShell <strong>som Administratör</strong> på servern och kör:
             <pre><code>powershell -ExecutionPolicy Bypass -File "D:\Scripts\opex-refresh\server_refresh.ps1" -Register</code></pre>
-            Detta registrerar en Task Scheduler-uppgift som kör skriptet varje arbetsdag med timvis repetition.
+            Detta registrerar två Task Scheduler-uppgifter: en som kör refreshen varje timme från kl. 06:00, och en watchdog-uppgift som kontrollerar kl. 16:00 om refreshen lyckats.
           </div>
         </li>
-        <li><div>Testa direkt: högerklicka på uppgiften i Task Scheduler → <strong>Kör</strong>, kontrollera att <code>logs\refresh.log</code> avslutas med <code>Pipeline complete. Data is up to date.</code></div></li>
+        <li><div>Testa direkt: högerklicka på uppgiften <code>ServerRefresh_InternalStatistics</code> i Task Scheduler → <strong>Kör</strong>, kontrollera att <code>logs\server_refresh.log</code> avslutas med <code>=== Klar ===</code></div></li>
+        <li><div><strong>Valfritt:</strong> Skapa filen <code>teams_webhook_url.txt</code> i mappen med en Teams Incoming Webhook URL — watchdog-uppgiften skickar då automatiskt ett meddelande i Teams kl. 16:00 vid utebliven refresh</div></li>
       </ol>
-      <div class="info-box" style="margin-top: 16px;">
-        <strong>Inget Python. Inget Git. Inga paket att installera.</strong> Skriptet är self-contained och körs med det som redan finns på servern.
-      </div>
     </section>
 
-    <!-- Autentisering -->
     <section>
       <h2>Autentisering mot SQL Server</h2>
       <p>Eftersom skriptet körs på samma maskin som SQL Server används <strong>Windows Authentication</strong> — tjänstkontot som kör Task Scheduler-uppgiften loggar in i databasen automatiskt utan lösenord i skriptet. IT behöver bara ge det kontot rätt behörighet på <code>InternalStatistics</code>.</p>
       <div class="info-box">
-        <strong>Inga klartext-lösenord för databasen</strong> — varken i skriptet eller i en konfigurationsfil. Enda hemligheten som hanteras är GitHub PAT-nyckeln, som bara behövs för att läsa publikt tillgängliga snapshot-filer.
+        <strong>Inga klartext-lösenord för databasen</strong> — varken i skriptet eller i en konfigurationsfil. Enda hemligheten som hanteras är GitHub PAT-nyckeln, som bara behövs för att läsa snapshot-filerna.
       </div>
     </section>
 
-    <!-- Felhantering -->
     <section>
       <h2>Om något går fel</h2>
       <div class="table-wrap">
@@ -497,35 +309,15 @@
             </tr>
             <tr>
               <td>Ingen lyckad körning kl. 16:00</td>
-              <td>SOS-alert: popup-notis + textfil på skrivbordet</td>
+              <td>Watchdog-uppgiften skriver en felpost till Windows Application Event Log (händelse-ID 1001, källa <code>OPEX-Refresh</code>) och skickar valfritt Teams-meddelande</td>
             </tr>
             <tr>
               <td>GitHub PAT har gått ut</td>
-              <td>Loggar tydligt felmeddelande — ny nyckel kopieras till konfigurationsfilen</td>
+              <td>Loggar tydligt felmeddelande — ny nyckel får skapas och läggas i <code>github_token.txt</code></td>
             </tr>
           </tbody>
         </table>
       </div>
-    </section>
-
-    <!-- Fallback -->
-    <section>
-      <h2>Fallback om PowerShell inte räcker</h2>
-      <div class="fallback">
-        <h4>Plan B — kompilerat C#-program</h4>
-        <p>Om IT av tekniska skäl inte kan köra ett PowerShell-script via Task Scheduler finns en förberedd plan B: ett kompilerat C#-program (<code>.exe</code>-fil) som gör exakt samma sak. Det anropas direkt från ett SQL Server Agent-jobb och kräver inga installationskrav utöver .NET Runtime som redan finns på servern.</p>
-        <p style="margin-top: 8px;">Vi rekommenderar att börja med PowerShell-varianten och eskalera till C# bara om det visar sig tekniskt nödvändigt.</p>
-      </div>
-    </section>
-
-    <!-- Kontakt -->
-    <section style="margin-bottom: 0;">
-      <h2>Kontakt</h2>
-      <p class="contact">
-        Frågor om detta förslag: <strong>Michael Brostrom</strong> —
-        <a href="mailto:michael.brostrom@intersolia.com">michael.brostrom@intersolia.com</a> /
-        <a href="mailto:puttaren@gmail.com">puttaren@gmail.com</a> (backup)
-      </p>
     </section>
 
   </div>

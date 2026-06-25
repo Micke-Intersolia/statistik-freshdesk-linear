@@ -6,6 +6,22 @@ A running logbook of decisions, changes, and milestones for the Linear / Freshde
 
 ## 2026-06-25
 
+**Git-historik rensad — credentials.zip borttagen**
+- `credentials.zip` råkade committas och publicerades i repot, vilket revokerade GitHub-tokenet.
+- Nytt token skapat (fine-grained PAT, read-only Contents).
+- `git-filter-repo` kördes lokalt — filen borttagen från samtliga 46 commits i historiken.
+- Remote-URL uppdaterad med nytt token; token uppgraderades tillfälligt till read+write för force-push, sedan nedgraderat tillbaka till read-only.
+- Force push genomfördes: `git push --set-upstream origin main --force` — historiken på GitHub är nu ren.
+
+**server_refresh.ps1 — ny server-side pipeline utan git eller Python**
+- Nytt script: `script/server_refresh.ps1`
+- Kör direkt på `INTSQLSERVER01` — inga externa beroenden (ingen git, ingen Python, ingen ODBC-drivrutin).
+- Steg: GitHub REST API → bronze (inkrementellt via `SqlBulkCopy` + transaktion) → silver (SQL-skript hämtade live från GitHub).
+- SQL-anslutning via Windows Authentication (inbyggt .NET `System.Data.SqlClient`).
+- `-Register`-flagga registrerar två Task Scheduler-uppgifter: huvud-refresh (timvis från 06:00) och watchdog (kl. 16:00).
+- **SOS-mekanism:** watchdog-uppgiften skriver till Windows Application Event Log (källa `OPEX-Refresh`, händelse-ID 1001) vid utebliven refresh, plus valfritt Teams-meddelande via Incoming Webhook URL i `teams_webhook_url.txt`. Ersätter popup-notis som inte fungerar på servermiljö.
+- `docs/server-refresh-proposal.html` uppdaterad med korrekta uppgifter om System.Data.SqlClient (inte Invoke-Sqlcmd), korrekt loggfilsnamn och korrekt SOS-beskrivning.
+
 **Dokumentation och driftsättning — överlämning till IT**
 
 **Project Group: "Unassigned" → "Uncategorized"**
