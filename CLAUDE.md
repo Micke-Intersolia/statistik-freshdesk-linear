@@ -326,7 +326,7 @@ Enables drill-down on any chart: Quarter → Month → Week → Day.
 
 | Column | Purpose |
 |---|---|
-| `Project Group` | SWITCH on project_name → iChemistry / iPublisher / Chemsoft / Unassigned / Other |
+| `Project Group` | SWITCH on project_name → iChemistry / iPublisher / Chemsoft / Uncategorized / Other |
 | `Assignee` | `IF(ISBLANK(assignee_name), "Unassigned", assignee_name)` — shows "(Blank)" as "Unassigned" in visuals |
 | `Lead Time` | SWITCH on days_to_close: `= 1` → "Same day", `<= 7` → "2–7 days", `<= 14` → "8–14 days", `<= 30` → "15–30 days", `<= 90` → "31–90 days", else "+90 days", BLANK for open issues |
 | `Lead Time Sort` | Numeric 1–6 sort key for Lead Time column: `= 1` → 1, `<= 7` → 2, etc. (99 for BLANK) |

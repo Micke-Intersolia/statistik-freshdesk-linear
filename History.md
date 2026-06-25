@@ -4,6 +4,29 @@ A running logbook of decisions, changes, and milestones for the Linear / Freshde
 
 ---
 
+## 2026-06-25
+
+**Dokumentation och driftsättning — överlämning till IT**
+
+**Project Group: "Unassigned" → "Uncategorized"**
+- Null-värden i `project_name` visas nu som "Uncategorized" istället för "Unassigned" i den beräknade kolumnen `Project Group` på FactLinear.
+- Uppdaterat i CLAUDE.md, History.md och `docs/presentation-notes.md`.
+
+**Pipeline-setup-instruktioner reviderade**
+- `docs/pipeline-setup-instructions.md` omskriven till svenska.
+- Option B (SQL Server Agent) borttagen — beslut från IT att köra med PowerShell/Task Scheduler (Option A).
+- Förtydligande tillagt i steg 7: skriptet försöker sätta timrepetitionen automatiskt; manuellt steg är fallback om det inte lyckas.
+
+**HTML-version skapad för PDF-distribution**
+- `docs/pipeline-setup-instructions.html` — formaterat med Intersolia-färgprofil, avsett att skrivas ut till PDF via webbläsaren (Ctrl+P → Spara som PDF).
+
+**Överlämning till IT-ansvarig**
+- Instruktioner + `credentials`-mapp (zip med `sql_connection.txt` och `github_token.txt`) skickade via Teams.
+- Freshdesk- och Linear-API-nycklar ingår ej — de används enbart av GitHub Actions och behövs inte på operatörens maskin.
+- `morning_refresh.ps1` ingår ej separat — följer med vid git clone.
+
+---
+
 ## 2026-06-18
 
 **Full Power BI dashboard redesign — Intersolia brand theme applied, overwork narrative made central**
@@ -563,7 +586,7 @@ Month dropdown slicer (DimDate[Month Label], sorted by month_sort). Two KPI card
 Month slicer connected to all visuals. KPIs: avg and median days to close. Issues per Project Group horizontal bar chart. Project Group summary table (avg + median days to close per project, sorted by avg descending — closed issues in selected period only). Lead Time bucket chart with 6 buckets (1 day through >90 days), colour-coded green→red via Format → Visual → Bars → fx → Rules based on Lead Time Sort column. Blank bucket (open issues) excluded via visual-level filter.
 
 *Calculated columns added to FactLinear in Power BI:*
-- `Project Group`: SWITCH on project_name → iChemistry / iPublisher / Chemsoft / Unassigned / Other
+- `Project Group`: SWITCH on project_name → iChemistry / iPublisher / Chemsoft / Uncategorized / Other
 - `Lead Time Bucket`: SWITCH on days_to_close into 6 text ranges; BLANK for open issues
 - `Lead Time Sort`: numeric 1–6 sort key for Lead Time Bucket
 

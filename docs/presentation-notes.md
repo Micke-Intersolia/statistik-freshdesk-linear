@@ -49,7 +49,7 @@
 
 ## Sid 5 — Linear - Distribution
 
-- **Project group** visar vilka produkter som är störst i dataunderlaget. Unassigned är en hög siffra, beror det på slarv eller något annat?
+- **Project group** visar vilka produkter som är störst i dataunderlaget. Uncategorized är en hög siffra, beror det på slarv eller något annat?
 - **Lead time buckets** visar fördelningen mellan olika Issues och hur lång tid det tar för dem att stängas.
 - Tabellen visar snitt/median för de olika produkterna.
 
