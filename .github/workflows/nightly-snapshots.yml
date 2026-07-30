@@ -81,8 +81,7 @@ jobs:
       - name: Prune old snapshots (keep newest 400 per source)
         if: |
           steps.idempotency.outputs.skip == 'false' &&
-          steps.linear.outcome == 'success' &&
-          steps.freshdesk.outcome == 'success'
+          (steps.linear.outcome == 'success' || steps.freshdesk.outcome == 'success')
         run: |
           # Keep the 400 most recent snapshot files per directory (~13 months).
           # Backfill files (*_backfill_*) are never touched.
@@ -94,8 +93,7 @@ jobs:
       - name: Commit and push snapshots
         if: |
           steps.idempotency.outputs.skip == 'false' &&
-          steps.linear.outcome == 'success' &&
-          steps.freshdesk.outcome == 'success'
+          (steps.linear.outcome == 'success' || steps.freshdesk.outcome == 'success')
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
